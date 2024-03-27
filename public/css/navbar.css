@@ -1,0 +1,52 @@
+.bg-color-grey{
+    background-color: #F0EEE2;
+}
+
+.size-img{
+    width : 4em;
+    height: 4em;
+}
+
+
+.margin-setting , .margin-icon {
+    margin-top: -5em;
+}
+
+.image-setting{
+    width: 32px;
+    height: 32px;
+}
+
+.nav .nav-item .nav-link.active{
+    background-color: #E45F64;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation-name : color-effect;
+    animation-duration: 0.5s;
+}
+
+@keyframes color-effect{
+    from
+    {
+        opacity: 0;
+    }
+    to
+    {
+        opacity: 100;
+    }
+}
+
+.text {
+    opacity: 0; /* Initially invisible */
+    transition: opacity 0.3s ease; /* Smooth transition */
+    color: black;
+    font-size: large;
+    margin-left: 3em;
+    position: fixed;
+    /*margin-top: 1em;*/
+}
+
+.nav-item:hover .text {
+    opacity: 1; /* Make visible on hover */
+}
