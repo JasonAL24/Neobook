@@ -2,15 +2,16 @@
     background-color: #F0EEE2;
 }
 
+
 .size-img{
     width : 4em;
     height: 4em;
 }
 
 
-.margin-setting , .margin-icon {
-    margin-top: -5em;
-}
+/*.margin-setting , .margin-icon {*/
+/*    margin-top: 10em;*/
+/*}*/
 
 .image-setting{
     width: 32px;
@@ -37,6 +38,7 @@
     }
 }
 
+
 .text {
     opacity: 0; /* Initially invisible */
     transition: opacity 0.3s ease; /* Smooth transition */
@@ -44,9 +46,11 @@
     font-size: large;
     margin-left: 3em;
     position: fixed;
-    /*margin-top: 1em;*/
 }
+
+
 
 .nav-item:hover .text {
     opacity: 1; /* Make visible on hover */
 }
+
