@@ -2,6 +2,7 @@
 
 @section('container')
     <div class="main-bg">
-        <h1>Halaman Koleksi</h1>
+        <h1>Halaman Pengaturan</h1>
     </div>
+
 @endsection

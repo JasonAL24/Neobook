@@ -53,6 +53,12 @@ Route::get('/langganan', function () {
         "title" => "Langganan"
     ]);
 });
+
+Route::get('/pengaturan', function () {
+    return view('pengaturan', [
+        "title" => "Pengaturan"
+    ]);
+});
 //Route::get('/about', function () {
 //    return view('about', [
 //        "title" => "About",

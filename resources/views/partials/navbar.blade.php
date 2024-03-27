@@ -1,9 +1,9 @@
-<div class="container-fluid">
+<div class="container-fluid bg-color-grey">
     <div class="row flex-nowrap">
         <div class="bg-color-grey col-auto min-vh-100 d-flex flex-column ">
 
             <div class="bg-color-grey p-2 " >
-                <a class="d-flex text-decoration-none mt-1 align-items-center text-white">
+                <a class="d-flex text-decoration-none mt-1 align-items-center text-white" href="/">
                     <span class="fs-4 d-none d-sm-inline"> <img class="size-img" src="img/OIG2_RemoveBG.png"> </span>
                 </a>
             </div>
@@ -17,9 +17,7 @@
                                     <div class="fs-4 d-none d-sm-inline">
                                         <img src="img/svg/Home_light.svg">
                                     </div>
-
                                     <div class="text">Beranda</div>
-
                                 </div>
                             </a>
                         </li>
