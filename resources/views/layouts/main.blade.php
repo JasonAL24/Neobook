@@ -14,6 +14,14 @@
     {{--    BootStrap (5.3.3)  --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    {{--    Fonts using Gentium Book Basic --}}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic&display=swap">
+    <style>
+        body{
+            font-family: 'Gentium Book Basic', serif;
+        }
+    </style>
 </head>
 <body>
 

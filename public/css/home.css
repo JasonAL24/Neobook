@@ -4,3 +4,63 @@
     background-color: #F0EEE2;
     display: block;
 }
+
+.img-shadow{
+    box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.img-large{
+    width: 140px;
+    height: 200px;
+}
+
+.mulai-baca{
+    width: 111px;
+    height: 28px;
+}
+
+.box {
+    width: 80%;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.title {
+    font-size: 18px;
+    font-family: 'Lato', serif;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.chapter {
+    font-size: 10px;
+    font-family: 'Lato', serif;
+    color: #6c757d;
+}
+
+.progress-bar {
+    width: 70%;
+}
+
+.percentage {
+    font-size: 20px;
+    font-family: 'Lato', serif;
+    font-weight: bold;
+    /*margin-top: 10px;*/
+    color: #252734;
+}
+
+.time-left {
+    font-size: 14px;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.border-custom{
+    width: 20%;
+    background-color: #252734;
+    color: white;
+    /*height: 30%;*/
+    font-size: 22px;
+}

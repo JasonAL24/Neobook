@@ -12,7 +12,7 @@
                             <li><a class="dropdown-item" href="#">Fantasi</a></li>
                             <li><a class="dropdown-item" href="#">Misteri</a></li>
                             <li><a class="dropdown-item" href="#">Thriller</a></li>
-                            <li><a class="dropdown-item" href="#">Horor</a></li>
+                            <li><a class="dropdown-item" href="#">Horror</a></li>
                             <li><a class="dropdown-item" href="#">Romantis</a></li>
                             <li><a class="dropdown-item" href="#">Petualangan</a></li>
                             <li><a class="dropdown-item" href="#">Sejarah</a></li>
