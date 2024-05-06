@@ -45,3 +45,36 @@
     opacity: 1; /* Make visible on hover */
 }
 
+.user-notification{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.notification {
+    /*background-color: #555;*/
+    color: white;
+    text-decoration: none;
+    padding: 2px 5px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.notification .badge {
+    position: absolute;
+    top: 1px;
+    right: 3px;
+    padding: 5px 7px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
+
+.notification img {
+    height: 40px;
+    width: 40px;
+}
+

@@ -35,6 +35,9 @@
                 <div class="bg-color-grey" style="width: {{ ($title === "Home") ? '50vw' : '' }}">
                     @include('partials.search')
                 </div>
+                <div>
+                    @include('partials.notification')
+                </div>
                 <div class="main-size">
                     @yield('container')
                 </div>

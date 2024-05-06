@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col">
             <div class="home-bg">
-                <div class="ms-5">
+                <div class="ps-5">
                     {{-- ! Ganti 'User' dengan backend nama user --}}
                     <p style="font-size: 43px">Selamat membaca, User</p>
                     <p></p>
@@ -29,15 +29,14 @@
                                             <div class="progress-bar" style="background: #252734; width: 70%"></div>
                                         </div>
                                     </div>
-
                                     <span class="border border-1 ms-lg-5 mt-4 rounded-4 border-custom">
-                    <a href="#" class="no-blue">
-                        <div class="text-center">
-                            Mulai Baca
-                            <img src="img/svg/read_arrow.svg" alt="arrow">
-                        </div>
-                    </a>
-                </span>
+                                        <a href="#" class="no-blue">
+                                            <div class="text-center">
+                                                Mulai Baca
+                                                <img src="img/svg/read_arrow.svg" alt="arrow">
+                                            </div>
+                                        </a>
+                                    </span>
                                 </div>
                             </div>
                         </div>
