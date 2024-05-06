@@ -7,3 +7,22 @@
 .dropdown-menu{
     width: 20vw;
 }
+
+.multi-column {
+    width: 400px;
+}
+
+.dropdown-menu .row {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.dropdown-menu .col {
+    flex: 1;
+    margin-right: 5px;
+}
+
+.navbar-nav .dropdown-menu .dropdown-header {
+    font-size: 18px;
+    color: black;
+}

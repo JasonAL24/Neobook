@@ -25,17 +25,23 @@
 </head>
 <body>
 
-    <div class="d-flex flex-row">
-        <div class="bg-color-grey">
+<div class="container-fluid">
+    <div class="row justify-content-start">
+        <div class="col bg-color-grey">
             @include('partials.navbar')
         </div>
-        <div>
+        <div class="col">
             <main role="main">
-                @include('partials.search')
-                @yield('container')
+                <div class="bg-color-grey" style="width: {{ ($title === "Home") ? '50vw' : '' }}">
+                    @include('partials.search')
+                </div>
+                <div class="main-size">
+                    @yield('container')
+                </div>
             </main>
         </div>
     </div>
+</div>
 
 
 

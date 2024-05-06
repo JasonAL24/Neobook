@@ -1,5 +1,5 @@
 .home-bg{
-    height: 87.8vh;
+    height: 100%;
     width: 50vw;
     background-color: #F0EEE2;
     display: block;
@@ -10,8 +10,8 @@
 }
 
 .img-large{
-    width: 140px;
-    height: 200px;
+    width: 168px;
+    height: 240px;
 }
 
 .mulai-baca{
@@ -62,5 +62,18 @@
     background-color: #252734;
     color: white;
     /*height: 30%;*/
-    font-size: 22px;
+    font-size: 20px;
+}
+
+.book-name{
+    font-size: 20px;
+}
+
+.no-blue {
+    color: inherit;
+    text-decoration: none;
+}
+
+.bg-color-white{
+    background-color: white;
 }

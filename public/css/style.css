@@ -4,3 +4,11 @@
     background-color: #F0EEE2;
     display: block;
 }
+
+.flex-grow-1{
+    flex-grow: 1;
+}
+
+.main-size{
+    width: 92.7vw;
+}

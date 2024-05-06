@@ -1,15 +1,15 @@
-<div class="container-fluid bg-color-grey">
+<div class="container-fluid">
     <div class="row flex-nowrap">
-        <div class="bg-color-grey col-auto min-vh-100 d-flex flex-column ">
+        <div class="col-auto min-vh-100 d-flex flex-column position-fixed bg-color-grey" style="top: 0; left: 0; z-index: 100;">
 
-            <div class="bg-color-grey p-2 " >
+            <div class=" p-2 " >
                 <a class="d-flex text-decoration-none mt-1 align-items-center text-white" href="/">
-                    <span class="fs-4 d-none d-sm-inline"> <img class="size-img" src="img/OIG2_RemoveBG.png"> </span>
+                    <span class="fs-4 d-none d-sm-inline"> <img class="size-img" src="img/OIG2_RemoveBG.png" alt="Logo Neobook"> </span>
                 </a>
             </div>
 
             <div class="border-end border-3 d-flex flex-column" style="height: 85vh;">
-                <div class="bg-color-grey p-2">
+                <div class="p-2">
                     <ul class="nav nav-pills flex-column mt-4 ">
                         <li class="nav-item mb-4">
                             <a href="/" class="nav-link text-white {{ ($title === "Home") ? 'active' : '' }} ms-3" aria-current="page">
@@ -80,7 +80,7 @@
                 </div>
 
 
-                <div class="bg-color-grey p-2 mt-auto">
+                <div class="p-2 mt-auto">
                     <ul class="nav nav-pills">
                         <li class="nav-item margin-setting">
                             <a href="/pengaturan" class="nav-link text-white {{ ($title === "Pengaturan") ? 'active' : '' }} ms-3">
