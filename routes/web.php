@@ -21,43 +21,74 @@ Route::get('/', function () {
     $books = [
         [
             'name' => 'Harry Potter and the Deathly Hallows',
-            'image' => 'img/books/harry_potter.png'
+            'image' => 'img/books/harry_potter.png',
+            'type' => 'novel',
+            'rating' => 4,
+            'last_rating_date' => '26-04-2023',
+            'last_rating_desc' => 'The Best! Recommended parah bagi pecinta buku JK Rowling, semua adegan...'
         ],
         [
             'name' => 'Fantastic Beasts and Where to Find Them',
-            'image' => 'img/books/fantastic_beasts.png'
+            'image' => 'img/books/fantastic_beasts.png',
+            'type' => 'novel',
+            'rating' => 5,
+            'last_rating_date' => '20-03-2023',
+            'last_rating_desc' => 'Ini buku adventure yang sangat menarik bagi saya karena buku ini...'
         ],
         [
             'name' => 'Game of Thrones',
-            'image' => 'img/books/game_of_thrones.png'
+            'image' => 'img/books/game_of_thrones.png',
+            'type' => 'novel',
+            'rating' => 5,
+            'last_rating_date' => '04-05-2023',
+            'last_rating_desc' => 'Saya tidak sabar untuk melanjutkan seri ini. Plot yang kompleks dan karakter yang kuat membuatnya sulit untuk dilepaskan.'
         ],
         [
             'name' => "The Wise Man's Fear",
-            'image' => 'img/books/wise_man_fear.png'
+            'image' => 'img/books/wise_man_fear.png',
+            'type' => 'novel',
+            'rating' => 5,
+            'last_rating_date' => '20-04-2023',
+            'last_rating_desc' => 'Novel yang sangat menghibur dan penuh dengan misteri. Saya menikmati setiap halaman dan tidak sabar untuk membaca lebih banyak.'
         ],
-    ];
-    $original_books = [
         [
             'name' => "Kedamaian",
-            'image' => 'img/books/kedamaian.png'
+            'image' => 'img/books/kedamaian.png',
+            'type' => 'cerpen',
+            'rating' => 4,
+            'last_rating_date' => '17-04-2023',
+            'last_rating_desc' => 'Buku ini memberikan pesan yang sangat dalam tentang perdamaian dan keselarasan. Saya sangat terinspirasi setelah membacanya.'
         ],
         [
             'name' => "Obsesi",
-            'image' => 'img/books/obsesi.png'
+            'image' => 'img/books/obsesi.png',
+            'type' => 'cerpen',
+            'rating' => 3,
+            'last_rating_date' => '15-04-2023',
+            'last_rating_desc' => 'Cerita yang menarik dengan alur yang cukup kompleks, meskipun ada beberapa bagian yang agak lambat.'
         ],
         [
             'name' => "Izinkan Perempuan Bicara",
-            'image' => 'img/books/izinkan_perempuan.png'
+            'image' => 'img/books/izinkan_perempuan.png',
+            'type' => 'cerpen',
+            'rating' => 4,
+            'last_rating_date' => '07-04-2023',
+            'last_rating_desc' => 'Buku ini mengangkat isu-isu yang penting dan memberikan pandangan yang menarik tentang peran perempuan dalam masyarakat.'
+
         ],
         [
             'name' => "Lukisan Senja",
-            'image' => 'img/books/lukisan_senja.png'
+            'image' => 'img/books/lukisan_senja.png',
+            'type' => 'cerpen',
+            'rating' => 4,
+            'last_rating_date' => '07-01-2023',
+            'last_rating_desc' => 'Novel yang penuh dengan emosi dan keindahan. Saya terpesona dengan cara penulis menggambarkan karakter dan suasana.'
+
         ],
     ];
     return view('home', [
         "title" => "Home",
-        "books" => $books,
-        "originalBooks" => $original_books
+        "books" => $books
     ]);
 });
 

@@ -14,6 +14,11 @@
     height: 240px;
 }
 
+.img-small{
+    width: 95px;
+    height: 145px;
+}
+
 .mulai-baca{
     width: 111px;
     height: 28px;
@@ -118,4 +123,21 @@
 
 .book-container:hover .overlay {
     opacity: 1; /* Ketika dihover, tampilkan overlay dengan opacity 1 */
+}
+
+.rating {
+    font-size: 0; /* Remove white space between inline-block elements */
+    width: 120px;
+}
+
+.star {
+    display: inline-block;
+    width: 24px; /* Adjust size of stars as needed */
+    height: 24px; /* Adjust size of stars as needed */
+    background-image: url('/img/svg/star_black.svg'); /* Image for empty star */
+    background-size: cover;
+}
+
+.star.filled {
+    background-image: url('/img/svg/star_yellow.svg'); /* Image for filled star */
 }
