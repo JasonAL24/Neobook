@@ -44,38 +44,22 @@
                     <p class="fw-semibold mt-3" style="font-size: 32px">Buku Kami</p>
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-3">
-                                <a class="no-blue" href="#">
+                            @foreach ($books as $book)
+                                <div class="col-md-3">
                                     <div class="text-center">
-                                        <img src="img/books/harry_potter.png" alt="Harry Potter" class="img-fluid mb-3">
-                                        <p class="book-name">Harry Potter and the Deathly Hallows</p>
+                                        <a class="no-blue" href="#">
+                                            <div class="book-container">
+                                                <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="img-fluid mb-3 book-image">
+                                                <div class="overlay d-flex flex-column">
+                                                    <img src="img/svg/look.svg" alt="look">
+                                                    <span class="text-overlay">Lihat</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <p class="book-name">{{ $book['name'] }}</p>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="no-blue">
-                                    <div class="text-center">
-                                        <img src="img/books/fantastic_beasts.png" alt="Fantastic Beasts" class="img-fluid mb-3">
-                                        <p class="book-name">Fantastic Beasts and Where to Find Them</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="no-blue">
-                                    <div class="text-center">
-                                        <img src="img/books/game_of_thrones.png" alt="Game Of Thrones" class="img-fluid mb-3">
-                                        <p class="book-name">Game of Thrones</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="no-blue">
-                                    <div class="text-center">
-                                        <img src="img/books/wise_man_fear.png" alt="Game Of Thrones" class="img-fluid mb-3">
-                                        <p class="book-name">The Wise Man's Fear</p>
-                                    </div>
-                                </a>
-                            </div>
+                                </div>
+                            @endforeach
                         </div>
                         <div class="row">
                             <a href="#" class="no-blue">
@@ -88,38 +72,22 @@
                     <p class="fw-semibold mt-3" style="font-size: 32px">Karya Tulis Orisinil</p>
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-3">
-                                <a href="#" class="no-blue">
+                            @foreach ($originalBooks as $book)
+                                <div class="col-md-3">
                                     <div class="text-center">
-                                        <img src="img/books/kedamaian.png" alt="kedamaian" class="img-fluid mb-3">
-                                        <p class="book-name">Kedamaian</p>
+                                        <a class="no-blue" href="#">
+                                            <div class="book-container">
+                                                <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="img-fluid mb-3 book-image">
+                                                <div class="overlay d-flex flex-column">
+                                                    <img src="img/svg/look.svg" alt="look">
+                                                    <span class="text-overlay">Lihat</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <p class="book-name">{{ $book['name'] }}</p>
                                     </div>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="no-blue">
-                                    <div class="text-center">
-                                        <img src="img/books/obsesi.png" alt="Obsesi" class="img-fluid mb-3">
-                                        <p class="book-name">Obsesi</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="no-blue">
-                                    <div class="text-center">
-                                        <img src="img/books/izinkan_perempuan.png" alt="Izinkan Perempuan Bicara" class="img-fluid mb-3">
-                                        <p class="book-name">Izinkan Perempuan Bicara</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="#" class="no-blue">
-                                    <div class="text-center">
-                                        <img src="img/books/lukisan_senja.png" alt="Lukisan Senja" class="img-fluid mb-3">
-                                        <p class="book-name">Lukisan Senja</p>
-                                    </div>
-                                </a>
-                            </div>
+                                </div>
+                            @endforeach
                         </div>
                         <div class="row">
                             <a href="#" class="no-blue">
@@ -132,8 +100,71 @@
                 </div>
             </div>
         </div>
-        <div class="col bg-color-white">
-            <p style="font-size: 32px"><b>Forum Diskusi</b></p>
+        <div class="col bg-color-white ms-5">
+            <h2 class="mb-3">Forum Diskusi</h2>
+            <div class="container font-size-18">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <img src="img/profile_picture_mike.png" alt="Profile Picture of Mike">
+                    </div>
+                    <div class="col-lg-11">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                Mike
+                                <img src="img/svg/checkmark.svg" alt="Checkmark">
+                            </div>
+                        </div>
+                        <div class="row row-custom-size mt-1">
+                            <div class="col">
+                                <strong>Buku Harry Potter yang baru mau rilis!!</strong>
+                            </div>
+                        </div>
+                        <div class="row row-custom-size mt-1">
+                            <div class="col">
+                                Hype parah sih, jadi inget buku terakhirnya seru abis, apalagi pas bagian le..
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <img src="img/svg/heart.svg" alt="like"> 14
+                                <img src="img/svg/comment.svg" alt="comment" class="ms-3"> 9
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3"></div>
+            <div class="container font-size-18">
+                <div class="row">
+                    <div class="col-lg-1">
+                        <img src="img/profile_picture_hannah.png" alt="Profile Picture of Hannah">
+                    </div>
+                    <div class="col-lg-11">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                Hannah
+                                <img src="img/svg/checkmark.svg" alt="Checkmark">
+                            </div>
+                        </div>
+                        <div class="row row-custom-size mt-1">
+                            <div class="col">
+                                <strong>Just finished "American Wolf" by Nate Blakeslee and loved every minute of it</strong>
+                            </div>
+                        </div>
+                        <div class="row row-custom-size mt-1">
+                            <div class="col">
+                                I just finished reading American Wolf by Nate Blakeslee and it was really good. I am surprised...
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <img src="img/svg/heart.svg" alt="like"> 40
+                                <img src="img/svg/comment.svg" alt="comment" class="ms-3"> 21
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -77,3 +77,45 @@
 .bg-color-white{
     background-color: white;
 }
+
+.font-size-18{
+    font-size: 18px;
+}
+
+.row-custom-size{
+    width: 70%;
+}
+
+.book-container {
+    position: relative;
+    display: inline-block;
+}
+
+/*.book-image {*/
+/*    display: block;*/
+/*    width: 200px; !* Sesuaikan dengan ukuran gambar buku Anda *!*/
+/*    height: auto;*/
+/*}*/
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 140px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-overlay {
+    color: white;
+    font-size: 18px;
+}
+
+.book-container:hover .overlay {
+    opacity: 1; /* Ketika dihover, tampilkan overlay dengan opacity 1 */
+}

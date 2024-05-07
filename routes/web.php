@@ -18,8 +18,46 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    $books = [
+        [
+            'name' => 'Harry Potter and the Deathly Hallows',
+            'image' => 'img/books/harry_potter.png'
+        ],
+        [
+            'name' => 'Fantastic Beasts and Where to Find Them',
+            'image' => 'img/books/fantastic_beasts.png'
+        ],
+        [
+            'name' => 'Game of Thrones',
+            'image' => 'img/books/game_of_thrones.png'
+        ],
+        [
+            'name' => "The Wise Man's Fear",
+            'image' => 'img/books/wise_man_fear.png'
+        ],
+    ];
+    $original_books = [
+        [
+            'name' => "Kedamaian",
+            'image' => 'img/books/kedamaian.png'
+        ],
+        [
+            'name' => "Obsesi",
+            'image' => 'img/books/obsesi.png'
+        ],
+        [
+            'name' => "Izinkan Perempuan Bicara",
+            'image' => 'img/books/izinkan_perempuan.png'
+        ],
+        [
+            'name' => "Lukisan Senja",
+            'image' => 'img/books/lukisan_senja.png'
+        ],
+    ];
     return view('home', [
-        "title" => "Home"
+        "title" => "Home",
+        "books" => $books,
+        "originalBooks" => $original_books
     ]);
 });
 
@@ -59,30 +97,3 @@ Route::get('/pengaturan', function () {
         "title" => "Pengaturan"
     ]);
 });
-//Route::get('/about', function () {
-//    return view('about', [
-//        "title" => "About",
-//        "name" => "Jason Aldeo",
-//        "email" => "jasonaldeo@gmail.com",
-//        "image" => "pp.png"
-//    ]);
-//});
-//
-//Route::get('/posts', [PostController::class, 'index']);
-//
-//Route::get('/posts/{post:slug}', [PostController::class, 'show']);
-//
-//Route::get('/categories', function (){
-//    return view('categories', [
-//        'title' => 'Post Categories',
-//        'categories' => Category::all(),
-//    ]);
-//});
-//
-//Route::get('/categories/{category:slug}', function (Category $category){
-//    return view('category', [
-//        'title' => $category->name,
-//        'posts' => $category->posts,
-//        'category' => $category->name
-//    ]);
-//});

@@ -4,7 +4,7 @@
             <div class="d-flex flex-row">
                 <a href="#" class="no-blue mt-1">
                     <div class="d-flex flex-row align-items-center">
-                        <img src="img/profile_picture.png" alt="profile picture">
+                        <img src="img/profile_picture_john.png" alt="profile picture">
                         <p class="mb-0 ms-2">John</p>
                         <img src="img/svg/checkmark.svg" alt="checkmark">
                     </div>
