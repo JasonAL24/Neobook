@@ -5,7 +5,7 @@
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="img/svg/menu.svg" alt="menu">
+                            <img src="/img/svg/menu.svg" alt="menu">
                         </a>
                         <div class="dropdown-menu multi-column">
                             <div class="dropdown-header"><b>Kategori</b></div>
@@ -36,7 +36,7 @@
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <img src="img/svg/Search_light.svg" alt="search">
+                    <img src="/img/svg/Search_light.svg" alt="search">
                     <input class="custom-input bg-color-grey me-2 ms-2" type="search" placeholder="cari nama buku, penulis, ISBN,..." aria-label="Search">
                     {{--                        <button class="btn btn-outline-success" type="submit">Search</button>--}}
                 </form>

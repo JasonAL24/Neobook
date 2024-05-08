@@ -4,14 +4,14 @@
             <div class="d-flex flex-row">
                 <a href="#" class="no-blue mt-1">
                     <div class="d-flex flex-row align-items-center">
-                        <img src="img/profile_picture_john.png" alt="profile picture">
+                        <img src="/img/profile_picture_john.png" alt="profile picture">
                         <p class="mb-0 ms-2">John</p>
-                        <img src="img/svg/checkmark.svg" alt="checkmark">
+                        <img src="/img/svg/checkmark.svg" alt="checkmark">
                     </div>
                 </a>
 
                 <a href="#" class="notification ms-4">
-                    <img src="img/svg/Bell_light.svg" alt="Notification">
+                    <img src="/img/svg/Bell_light.svg" alt="Notification">
                     <span class="badge">3</span>
                 </a>
             </div>

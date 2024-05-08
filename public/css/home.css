@@ -9,6 +9,10 @@
     box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.5);
 }
 
+.button-shadow{
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .img-large{
     width: 168px;
     height: 240px;
@@ -63,11 +67,11 @@
 }
 
 .border-custom{
-    width: 20%;
+    width: 130px;
     background-color: #252734;
     color: white;
-    /*height: 30%;*/
-    font-size: 20px;
+    font-size: 18px;
+    display: block;
 }
 
 .book-name{
@@ -96,11 +100,10 @@
     display: inline-block;
 }
 
-/*.book-image {*/
-/*    display: block;*/
-/*    width: 200px; !* Sesuaikan dengan ukuran gambar buku Anda *!*/
-/*    height: auto;*/
-/*}*/
+.book-image {
+    width: 140px;
+    height: 200px;
+}
 
 .overlay {
     position: absolute;

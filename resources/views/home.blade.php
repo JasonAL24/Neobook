@@ -13,7 +13,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-2">
-                                <img class="img-shadow img-large" src="img/books/harry_potter.png" alt="Harry Potter">
+                                <img class="img-shadow img-large" src="/img/books/harry_potter.png" alt="Harry Potter">
                             </div>
                             <div class="col-lg-10">
                                 <div class="d-flex flex-column flex-fill">
@@ -29,11 +29,11 @@
                                             <div class="progress-bar" style="background: #252734; width: 70%"></div>
                                         </div>
                                     </div>
-                                    <span class="border border-1 ms-lg-5 mt-4 rounded-4 border-custom">
+                                    <span class="border border-1 ms-lg-5 mt-4 rounded-4 border-custom button-shadow">
                                         <a href="#" class="no-blue">
                                             <div class="text-center">
                                                 Mulai Baca
-                                                <img src="img/svg/read_arrow.svg" alt="arrow">
+                                                <img src="/img/svg/read_arrow.svg" alt="arrow">
                                             </div>
                                         </a>
                                     </span>
@@ -48,9 +48,9 @@
                                 @if($book['type'] == 'novel')
                                     <div class="col-md-3">
                                         <div class="text-center">
-                                            <a class="no-blue" href="#">
+                                            <a class="no-blue" href="/books/{{$book['id']}}">
                                                 <div class="book-container">
-                                                    <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="img-fluid mb-3 book-image">
+                                                    <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="mb-3 book-image">
                                                     <div class="overlay d-flex flex-column">
                                                         <img src="img/svg/look.svg" alt="look">
                                                         <span class="text-overlay">Lihat</span>
@@ -78,7 +78,7 @@
                                 @if($book['type'] == 'cerpen')
                                     <div class="col-md-3">
                                         <div class="text-center">
-                                            <a class="no-blue" href="#">
+                                            <a class="no-blue" href="/books/{{$book['id']}}">
                                                 <div class="book-container">
                                                     <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="img-fluid mb-3 book-image">
                                                     <div class="overlay d-flex flex-column">
@@ -176,7 +176,7 @@
                 <div class="container font-size-18">
                     <div class="row">
                         <div class="col-lg-1">
-                            <img src="img/profile_picture_mike.png" alt="Profile Picture of Mike">
+                            <img src="img/book_group.png" alt="Book Group">
                         </div>
                         <div class="col-lg-11">
                             <div class="row align-items-center">
@@ -196,7 +196,7 @@
                 <div class="container font-size-18">
                     <div class="row">
                         <div class="col-lg-1">
-                            <img src="img/profile_picture_hannah.png" alt="Profile Picture of Hannah">
+                            <img src="img/harry_potter_group.png" alt="Harry Potter Group">
                         </div>
                         <div class="col-lg-11">
                             <div class="row align-items-center">
@@ -229,7 +229,7 @@
                             <div class="text-center">
                                 <a class="no-blue" href="#">
                                     <div>
-                                        <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="img-small">
+                                        <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="img-small mt-2">
                                     </div>
                                 </a>
                             </div>

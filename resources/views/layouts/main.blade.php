@@ -6,10 +6,11 @@
     <title>Neobook | {{$title}}</title>
 
     {{--    Styles   --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/navbar.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/search.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/navbar.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/search.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/home.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/bookdetails.css') }}" type="text/css">
 
     {{--    BootStrap (5.3.3)  --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
