@@ -23,7 +23,7 @@ class CreateBooksTable extends Migration
             $table->string('ISBN');
             $table->text('description')->nullable();
             $table->string('filename');
-            $table->string('type');
+            $table->string('category');
             $table->integer('rating');
             $table->string('last_rating_date');
             $table->string('last_rating_desc');

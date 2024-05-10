@@ -44,7 +44,7 @@
                 <div class="container">
                     <div class="row">
                         @foreach ($books as $book)
-                            @if($book['type'] == 'novel')
+                            @if($book['category'] == 'novel')
                                 <div class="col-md-3">
                                     <div class="text-center">
                                         <a class="no-blue" href="/books/{{$book['id']}}">
@@ -74,7 +74,7 @@
                 <div class="container">
                     <div class="row">
                         @foreach ($books as $book)
-                            @if($book['type'] == 'cerpen')
+                            @if($book['category'] == 'cerpen')
                                 <div class="col-md-3">
                                     <div class="text-center">
                                         <a class="no-blue" href="/books/{{$book['id']}}">
