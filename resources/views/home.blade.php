@@ -12,16 +12,16 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-2">
-                            <img class="img-shadow img-large" src="/img/books/harry_potter.png" alt="Harry Potter">
+                            <img class="img-shadow img-large" src="/img/books/harry_potter_and_the_deathly_hallows.png" alt="Harry Potter">
                         </div>
                         <div class="col-lg-10">
                             <div class="d-flex flex-column flex-fill">
                                 <p class="ms-lg-5 fst-italic" style="font-size: 16px">Harry Potter adalah novel fantasi yang ditulis oleh penulis Inggris J. K. Rowling. Novel ini menceritakan kehidupan seorang penyihir muda, Harry Potter, dan teman-temannya...</p>
                                 <div class="box ms-lg-5">
                                     <div class="title">Progress Baca</div>
-                                    <div class="chapter">Chapter 3: "Chamber of Reflection"</div>
+                                    <div class="chapter">Chapter 25: "Shell Cottage"</div>
                                     <div class="d-flex flex-row">
-                                        <div class="percentage">70% (525/750 halaman)</div>
+                                        <div class="percentage">70% (441/638 halaman)</div>
                                         <div class="time-left ms-auto">2 Hari</div>
                                     </div>
                                     <div class="progress" role="progressbar" aria-label="Read Progress" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                                 <span class="border border-1 ms-lg-5 mt-4 rounded-4 border-custom button-shadow">
-                                    <a href="#" class="no-blue">
+                                    <a href="/books/1/read?startPage=441" class="no-blue">
                                         <div class="text-center">
                                             Mulai Baca
                                             <img src="/img/svg/read_arrow.svg" alt="arrow">

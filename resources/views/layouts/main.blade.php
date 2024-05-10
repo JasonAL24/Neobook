@@ -19,7 +19,11 @@
     {{--    Fonts using Gentium Book Basic --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic&display=swap">
 
+    {{--    JQuery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    {{--    PDFViewer --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <style>
         body{
             font-family: 'Gentium Book Basic', serif;

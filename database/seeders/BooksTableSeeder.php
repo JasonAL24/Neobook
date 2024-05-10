@@ -37,7 +37,7 @@ class BooksTableSeeder extends Seeder
             $book->publisher = $data[4];
             $book->ISBN = $data[5];
             $book->description = $data[6];
-            $book->image = $data[7];
+            $book->filename = $data[7];
             $book->type = $data[8];
             $book->rating = $data[9];
             $book->last_rating_date = $data[10];

@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row" style="height: 300px">
                     <div class="col-lg-4 offset-md-1" style="height: 115%">
-                        <img src="{{$book->image}}" alt="Book Image" class="book-detail-image">
+                        <img src="/img/books/{{$book->filename}}.png" alt="Book Image" class="book-detail-image">
                     </div>
                     <div class="col-lg-7 justify-content-between" style="width: 30%">
                         <h1><strong>{{ $book->name }}</strong></h1>
@@ -20,7 +20,7 @@
                             </a>
                         </span>
                         <span class="border border-1 rounded-4 border-custom mt-4 text-center mb-5 button-shadow">
-                            <a href="#" class="no-blue">
+                            <a href="/books/{{$book->id}}/read?startPage=1" class="no-blue">
                                 Mulai Baca
                                 <img src="/img/svg/read_arrow.svg" alt="arrow">
                             </a>

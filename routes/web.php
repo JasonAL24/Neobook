@@ -23,7 +23,7 @@ Route::get('/', function () {
         [
             'id' => 1,
             'name' => 'Harry Potter and the Deathly Hallows',
-            'image' => '/img/books/harry_potter.png',
+            'image' => '/img/books/harry_potter_and_the_deathly_hallows.png',
             'type' => 'novel',
             'rating' => 4,
             'last_rating_date' => '26-04-2023',
@@ -32,7 +32,7 @@ Route::get('/', function () {
         [
             'id' => 2,
             'name' => 'Fantastic Beasts and Where to Find Them',
-            'image' => '/img/books/fantastic_beasts.png',
+            'image' => '/img/books/fantastic_beasts_and_where_to_find_them.png',
             'type' => 'novel',
             'rating' => 5,
             'last_rating_date' => '20-03-2023',
@@ -50,7 +50,7 @@ Route::get('/', function () {
         [
             'id' => 4,
             'name' => "The Wise Man's Fear",
-            'image' => '/img/books/wise_man_fear.png',
+            'image' => '/img/books/the_wise_man_fear.png',
             'type' => 'novel',
             'rating' => 5,
             'last_rating_date' => '20-04-2023',
@@ -103,6 +103,8 @@ Route::get('/', function () {
 });
 
 Route::get('/books/{book}', [BookController::class, 'show']);
+
+Route::get('/books/{book}/read', [BookController::class, 'read']);
 
 Route::get('/search/{query}', [BookController::class, 'search']);
 

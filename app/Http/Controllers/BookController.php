@@ -19,8 +19,19 @@ class BookController extends Controller
     {
         $results = Book::searchByName($query);
         return view('books.search_results', [
-            "title" => "Search Result",
             "results" => $results
+        ]);
+    }
+
+    public function read(Request $request, Book $book)
+    {
+        $startPageNum = $request->query('startPage');
+
+        $title = "Read: " . $book->name; // Assuming 'name' is the attribute that holds the book name
+        return view('books.read', [
+            "title" => $title,
+            "book" => $book,
+            "startPageNum" => $startPageNum
         ]);
     }
 }

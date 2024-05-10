@@ -3,3 +3,30 @@
     width: 315px;
     height: 450px;
 }
+
+.arrow-button{
+    background-color: white;
+    color: white;
+    border: 1px;
+}
+
+.bottom-controls {
+    position: fixed;
+    bottom: 0;
+    left: 15vh;
+    width: 100%;
+    background-color: white;
+    z-index: 3;
+    border-top: 1px solid #ccc;
+    padding: 10px 0;
+    transition: transform 0.3s ease;
+}
+
+.book-content{
+    margin-bottom: 80px;
+}
+
+.icon{
+    width: 24px;
+    height: 24px;
+}

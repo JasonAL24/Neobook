@@ -9,14 +9,6 @@ class Book extends Model
 {
     use HasFactory;
 
-    /**
-     * @var mixed
-     */
-    protected $fillable = [
-        "name", "author", "editor", "language", "publisher", "paper_type",
-        "ISBN", "description", "image", "type", "rating", "last_rating_date",
-        "last_rating_desc"
-    ];
     protected $guarded = ['id'];
 
     public static function searchByName($query)
