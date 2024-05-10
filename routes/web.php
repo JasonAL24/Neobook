@@ -95,6 +95,7 @@ Route::get('/', function () {
 
         ],
     ];
+    $book = \App\Models\Book::all()->toArray();
     return view('home', [
         "title" => "Home",
         "books" => $books
@@ -102,6 +103,8 @@ Route::get('/', function () {
 });
 
 Route::get('/books/{book}', [BookController::class, 'show']);
+
+Route::get('/search/{query}', [BookController::class, 'search']);
 
 Route::get('/forum', function () {
     return view('forum', [

@@ -5,101 +5,99 @@
     <div class="row">
         <div class="col">
             <div class="home-bg">
-                <div class="ps-5">
-                    {{-- ! Ganti 'User' dengan backend nama user --}}
-                    <p style="font-size: 43px">Selamat membaca, User</p>
-                    <p></p>
-                    <p style="font-size: 32px">Mau melanjutkan bacaan kamu?</p>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-2">
-                                <img class="img-shadow img-large" src="/img/books/harry_potter.png" alt="Harry Potter">
-                            </div>
-                            <div class="col-lg-10">
-                                <div class="d-flex flex-column flex-fill">
-                                    <p class="ms-lg-5 fst-italic" style="font-size: 16px">Harry Potter adalah novel fantasi yang ditulis oleh penulis Inggris J. K. Rowling. Novel ini menceritakan kehidupan seorang penyihir muda, Harry Potter, dan teman-temannya...</p>
-                                    <div class="box ms-lg-5">
-                                        <div class="title">Progress Baca</div>
-                                        <div class="chapter">Chapter 3: "Chamber of Reflection"</div>
-                                        <div class="d-flex flex-row">
-                                            <div class="percentage">70% (525/750 halaman)</div>
-                                            <div class="time-left ms-auto">2 Hari</div>
-                                        </div>
-                                        <div class="progress" role="progressbar" aria-label="Read Progress" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                                            <div class="progress-bar" style="background: #252734; width: 70%"></div>
-                                        </div>
+                {{-- ! Ganti 'User' dengan backend nama user --}}
+                <p style="font-size: 43px">Selamat membaca, User</p>
+                <p></p>
+                <p style="font-size: 32px">Mau melanjutkan bacaan kamu?</p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <img class="img-shadow img-large" src="/img/books/harry_potter.png" alt="Harry Potter">
+                        </div>
+                        <div class="col-lg-10">
+                            <div class="d-flex flex-column flex-fill">
+                                <p class="ms-lg-5 fst-italic" style="font-size: 16px">Harry Potter adalah novel fantasi yang ditulis oleh penulis Inggris J. K. Rowling. Novel ini menceritakan kehidupan seorang penyihir muda, Harry Potter, dan teman-temannya...</p>
+                                <div class="box ms-lg-5">
+                                    <div class="title">Progress Baca</div>
+                                    <div class="chapter">Chapter 3: "Chamber of Reflection"</div>
+                                    <div class="d-flex flex-row">
+                                        <div class="percentage">70% (525/750 halaman)</div>
+                                        <div class="time-left ms-auto">2 Hari</div>
                                     </div>
-                                    <span class="border border-1 ms-lg-5 mt-4 rounded-4 border-custom button-shadow">
-                                        <a href="#" class="no-blue">
-                                            <div class="text-center">
-                                                Mulai Baca
-                                                <img src="/img/svg/read_arrow.svg" alt="arrow">
+                                    <div class="progress" role="progressbar" aria-label="Read Progress" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar" style="background: #252734; width: 70%"></div>
+                                    </div>
+                                </div>
+                                <span class="border border-1 ms-lg-5 mt-4 rounded-4 border-custom button-shadow">
+                                    <a href="#" class="no-blue">
+                                        <div class="text-center">
+                                            Mulai Baca
+                                            <img src="/img/svg/read_arrow.svg" alt="arrow">
+                                        </div>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="fw-semibold mt-3" style="font-size: 32px">Buku Kami</p>
+                <div class="container">
+                    <div class="row">
+                        @foreach ($books as $book)
+                            @if($book['type'] == 'novel')
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <a class="no-blue" href="/books/{{$book['id']}}">
+                                            <div class="book-container">
+                                                <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="mb-3 book-image">
+                                                <div class="overlay d-flex flex-column">
+                                                    <img src="img/svg/look.svg" alt="look">
+                                                    <span class="text-overlay">Lihat</span>
+                                                </div>
                                             </div>
                                         </a>
-                                    </span>
+                                        <p class="book-name">{{ $book['name'] }}</p>
+                                    </div>
                                 </div>
+                            @endif
+                        @endforeach
+                    </div>
+                    <div class="row">
+                        <a href="#" class="no-blue">
+                            <div class="col-md-4 offset-md-10">
+                                Selengkapnya >>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                    <p class="fw-semibold mt-3" style="font-size: 32px">Buku Kami</p>
-                    <div class="container">
-                        <div class="row">
-                            @foreach ($books as $book)
-                                @if($book['type'] == 'novel')
-                                    <div class="col-md-3">
-                                        <div class="text-center">
-                                            <a class="no-blue" href="/books/{{$book['id']}}">
-                                                <div class="book-container">
-                                                    <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="mb-3 book-image">
-                                                    <div class="overlay d-flex flex-column">
-                                                        <img src="img/svg/look.svg" alt="look">
-                                                        <span class="text-overlay">Lihat</span>
-                                                    </div>
+                </div>
+                <p class="fw-semibold mt-3" style="font-size: 32px">Karya Tulis Orisinil</p>
+                <div class="container">
+                    <div class="row">
+                        @foreach ($books as $book)
+                            @if($book['type'] == 'cerpen')
+                                <div class="col-md-3">
+                                    <div class="text-center">
+                                        <a class="no-blue" href="/books/{{$book['id']}}">
+                                            <div class="book-container">
+                                                <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="img-fluid mb-3 book-image">
+                                                <div class="overlay d-flex flex-column">
+                                                    <img src="img/svg/look.svg" alt="look">
+                                                    <span class="text-overlay">Lihat</span>
                                                 </div>
-                                            </a>
-                                            <p class="book-name">{{ $book['name'] }}</p>
-                                        </div>
+                                            </div>
+                                        </a>
+                                        <p class="book-name">{{ $book['name'] }}</p>
                                     </div>
-                                @endif
-                            @endforeach
-                        </div>
-                        <div class="row">
-                            <a href="#" class="no-blue">
-                                <div class="col-md-4 offset-md-10">
-                                    Selengkapnya >>
                                 </div>
-                            </a>
-                        </div>
+                            @endif
+                        @endforeach
                     </div>
-                    <p class="fw-semibold mt-3" style="font-size: 32px">Karya Tulis Orisinil</p>
-                    <div class="container">
-                        <div class="row">
-                            @foreach ($books as $book)
-                                @if($book['type'] == 'cerpen')
-                                    <div class="col-md-3">
-                                        <div class="text-center">
-                                            <a class="no-blue" href="/books/{{$book['id']}}">
-                                                <div class="book-container">
-                                                    <img src="{{ $book['image'] }}" alt="{{ $book['name'] }}" class="img-fluid mb-3 book-image">
-                                                    <div class="overlay d-flex flex-column">
-                                                        <img src="img/svg/look.svg" alt="look">
-                                                        <span class="text-overlay">Lihat</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <p class="book-name">{{ $book['name'] }}</p>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
-                        </div>
-                        <div class="row">
-                            <a href="#" class="no-blue">
-                                <div class="col-md-4 offset-md-10">
-                                    Selengkapnya >>
-                                </div>
-                            </a>
-                        </div>
+                    <div class="row">
+                        <a href="#" class="no-blue">
+                            <div class="col-md-4 offset-md-10">
+                                Selengkapnya >>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>

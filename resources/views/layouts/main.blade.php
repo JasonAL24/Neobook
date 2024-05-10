@@ -18,6 +18,8 @@
 
     {{--    Fonts using Gentium Book Basic --}}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic&display=swap">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body{
             font-family: 'Gentium Book Basic', serif;
@@ -28,10 +30,10 @@
 
 <div class="container-fluid">
     <div class="row justify-content-start">
-        <div class="col bg-color-grey">
+        <div class="col-lg-1 bg-color-grey">
             @include('partials.navbar')
         </div>
-        <div class="col">
+        <div class="col-lg-11" style="padding: 0">
             <main role="main">
                 <div class="bg-color-grey" style="width: {{ ($title === "Home") ? '50vw' : '' }}">
                     @include('partials.search')
@@ -39,7 +41,7 @@
                 <div>
                     @include('partials.notification')
                 </div>
-                <div class="main-size">
+                <div>
                     @yield('container')
                 </div>
             </main>

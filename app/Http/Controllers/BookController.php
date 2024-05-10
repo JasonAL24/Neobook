@@ -14,4 +14,13 @@ class BookController extends Controller
             "book" => $book
         ]);
     }
+
+    public function search($query)
+    {
+        $results = Book::searchByName($query);
+        return view('books.search_results', [
+            "title" => "Search Result",
+            "results" => $results
+        ]);
+    }
 }

@@ -35,11 +35,16 @@
                         </div>
                     </li>
                 </ul>
-                <form class="d-flex" role="search">
+
+                <form class="d-flex" role="search" id="searchForm">
                     <img src="/img/svg/Search_light.svg" alt="search">
-                    <input class="custom-input bg-color-grey me-2 ms-2" type="search" placeholder="cari nama buku, penulis, ISBN,..." aria-label="Search">
-                    {{--                        <button class="btn btn-outline-success" type="submit">Search</button>--}}
+                    <input class="custom-input bg-color-grey me-2 ms-2" type="search" id="searchInput" placeholder="cari nama buku..." aria-label="Search">
                 </form>
+
+                <div class="dropdown-menu ms-5" id="searchResultsDropdown" aria-labelledby="searchInput" style="margin-top: 30vh; height: 26vh">
+                </div>
+{{--                <div id="searchResults"></div>--}}
+                <script src="/js/search.js"></script>
             </div>
         </div>
     </nav>

@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="row" style="height: 25vh; background-color: white">
+            <div class="row p-5" style="height: 25vh; background-color: white">
             </div>
             <div class="row" style="background-color: white">
                 <div class="col-lg-5">
@@ -47,9 +47,8 @@
                         <p>{{$book->language}}</p>
                     </div>
                     <div class="mt-5">
-                        <b>Jenis Kertas</b>
-                        <p>{{$book->paper_type}}</p>
-                        <p>ISBN: {{$book->ISBN}}</p>
+                        <b>ISBN</b>
+                        <p>{{$book->ISBN}}</p>
                     </div>
                     <div class="mt-5">
                         <b>Penerbit</b>

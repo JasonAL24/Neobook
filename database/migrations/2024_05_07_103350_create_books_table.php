@@ -20,7 +20,6 @@ class CreateBooksTable extends Migration
             $table->string('editor');
             $table->string('language');
             $table->string('publisher');
-            $table->string('paper_type');
             $table->string('ISBN');
             $table->text('description')->nullable();
             $table->string('image');

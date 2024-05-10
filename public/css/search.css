@@ -26,3 +26,9 @@
     font-size: 18px;
     color: black;
 }
+
+.criteria-select {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
