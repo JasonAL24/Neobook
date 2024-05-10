@@ -15,10 +15,10 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->string('member_name');
-            $table->string('member_address');
-            $table->string('member_profile_picture');
-            $table->string('member_phone');
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('profile_picture')->nullable();
+            $table->string('phone')->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('user_id')->unique(); // Foreign key referencing users table

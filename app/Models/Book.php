@@ -82,4 +82,9 @@ class Book extends Model
 
         return $lps;
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }

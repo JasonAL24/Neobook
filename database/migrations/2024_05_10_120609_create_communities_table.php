@@ -15,8 +15,8 @@ class CreateCommunitiesTable extends Migration
     {
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
-            $table->string('community_title');
-            $table->string('community_description');
+            $table->string('title');
+            $table->string('description');
             $table->timestamps();
         });
 
