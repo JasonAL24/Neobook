@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neobook | {{$title}}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{--    Styles   --}}
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}" type="text/css">
@@ -27,6 +28,7 @@
     <style>
         body{
             font-family: 'Gentium Book Basic', serif;
+            background-color: {{$title == 'Home' ? '' : '#F0EEE2'}};
         }
     </style>
 </head>

@@ -109,6 +109,13 @@ Route::get('/home', function () {
 
 Route::get('/books/{book}', [BookController::class, 'show']);
 
+Route::post('/add-to-collection', [BookController::class, 'addToCollection'])
+    ->name('add-to-collection');
+
+Route::delete('/members/{member}/books/{book}', [BookController::class, 'removeFromCollection'])->name('members.books.remove');
+
+Route::post('/update-last-page', [BookController::class, 'updateLastPage'])->name('update-last-page');
+
 Route::get('/books/{book}/read', [BookController::class, 'read']);
 
 Route::get('/search/{query}', [BookController::class, 'search']);

@@ -12,15 +12,25 @@
                         <h1><strong>{{ $book->name }}</strong></h1>
                         <h2 class="mt-5">{{ $book->author }}</h2>
                     </div>
+                    @php
+                        $lastPage = $member->books->find($book->id)->pivot->last_page ?? 1;
+                        $collected = $member->books()->where('book_id', $book->id)->exists();
+                    @endphp
                     <div class="col offset-md-5">
-                        <span class="border border-1 rounded-4 border-custom text-center button-shadow">
-                            <a href="#" class="no-blue">
-                                Tambahkan
-                                <img src="/img/svg/plus.svg" alt="arrow">
-                            </a>
-                        </span>
+                        <form action="{{ route('add-to-collection') }}" method="POST" style="display: inline;">
+                            @csrf
+                            @if ($collected)
+                                <p>Buku ini sudah ditambahkan ke koleksi.</p>
+                            @else
+                                <button type="submit" class="border border-1 rounded-4 border-custom text-center button-shadow">
+                                    Tambahkan
+                                    <img src="/img/svg/plus.svg" alt="arrow">
+                                </button>
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                            @endif
+                        </form>
                         <span class="border border-1 rounded-4 border-custom mt-4 text-center mb-5 button-shadow">
-                            <a href="/books/{{$book->id}}/read?startPage=1" class="no-blue">
+                            <a href="/books/{{$book->id}}/read?startPage={{$lastPage}}" class="no-blue">
                                 Mulai Baca
                                 <img src="/img/svg/read_arrow.svg" alt="arrow">
                             </a>

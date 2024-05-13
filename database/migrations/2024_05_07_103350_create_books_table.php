@@ -24,6 +24,7 @@ class CreateBooksTable extends Migration
             $table->text('description')->nullable();
             $table->string('filename');
             $table->string('category');
+            $table->integer('pages');
             $table->integer('rating');
             $table->string('last_rating_date');
             $table->string('last_rating_desc');
