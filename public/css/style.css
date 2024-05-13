@@ -1,10 +1,81 @@
-.main-bg{
-    height: 100%;
-    width: 100%;
-    background-color: #F0EEE2;
-    display: block;
+
+.forumDiskusi , .forumSaya
+{
+    text-align:center;
+    padding: 10px 63px;
 }
 
-.flex-grow-1{
-    flex-grow: 1;
+/*.forumContainer*/
+/*{*/
+/*    width:max-content;*/
+/*    margin: 0 auto;*/
+/*    border: 1px solid black;*/
+/*    border-radius: 10px;*/
+/*}*/
+
+.forumdiskusiButton.active
+{
+    background-color:#252734;
+    color:white;
+    border-radius:10px 0px 0px 10px;
 }
+.forumsayaButton.active
+{
+    background-color:#252734;
+    color:white;
+    border-radius:0px 10px 10px 0px;
+}
+
+.forumsayaButton2
+{
+    padding : 10px 63px;
+    border:0;
+    font-size:16px;
+    background-color:#252734;
+    color:white;
+    border-radius:0px 10px 10px 0px;
+}
+
+.imageWhat
+{
+    margin-top :7em;
+}
+
+.forumdiskusiButton, .forumsayaButton
+{
+    padding : 10px 63px;
+    background-color:white;
+    border-radius: 10px 0px 0px 10px;
+    border:0;
+    font-size:16px;
+}
+
+.buatforumButton
+{
+    background-color: #252734;
+    color:white;
+    border-radius:10px;
+    border:0;
+    padding: 6px 25px;
+    font-size:24px;
+}
+
+.judulBox
+{
+    width:90%;
+}
+
+.custom-input{
+    width: 300px;
+    border: 0;
+    outline: none;
+}
+
+.dropdown-menu{
+    width: 20vw;
+}
+
+
+
+
+

@@ -44,19 +44,19 @@
             <p>Sudah memiliki akun? <a href="{{route('login')}}">Log In</a></p>
             <div class="d-flex flex-column mt-5">
                 <label for="nama">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama" value="{{ old('nama') }}" class="input-box" placeholder="Tulis nama lengkap Anda...">
+                <input type="text" id="nama" name="nama" value="{{ old('nama') }}" class="input-box text-light" placeholder="Tulis nama lengkap Anda...">
             </div>
             <div class="d-flex flex-column mt-4">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" class="input-box" placeholder="Tulis alamat email Anda...">
+                <input type="email" id="email" name="email" value="{{ old('email') }}" class="input-box text-light" placeholder="Tulis alamat email Anda...">
             </div>
             <div class="d-flex flex-column mt-4">
                 <label for="phone">No Handphone</label>
-                <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="input-box" placeholder="Tulis nomor handphone Anda...">
+                <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="input-box text-light" placeholder="Tulis nomor handphone Anda...">
             </div>
             <div class="password-container d-flex flex-column mt-4">
                 <label for="password">Tulis Kata Sandi</label>
-                <input type="password" id="password" name="password" class="input-box" placeholder="Tulis kata sandi Anda...">
+                <input type="password" id="password" name="password" class="input-box text-light" placeholder="Tulis kata sandi Anda...">
                 <button id="togglePassword" class="toggle-password" aria-label="Toggle password visibility" type="button">
                     <img src="/img/svg/eye.svg" alt="eye" class="eye-icon">
                 </button>

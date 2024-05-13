@@ -113,9 +113,21 @@ Route::get('/books/{book}/read', [BookController::class, 'read']);
 
 Route::get('/search/{query}', [BookController::class, 'search']);
 
-Route::get('/forum', function () {
-    return view('forum', [
-        "title" => "Forum"
+Route::get('/forumdiskusi', function () {
+    return view('forumdiskusi', [
+        "title" => "Forum Diskusi"
+    ]);
+});
+
+Route::get('/forumsaya', function () {
+    return view('forumsaya', [
+        "title" => "Forum Saya"
+    ]);
+});
+
+Route::get('/buatforum', function () {
+    return view('buatforum', [
+        "title" => "Buat Forum"
     ]);
 });
 

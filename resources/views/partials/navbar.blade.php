@@ -23,7 +23,7 @@
                         </li>
 
                         <li class="nav-item mb-4">
-                            <a href="/forum" class="nav-link text-white {{ ($title === "Forum") ? 'active' : '' }} ms-3">
+                            <a href="/forumdiskusi" class="nav-link text-white {{ ($title === "Forum Diskusi" || $title === "Forum Saya") ? 'active' : '' }} ms-3">
                                 <div class="d-flex flex-row align-items-center">
                                     <div class="fs-4 d-none d-sm-inline">
                                         <img src="/img/svg/Chat_plus_light.svg">
