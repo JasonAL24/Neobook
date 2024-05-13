@@ -2,10 +2,14 @@
     <div class="row justify-content-end">
         <div class="col-auto user-notification p-3 me-5">
             <div class="d-flex flex-row">
-                <a href="#" class="no-blue mt-1">
+                <a href="{{route('profile')}}" class="no-blue mt-1">
                     <div class="d-flex flex-row align-items-center">
-                        <img src="/img/profile_picture_john.png" alt="profile picture">
-                        <p class="mb-0 ms-2">John</p>
+                        @if ($member->profile_picture)
+                            <img src="/img/{{ $member->profile_picture }}" alt="profile picture" class="profile-picture rounded-circle">
+                        @else
+                            <img src="/img/default_pp.png" alt="default profile picture" class="profile-picture rounded-circle">
+                        @endif
+                        <p class="mb-0 ms-2">{{ explode(' ', $member->name)[0] }}</p>
                         <img src="/img/svg/checkmark.svg" alt="checkmark">
                     </div>
                 </a>

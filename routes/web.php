@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::redirect('/', '/login');
+
+Route::get('/home', function () {
     $books = [
         [
             'id' => 1,
@@ -96,9 +99,11 @@ Route::get('/', function () {
         ],
     ];
     $book = \App\Models\Book::all()->toArray();
+    $member = auth()->user()->member;
     return view('home', [
         "title" => "Home",
-        "books" => $books
+        "books" => $books,
+        "member" => $member
     ]);
 });
 
@@ -143,3 +148,20 @@ Route::get('/pengaturan', function () {
         "title" => "Pengaturan"
     ]);
 });
+
+Route::get('/profile', function () {
+    return view('profile', [
+        "title" => "Profile"
+    ]);
+})->name('profile');
+
+Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [UserController::class, 'register']);
+
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+Route::put('/members/{id}', [UserController::class, 'update'])->name('members.update');
+
+

@@ -3,7 +3,7 @@
         <div class="col-auto min-vh-100 d-flex flex-column position-fixed bg-color-grey" style="top: 0; left: 0; z-index: 100;">
 
             <div class=" p-2 " >
-                <a class="d-flex text-decoration-none mt-1 align-items-center text-white" href="/">
+                <a class="d-flex text-decoration-none mt-1 align-items-center text-white" href="/home">
                     <span class="fs-4 d-none d-sm-inline"> <img class="size-img" src="/img/OIG2_RemoveBG.png" alt="Logo Neobook"> </span>
                 </a>
             </div>
@@ -12,7 +12,7 @@
                 <div class="p-2">
                     <ul class="nav nav-pills flex-column mt-4 ">
                         <li class="nav-item mb-4">
-                            <a href="/" class="nav-link text-white {{ ($title === "Home") ? 'active' : '' }} ms-3" aria-current="page">
+                            <a href="/home" class="nav-link text-white {{ ($title === "Home") ? 'active' : '' }} ms-3" aria-current="page">
                                 <div class="d-flex flex-row align-items-center">
                                     <div class="fs-4 d-none d-sm-inline">
                                         <img src="/img/svg/Home_light.svg">

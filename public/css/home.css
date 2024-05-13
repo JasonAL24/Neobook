@@ -144,3 +144,8 @@
 .star.filled {
     background-image: url('/img/svg/star_yellow.svg'); /* Image for filled star */
 }
+
+.profile-picture{
+    height: 40px;
+    width: 40px;
+}

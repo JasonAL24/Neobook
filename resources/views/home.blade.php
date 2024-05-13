@@ -6,7 +6,7 @@
         <div class="col">
             <div class="home-bg">
                 {{-- ! Ganti 'User' dengan backend nama user --}}
-                <p style="font-size: 43px">Selamat membaca, User</p>
+                <p style="font-size: 43px">Selamat membaca, {{ explode(' ', $member->name)[0] }}</p>
                 <p></p>
                 <p style="font-size: 32px">Mau melanjutkan bacaan kamu?</p>
                 <div class="container">

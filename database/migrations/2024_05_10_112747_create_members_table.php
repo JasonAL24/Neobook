@@ -18,6 +18,7 @@ class CreateMembersTable extends Migration
             $table->string('name')->nullable();
             $table->string('address')->nullable();
             $table->string('profile_picture')->nullable();
+            $table->boolean('premium_status')->default(false);
             $table->string('phone')->nullable();
             $table->timestamps();
 

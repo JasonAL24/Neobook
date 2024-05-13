@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('*', function ($view) {
+            if (!in_array(Route::currentRouteName(), ['login', 'register'])) {
+                // Retrieve the authenticated member if not on 'login' or 'register' routes
+                $member = auth()->user()->member;
+                $view->with('member', $member);
+            }
+        });
     }
 }
