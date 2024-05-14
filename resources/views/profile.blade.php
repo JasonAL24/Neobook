@@ -14,7 +14,7 @@
                         @endphp
                         <img src="/img/profile/{{$profile_picture}}.png" alt="profile picture" style="width: 200px; height: 200px" class="rounded-circle">
                     </div>
-                    <button id="uploadButton" class="btn text-light" style="width: 6vw; background-color: #252734">Ubah</button>
+                    <button id="uploadButton" class="btn text-light" style="width: 6vw; background-color: #252734; margin-top:-2em;">Ubah</button>
                     <form action="{{ route('upload.profile.picture') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="file" class="btn text-light" id="fileInput" name="profile_picture" accept=".png" style="display: none;">
