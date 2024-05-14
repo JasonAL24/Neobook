@@ -35,7 +35,6 @@ class AppServiceProvider extends ServiceProvider
                     return redirect()->route('login')->with('alert', 'Mohon login terlebih dahulu');
                 }
             }
-            return redirect()->route('login')->with('alert', 'Mohon login terlebih dahulu');
         });
     }
 }

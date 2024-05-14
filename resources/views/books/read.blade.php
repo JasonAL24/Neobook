@@ -8,7 +8,7 @@
                     <a href="/books/{{$book->id}}">
                         <button type="button" class="btn btn-secondary" style="background-color: #282A36">
                             <img src="/img/svg/arrow_left_white.svg" alt="<-">
-                            <b>Kembali</b>
+                            <b>Detail Buku</b>
                         </button>
                     </a>
                 </div>

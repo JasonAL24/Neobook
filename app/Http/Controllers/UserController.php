@@ -6,8 +6,12 @@ use App\Models\Member;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 
 class UserController extends Controller
@@ -78,6 +82,23 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($id), // Ensure email is unique except for the current user
+            ],
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
         $member = Member::findOrFail($id);
         $user = $member->user;
 
@@ -94,18 +115,36 @@ class UserController extends Controller
 
     public function updateProfilePicture(Request $request)
     {
-        $request->validate([
-            'profile_picture' => 'required|image|mimes:png|max:2048', // PNG file, max size 2MB
-        ]);
+        try {
+            $request->validate([
+                'profile_picture' => 'required|image|mimes:png|max:2048',
+            ]);
 
-        $member = auth()->user()->member;
+            $member = auth()->user()->member;
+            $id = $member->id;
 
-        $profilePicture = $request->file('profile_picture');
-        $fileName = time() . '.' . $profilePicture->getClientOriginalExtension();
-        $profilePicture->move(public_path('img/profile'), $fileName);
+            $existingProfilePicture = $member->profile_picture;
+            if ($existingProfilePicture) {
+                $filePath = "/img/profile/$id/$existingProfilePicture";
+                Storage::delete($filePath);
+            }
 
-        $member->update(['profile_picture' => $fileName]);
+            $profilePicture = $request->file('profile_picture');
+            $fileName = time() . '.' . $profilePicture->getClientOriginalExtension();
 
-        return redirect()->back()->with('success', 'Gambar profil anda berhasil diperbarui.');
+            $directory = "/img/profile/$id";
+            if (!Storage::exists($directory)) {
+                Storage::makeDirectory($directory);
+            }
+
+            $profilePicture->move(public_path($directory), $fileName);
+
+            $member->profile_picture = $fileName;
+            $member->save();
+
+            return redirect()->back()->with('success', 'Gambar profil anda berhasil diperbarui.');
+        } catch (ValidationException $e) {
+            return redirect()->back()->withErrors($e->validator->errors())->withInput();
+        }
     }
 }
