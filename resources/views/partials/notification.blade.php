@@ -5,9 +5,9 @@
                 <a href="{{route('profile')}}" class="no-blue mt-1">
                     <div class="d-flex flex-row align-items-center">
                         @if ($member->profile_picture)
-                            <img src="/img/{{ $member->profile_picture }}" alt="profile picture" class="profile-picture rounded-circle">
+                            <img src="/img/profile/{{ $member->profile_picture }}.png" alt="profile picture" class="profile-picture rounded-circle">
                         @else
-                            <img src="/img/default_pp.png" alt="default profile picture" class="profile-picture rounded-circle">
+                            <img src="/img/profile/default_pp.png" alt="default profile picture" class="profile-picture rounded-circle">
                         @endif
                         <p class="mb-0 ms-2">{{ explode(' ', $member->name)[0] }}</p>
                         <img src="/img/svg/checkmark.svg" alt="checkmark">

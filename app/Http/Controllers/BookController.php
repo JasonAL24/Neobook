@@ -30,7 +30,7 @@ class BookController extends Controller
     {
         $startPageNum = $request->query('startPage');
 
-        $title = "Read: " . $book->name; // Assuming 'name' is the attribute that holds the book name
+        $title = "Baca: " . $book->name;
         return view('books.read', [
             "title" => $title,
             "book" => $book,

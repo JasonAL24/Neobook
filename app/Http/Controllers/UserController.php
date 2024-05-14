@@ -89,6 +89,23 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->save();
 
-        return redirect()->route('profile')->with('success', 'Member updated successfully.');
+        return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui.');
+    }
+
+    public function updateProfilePicture(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => 'required|image|mimes:png|max:2048', // PNG file, max size 2MB
+        ]);
+
+        $member = auth()->user()->member;
+
+        $profilePicture = $request->file('profile_picture');
+        $fileName = time() . '.' . $profilePicture->getClientOriginalExtension();
+        $profilePicture->move(public_path('img/profile'), $fileName);
+
+        $member->update(['profile_picture' => $fileName]);
+
+        return redirect()->back()->with('success', 'Gambar profil anda berhasil diperbarui.');
     }
 }
