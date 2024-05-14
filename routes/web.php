@@ -185,6 +185,9 @@ Route::get('/buatforum', function () {
         ]);
     })->name('profile');
 
+    Route::post('/update-profile-picture', [UserController::class, 'updateProfilePicture'])
+        ->name('upload.profile.picture');
+
     Route::put('/members/{id}', [UserController::class, 'update'])->name('members.update');
 });
 

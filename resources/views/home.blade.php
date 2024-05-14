@@ -7,14 +7,23 @@
             <div class="home-bg">
                 {{-- ! Ganti 'User' dengan backend nama user --}}
                 <p style="font-size: 43px">Selamat membaca, {{ explode(' ', $member->name)[0] }}</p>
-                <p></p>
-                <p style="font-size: 32px">Mau melanjutkan bacaan kamu?</p>
                 @php
-                    $firstBook = $member->books->sortByDesc('pivot.updated_at')->first();
-                    $last_page = $firstBook->pivot->last_page;
-                    $total_page = $firstBook->pages;
-                    $percentage = round(($last_page / $total_page) * 100);
+                    $firstBook = $member->books->sortByDesc(function ($book) {
+                        return optional($book->pivot)->updated_at ?? $book->created_at;
+                    })->first();
+
+                    $last_page = 1; // Default value if pivot is null
+                    $total_page = 1; // Default value if pivot is null
+                    $percentage = 0; // Default value if pivot is null
+
+                    if ($firstBook && $firstBook->pivot) {
+                        $last_page = $firstBook->pivot->last_page ?? 1;
+                        $total_page = $firstBook->pages ?? 1;
+                        $percentage = round(($last_page / $total_page) * 100);
+                    }
                 @endphp
+                @if($firstBook)
+                <p style="font-size: 32px">Mau melanjutkan bacaan kamu?</p>
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-2">
@@ -45,6 +54,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                 <p class="fw-semibold mt-3" style="font-size: 32px">Buku Kami</p>
                 <div class="container">
                     <div class="row">

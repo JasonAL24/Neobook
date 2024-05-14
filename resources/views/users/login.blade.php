@@ -36,7 +36,7 @@
             <div class="d-flex flex-column mt-4">
                 <label for="email">Email</label>
                 <div class="input-group">
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" class=" input-box" placeholder="Tulis nama alamat email Anda...">
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="input-box" placeholder="Tulis nama alamat email Anda...">
                 </div>
             </div>
             <div class="password-container d-flex flex-column mt-4">
