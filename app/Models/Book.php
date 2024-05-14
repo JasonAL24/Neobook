@@ -11,6 +11,16 @@ class Book extends Model
 
     protected $guarded = ['id'];
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function members()
+    {
+        return $this->belongsToMany(Member::class);
+    }
+
     public static function searchByName($query)
     {
         $books = self::all();
@@ -81,10 +91,5 @@ class Book extends Model
         }
 
         return $lps;
-    }
-
-    public function ratings()
-    {
-        return $this->hasMany(Rating::class);
     }
 }

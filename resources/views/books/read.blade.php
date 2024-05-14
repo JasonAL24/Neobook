@@ -130,13 +130,40 @@
         function nextPage() {
             if (pageNum >= pdfDoc.numPages || pageRendering) return;
             pageNum++;
+            updateLastPage(pageNum);
             renderPage(pageNum);
         }
 
         function prevPage() {
             if (pageNum <= 1 || pageRendering) return;
             pageNum--;
+            updateLastPage(pageNum);
             renderPage(pageNum);
+        }
+
+        function updateLastPage(pageNum) {
+            var bookId = {{$book->id}};
+            var lastPage = pageNum;
+
+            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            // Send an AJAX request to update the last_page value in the pivot table
+            $.ajax({
+                url: '/update-last-page',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                data: {
+                    book_id: bookId,
+                    last_page: lastPage
+                },
+                success: function(response) {
+                    console.log('Last page updated successfully.');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error updating last page:', error);
+                }
+            });
         }
 
         pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc_) {
@@ -145,7 +172,6 @@
 
             pdfDoc.getOutline().then(function(outline) {
                 if (outline) {
-                    console.log(outline)
                     var contentsMenu = document.getElementById('contentsMenu');
                     for (let i = 0; i < outline.length; i++) {
                         const dest = outline[i].dest;
@@ -173,6 +199,7 @@
 
         function goToPage(page) {
             pageNum = parseInt(page);
+            updateLastPage(pageNum);
             renderPage(pageNum);
         }
 
@@ -196,7 +223,7 @@
             pageNum = {{$startPageNum}};
 
             if (isNaN(pageNumber) || pageNumber < 1) {
-                window.location.href = '/error';
+                pageNum = 1;
                 return;
             }
 
