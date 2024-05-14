@@ -3,8 +3,14 @@
 @section('container')
     <div class="main-bg">
         <div class="white-container p-3">
-            <h1 class="ms-5 p-4">Bacaan Saat Ini</h1>
-            @foreach ($member->books->sortByDesc('pivot.updated_at') as $book)
+            <h1 class="ms-5 p-4">Koleksi Bacaan Saat Ini</h1>
+            @php
+                $firstBook = $member->books->sortByDesc(function ($book) {
+                            return optional($book->pivot)->updated_at ?? $book->created_at;
+                        })->first();
+            @endphp
+            @if($firstBook)
+                @foreach ($member->books->sortByDesc('pivot.updated_at') as $book)
                     <div class="row mt-5 p-4" style="background-color: white; width: 80vw; margin-left: 5vw">
                         <div class="col-lg-1">
                             <a href="/books/{{$book->id}}" class="text-decoration-none text-black">
@@ -42,15 +48,44 @@
                             </div>
                         </div>
                     </div>
-
-            @endforeach
+                @endforeach
+            @else
+                <div class="text-center">
+                    <img src="/img/bacaan_not_found.png" alt="Bacaan Tidak Ada">
+                    <h3><b>Anda Belum Memiliki Koleksi Bacaan</b></h3>
+                </div>
+                <div>
+                    <h3 class="ms-5 mt-4">Ayo mulai baca dan simpan ke koleksi sekarang!</h3>
+                    <div class="row">
+                        @foreach($books as $book)
+                            <div class="col">
+                                <div class="text-center">
+                                    <a class="no-blue" href="/books/{{$book['id']}}">
+                                        <div class="book-container">
+                                            <img src="/img/books/{{ $book['filename'] }}.png" alt="{{ $book['name'] }}" class="mb-3 book-image">
+                                            <div class="overlay d-flex flex-column">
+                                                <img src="img/svg/look.svg" alt="look">
+                                                <span class="text-overlay">Lihat</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <p class="book-name">{{ $book['name'] }}</p>
+                                    <div style="margin-top: -1em">
+                                        <img src="/img/svg/star_yellow.svg" alt="star"> {{$book->rating}}
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
     <script>
         // Add event listener to delete buttons
         @foreach ($member->books as $book)
         document.getElementById('delete-book-{{ $book->id }}').addEventListener('click', function() {
-            var bookId = this.getAttribute('data-book-id');
+            var isLastBook = $('.delete-book').length === 1;
             if (confirm('Apakah kamu yakin untuk menghapus buku ini?')) {
                 $.ajax({
                     url: '{{ route("members.books.remove", ["member" => $member->id, "book" => $book->id]) }}',
@@ -64,6 +99,9 @@
                         $('#delete-book-{{ $book->id }}').closest('.row').fadeOut(500, function() {
                             $(this).remove();
                         });
+                        if (isLastBook) {
+                            location.reload(); // Refresh the page if the last book is deleted
+                        }
                     },
                     error: function(xhr, status, error) {
                         console.error('Error removing book:', error);

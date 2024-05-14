@@ -8,11 +8,12 @@
                     <div class="profile-form text-center">
                         @php
                             $profile_picture = $member->profile_picture;
-                            if ($profile_picture == null){
-                                $profile_picture = 'default_pp.png';
-                            }
                         @endphp
-                        <img src="/img/profile/{{$member->id}}/{{$profile_picture}}" alt="profile picture" style="width: 200px; height: 200px" class="rounded-circle">
+                        @if ($member->profile_picture)
+                            <img src="/img/profile/{{$member->id}}/{{$profile_picture}}" alt="profile picture" style="width: 200px; height: 200px" class="rounded-circle">
+                        @else
+                            <img src="/img/profile/default_pp.png" alt="profile picture" style="width: 200px; height: 200px" class="rounded-circle">
+                        @endif
                     </div>
                     <button id="uploadButton" class="btn text-light" style="width: 6vw; background-color: #252734; margin-top:-2em;">Ubah</button>
                     <form id="uploadForm" action="{{ route('upload.profile.picture') }}" method="POST" enctype="multipart/form-data">

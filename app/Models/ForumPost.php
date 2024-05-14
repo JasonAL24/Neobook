@@ -14,5 +14,10 @@ class ForumPost extends Model
         return $this->belongsTo(Member::class);
     }
 
+    public function books()
+    {
+        return $this->belongsTo(Book::class);
+    }
+
     use HasFactory;
 }

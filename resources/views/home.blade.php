@@ -12,9 +12,9 @@
                         return optional($book->pivot)->updated_at ?? $book->created_at;
                     })->first();
 
-                    $last_page = 1; // Default value if pivot is null
-                    $total_page = 1; // Default value if pivot is null
-                    $percentage = 0; // Default value if pivot is null
+                    $last_page = 1;
+                    $total_page = 1;
+                    $percentage = 0;
 
                     if ($firstBook && $firstBook->pivot) {
                         $last_page = $firstBook->pivot->last_page ?? 1;
