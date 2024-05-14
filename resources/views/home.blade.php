@@ -10,7 +10,7 @@
                 <p></p>
                 <p style="font-size: 32px">Mau melanjutkan bacaan kamu?</p>
                 @php
-                    $firstBook = $member->books->first();
+                    $firstBook = $member->books->sortByDesc('pivot.updated_at')->first();
                     $last_page = $firstBook->pivot->last_page;
                     $total_page = $firstBook->pages;
                     $percentage = round(($last_page / $total_page) * 100);
@@ -18,7 +18,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-2">
-                            <img class="img-shadow img-large" src="/img/books/{{$firstBook->filename}}.png" alt="Harry Potter">
+                            <img class="img-shadow img-large" src="/img/books/{{$firstBook->filename}}.png" alt="{{$firstBook->name}}">
                         </div>
                         <div class="col-lg-10">
                             <div class="d-flex flex-column flex-fill">

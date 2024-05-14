@@ -26,16 +26,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('*', function ($view) {
-            if (!in_array(Route::currentRouteName(), ['login', 'register'])) {
-                $user = auth()->user();
-
-                if ($user && $user->member) {
-                    $member = $user->member;
+            $user = auth()->user();
+            if ($user && !in_array(Route::currentRouteName(), ['login', 'register'])) {
+                $member = $user->member;
+                if ($member){
                     $view->with('member', $member);
-                } else {
-                    return redirect()->route('login')->with('alert', 'Please log in to access this page.');
+                } else{
+                    return redirect()->route('login')->with('alert', 'Mohon login terlebih dahulu');
                 }
             }
+            return redirect()->route('login')->with('alert', 'Mohon login terlebih dahulu');
         });
     }
 }

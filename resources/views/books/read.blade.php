@@ -199,6 +199,7 @@
 
         function goToPage(page) {
             pageNum = parseInt(page);
+            updateLastPage(pageNum);
             renderPage(pageNum);
         }
 
