@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Models\Member;
+use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
@@ -75,5 +77,62 @@ class BookController extends Controller
         $member->books()->updateExistingPivot($bookId, ['updated_at' => now()]);
 
         return response()->json(['success' => true]);
+    }
+
+    public function giveRating(Book $book){
+        $member = auth()->user()->member;
+
+        $rating = Rating::where('member_id', $member->id)
+            ->where('book_id', $book->id)
+            ->first();
+
+        return view('books.giverating', [
+            "title" => "Give Rating",
+            "book" => $book,
+            "member" => $member,
+            "rating" => $rating
+        ]);
+    }
+
+    public function createRating(Request $request){
+        $validator = Validator::make($request->all(), [
+            'ratingnumber' => 'required|int|between:1,5',
+            'review' => 'nullable|string|max:100',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $memberId = $request->input('member_id');
+        $bookId = $request->input('book_id');
+
+        $rating = new Rating();
+        $rating->rating = $request->input('ratingnumber');
+        $rating->review = $request->input('review');
+        $rating->member_id = $memberId;
+        $rating->book_id = $bookId;
+        $rating->save();
+
+        return redirect()->back()->with('success', 'Sukses! Anda berhasil memberi rating');
+    }
+
+    public function viewRating(){
+        $member = auth()->user()->member;
+
+        // Fetch only books that have ratings
+        $books = Book::with('ratings')->has('ratings')->get();
+
+        // Calculate average rating for each book
+        foreach ($books as $book) {
+            $ratings = $book->ratings->pluck('rating')->toArray();
+            $book->average_rating = count($ratings) > 0 ? array_sum($ratings) / count($ratings) : 0;
+        }
+
+        return view('books.viewrating', [
+            "title" => "View Rating",
+            "books" => $books,
+            "member" => $member
+        ]);
     }
 }

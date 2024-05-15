@@ -20,6 +20,7 @@
                         $last_page = $firstBook->pivot->last_page ?? 1;
                         $total_page = $firstBook->pages ?? 1;
                         $percentage = round(($last_page / $total_page) * 100);
+                        if ($percentage > 100) $percentage = 100;
                     }
                 @endphp
                 @if($firstBook)
@@ -270,7 +271,7 @@
                             <div class="row-custom-size">
                                 {{$book['last_rating_desc']}}
                             </div>
-                            <a href="#">> Baca selengkapnya</a>
+                            <a href="/viewrating">> Baca selengkapnya</a>
                         </div>
                     @endforeach
                 </div>

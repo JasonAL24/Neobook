@@ -40,9 +40,9 @@
             </div>
         </div>
         <div class="container">
-            <div class="row p-5" style="height: 25vh; background-color: white">
+            <div class="row p-5" style="height: 25vh; background-color: #FDFCF7">
             </div>
-            <div class="row" style="background-color: white">
+            <div class="row" style="background-color: #FDFCF7">
                 <div class="col-lg-5">
                     <b>Deskripsi</b>
                     <p>{!! ($book->description) !!}</p>

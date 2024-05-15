@@ -117,7 +117,7 @@ Route::get('/home', function () {
 });
 
 Route::middleware('auth')->group(function () {
-
+//  BOOKS
     Route::get('/books/{book}', [BookController::class, 'show']);
 
     Route::post('/add-to-collection', [BookController::class, 'addToCollection'])
@@ -131,6 +131,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/search/{query}', [BookController::class, 'search']);
 
+    Route::get('/books/{book}/giverating', [BookController::class, 'giveRating'])->name('books.giverating');
+    Route::post('/giverating', [BookController::class, 'createRating'])->name('books.createrating');
+
+    Route::get('/viewrating', [BookController::class, 'viewRating'])->name('books.viewRating');
+
+//    FORUM
     Route::get('/forumdiskusi', function () {
         return view('forumdiskusi', [
             "title" => "Forum Diskusi"
@@ -149,6 +155,7 @@ Route::middleware('auth')->group(function () {
         ]);
     });
 
+//    KOLEKSI
     Route::get('/koleksi', function () {
         $books = \App\Models\Book::all();
         return view('koleksi', [
@@ -157,30 +164,35 @@ Route::middleware('auth')->group(function () {
         ]);
     });
 
+//    UPLOAD
     Route::get('/unggah', function () {
         return view('unggah', [
             "title" => "Unggah"
         ]);
     });
 
+//    KOMUNITAS
     Route::get('/komunitas', function () {
         return view('komunitas', [
             "title" => "Komunitas"
         ]);
     });
 
+//    LANGGANAN
     Route::get('/langganan', function () {
         return view('langganan', [
             "title" => "Langganan"
         ]);
     });
 
+//    PENGATURAN
     Route::get('/pengaturan', function () {
         return view('pengaturan', [
             "title" => "Pengaturan"
         ]);
     });
 
+//    PROFILE
     Route::get('/profile', function () {
         return view('profile', [
             "title" => "Profile"

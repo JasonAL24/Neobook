@@ -27,6 +27,7 @@
                             <div class="fw-bold mt-2 fs-5">{{ $book->author }}</div>
                             @php
                                 $percentage = round(($book->pivot->last_page / $book->pages) * 100);
+                                if ($percentage > 100) $percentage = 100;
                             @endphp
                             <div class="mt-auto fs-5">
                                 <b>Progress</b>

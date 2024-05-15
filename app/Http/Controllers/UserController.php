@@ -115,7 +115,7 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'profile_picture' => 'required|image|mimes:png|max:2048',
+                'profile_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
             $member = auth()->user()->member;

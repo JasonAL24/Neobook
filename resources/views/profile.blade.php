@@ -18,7 +18,7 @@
                     <button id="uploadButton" class="btn text-light" style="width: 6vw; background-color: #252734; margin-top:-2em;">Ubah</button>
                     <form id="uploadForm" action="{{ route('upload.profile.picture') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input type="file" class="btn text-light" id="fileInput" name="profile_picture" accept=".png" style="display: none;">
+                        <input type="file" class="btn text-light" id="fileInput" name="profile_picture" accept="image/*" style="display: none;">
                     </form>
 
                     <div class="profile-form align-items-center">
