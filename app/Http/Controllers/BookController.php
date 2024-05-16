@@ -26,10 +26,10 @@ class BookController extends Controller
         ]);
     }
 
-    public function searchbook($query)
+    public function searchOnForum($query)
     {
         $results = Book::searchByName($query);
-        return view('buatforum', [
+        return view('forum.booksearch_forum', [
             "results" => $results
         ]);
     }

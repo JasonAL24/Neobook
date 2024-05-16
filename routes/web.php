@@ -131,27 +131,30 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/search/{query}', [BookController::class, 'search']);
 
-Route::get('/searchbook/{query}', [BookController::class, 'searchbook']);
+    Route::get('/forumdiskusi', function () {
+        return view('forum.forumdiskusi', [
+            "title" => "Forum Diskusi"
+        ]);
+    });
 
-Route::get('/forumdiskusi', function () {
-    return view('forumdiskusi', [
-        "title" => "Forum Diskusi"
-    ]);
-});
+    Route::get('/forumsaya', function () {
+        return view('forum.forumsaya', [
+            "title" => "Forum Saya"
+        ]);
+    });
 
-Route::get('/forumsaya', function () {
-    return view('forumsaya', [
-        "title" => "Forum Saya"
-    ]);
-});
+    Route::get('/buatforum', function () {
+        $books = \App\Models\Book::all()->toArray();
+        $bookNames = \App\Models\Book::pluck('name');
+        return view('forum.buatforum', [
+            "title" => "Buat Forum",
+            "books" => $books,
+            "bookNames" => $bookNames
+        ]);
+    });
 
-Route::get('/buatforum', function () {
-    $books = \App\Models\Book::all();
-    return view('buatforum', [
-        "title" => "Buat Forum",
-        "books" => $books,
-    ]);
-});
+    Route::get('/buatforum/search/{query}', [BookController::class, 'searchOnForum']);
+
 
     Route::get('/koleksi', function () {
         return view('koleksi', [

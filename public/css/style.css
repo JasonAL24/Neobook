@@ -138,82 +138,22 @@
     background: #fff;
 }
 
-
 .search input
 {
     width:100%;
 }
 
-/*TESTTTTTTTTTTTTTTTTTTTT*/
 
-.select-btn, li{
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
-.select-btn{
-    padding: 0 20px;
-    background: #fff;
-    border-radius: 7px;
-    justify-content: space-between;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-.select-btn i{
-    transition: transform 0.3s linear;
-}
-.wrapper.active .select-btn i{
-    transform: rotate(-180deg);
-}
-.content{
+.custom-input-forum{
     display: none;
-    padding: 20px;
-    margin-top: 15px;
-    background: #fff;
-    border-radius: 7px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background-color: white;
+    padding: 10px;
 }
-.wrapper.active .content{
+.custom-input-forum.active{
     display: block;
 }
-.content .search{
-    position: relative;
+.search-input-forum{
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
 }
-.search i{
-    top: 50%;
-    left: 15px;
-    color: #999;
-    pointer-events: none;
-    transform: translateY(-50%);
-    position: absolute;
-}
-.search input{
-    width: 100%;
-    height:30px;
-    outline: none;
-    font-size: 17px;
-    border-radius: 5px;
-    padding: 0 20px 0 43px;
-    border: 1px solid #B3B3B3;
-}
-.search input:focus{
-    padding-left: 42px;
-    border: 2px solid #4285f4;
-}
-.search input::placeholder{
-    color: #bfbfbf;
-}
-.content .optionz{
-    margin-top: 10px;
-    max-height: 250px;
-    overflow-y: auto;
-    padding-right: 7px;
-}
-
-.optionz li
-{
-    margin-bottom: 15px;
-}
-
-
 
 
