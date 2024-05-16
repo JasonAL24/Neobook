@@ -83,17 +83,16 @@
             <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header d-flex flex-row">
+                        <div class="modal-header d-flex flex-row" style="border-bottom: 0;">
                             <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Penghapusan</h5>
-                            <button type="button" class="close ms-auto" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
+                            <button type="button" class="btn-close ms-auto" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
                             </button>
                         </div>
                         <div class="modal-body">
                             Apakah kamu yakin untuk menghapus buku ini dari koleksi?
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <div class="modal-footer" style="border-top: 0;">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Batal</button>
                             <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
                         </div>
                     </div>
@@ -111,6 +110,10 @@
             $('#deleteConfirmationModal').modal('show'); // Show the modal
         });
         @endforeach
+
+        function closeModal(){
+            $('#deleteConfirmationModal').modal('hide');
+        }
 
         // Add event listener to the confirm delete button in the modal
         document.getElementById('confirmDeleteButton').addEventListener('click', function() {
