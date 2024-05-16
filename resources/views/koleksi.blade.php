@@ -80,36 +80,63 @@
                     </div>
                 </div>
             @endif
+            <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex flex-row">
+                            <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Penghapusan</h5>
+                            <button type="button" class="close ms-auto" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah kamu yakin untuk menghapus buku ini dari koleksi?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
+        let bookIdToDelete = null; // Variable to store the book ID to delete
+
         // Add event listener to delete buttons
         @foreach ($member->books as $book)
         document.getElementById('delete-book-{{ $book->id }}').addEventListener('click', function() {
-            var isLastBook = $('.delete-book').length === 1;
-            if (confirm('Apakah kamu yakin untuk menghapus buku ini?')) {
-                $.ajax({
-                    url: '{{ route("members.books.remove", ["member" => $member->id, "book" => $book->id]) }}',
-                    type: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        console.log(response.message);
-
-                        $('#delete-book-{{ $book->id }}').closest('.row').fadeOut(500, function() {
-                            $(this).remove();
-                        });
-                        if (isLastBook) {
-                            location.reload(); // Refresh the page if the last book is deleted
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error removing book:', error);
-                    }
-                });
-            }
+            bookIdToDelete = {{ $book->id }}; // Set the book ID to delete
+            $('#deleteConfirmationModal').modal('show'); // Show the modal
         });
         @endforeach
+
+        // Add event listener to the confirm delete button in the modal
+        document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+            var isLastBook = $('.delete-book').length === 1;
+            $.ajax({
+                url: '{{ route("members.books.remove", ["member" => $member->id, "book" => $book->id]) }}',
+                type: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    console.log(response.message);
+
+                    $('#delete-book-' + {{$book->id}}).closest('.row').fadeOut(500, function() {
+                        $(this).remove();
+                    });
+                    if (isLastBook) {
+                        location.reload(); // Refresh the page if the last book is deleted
+                    }
+                    $('#deleteConfirmationModal').modal('hide'); // Hide the modal after deletion
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error removing book:', error);
+                    $('#deleteConfirmationModal').modal('hide'); // Hide the modal on error
+                }
+            });
+        });
     </script>
 @endsection
