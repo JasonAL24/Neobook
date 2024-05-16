@@ -5,13 +5,6 @@
     padding: 10px 63px;
 }
 
-/*.forumContainer*/
-/*{*/
-/*    width:max-content;*/
-/*    margin: 0 auto;*/
-/*    border: 1px solid black;*/
-/*    border-radius: 10px;*/
-/*}*/
 
 .forumdiskusiButton.active
 {
@@ -44,7 +37,7 @@
 .forumdiskusiButton, .forumsayaButton
 {
     padding : 10px 63px;
-    background-color:white;
+    background-color:#F0EEE2;
     border-radius: 10px 0px 0px 10px;
     border:0;
     font-size:16px;
@@ -60,21 +53,166 @@
     font-size:24px;
 }
 
-.judulBox
+.select-menu
 {
-    width:90%;
+    width: 380px;
 }
 
-.custom-input{
-    width: 300px;
-    border: 0;
+.select-menu .select-btn
+{
+    display:flex;
+    font-weight: 400;
+    border-radius: 8px;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.select-btn i
+{
+    transition: 0.3s;
+}
+
+.sBtn-text
+{
+    opacity:70%;
+}
+
+.sBtn-text.active
+{
+    opacity:100%;
+}
+
+
+.select-menu.active .select-btn i
+{
+    transform: rotate(-180deg);
+}
+
+.select-menu .options
+{
+    postion: relative;
+    padding: 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    display:none;
+    height: 30vh;
+    overflow-y:auto;
+}
+
+.select-menu.active .options
+{
+    display: block;
+}
+
+
+.options .option
+{
+    display:flex;
+    cursor: pointer;
+    border-radius: 8px;
+    align-items:center;
+    background:#fff;
+    margin-bottom: 1em;
+}
+
+.options .option:hover
+{
+    background: #F2F2F2;
+}
+
+.book-images
+{
+    width: 73px;
+    height:98px;
+}
+
+.content
+{
+    padding: 20px;
+    margin-top: 15px;
+    border-radius:8px;
+    background: #fff;
+}
+
+
+.search input
+{
+    width:100%;
+}
+
+/*TESTTTTTTTTTTTTTTTTTTTT*/
+
+.select-btn, li{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.select-btn{
+    padding: 0 20px;
+    background: #fff;
+    border-radius: 7px;
+    justify-content: space-between;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.select-btn i{
+    transition: transform 0.3s linear;
+}
+.wrapper.active .select-btn i{
+    transform: rotate(-180deg);
+}
+.content{
+    display: none;
+    padding: 20px;
+    margin-top: 15px;
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.wrapper.active .content{
+    display: block;
+}
+.content .search{
+    position: relative;
+}
+.search i{
+    top: 50%;
+    left: 15px;
+    color: #999;
+    pointer-events: none;
+    transform: translateY(-50%);
+    position: absolute;
+}
+.search input{
+    width: 100%;
+    height:30px;
     outline: none;
+    font-size: 17px;
+    border-radius: 5px;
+    padding: 0 20px 0 43px;
+    border: 1px solid #B3B3B3;
+}
+.search input:focus{
+    padding-left: 42px;
+    border: 2px solid #4285f4;
+}
+.search input::placeholder{
+    color: #bfbfbf;
+}
+.content .optionz{
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 7px;
 }
 
-.dropdown-menu{
-    width: 20vw;
+.optionz li
+{
+    margin-bottom: 15px;
 }
-
 
 
 

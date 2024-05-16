@@ -131,6 +131,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/search/{query}', [BookController::class, 'search']);
 
+Route::get('/searchbook/{query}', [BookController::class, 'searchbook']);
+
 Route::get('/forumdiskusi', function () {
     return view('forumdiskusi', [
         "title" => "Forum Diskusi"
@@ -144,8 +146,10 @@ Route::get('/forumsaya', function () {
 });
 
 Route::get('/buatforum', function () {
+    $books = \App\Models\Book::all();
     return view('buatforum', [
-        "title" => "Buat Forum"
+        "title" => "Buat Forum",
+        "books" => $books,
     ]);
 });
 

@@ -26,6 +26,14 @@ class BookController extends Controller
         ]);
     }
 
+    public function searchbook($query)
+    {
+        $results = Book::searchByName($query);
+        return view('buatforum', [
+            "results" => $results
+        ]);
+    }
+
     public function read(Request $request, Book $book)
     {
         $startPageNum = $request->query('startPage');
