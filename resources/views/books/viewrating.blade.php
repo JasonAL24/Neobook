@@ -7,12 +7,12 @@
             @if($books)
                 @foreach ($books as $book)
                     <div class="row mt-5 p-4" style="background-color: white; width: 80vw; margin-left: 5vw">
-                        <div class="col-lg-1">
+                        <div class="col-auto">
                             <a href="/books/{{$book->id}}" class="text-decoration-none text-black">
                                 <img src="/img/books/{{ $book['filename'] }}.png" alt="{{ $book['name'] }}" class="me-3 book-image">
                             </a>
                         </div>
-                        <div class="col ms-5 d-flex flex-column">
+                        <div class="col d-flex flex-column">
                             <div class="d-flex flex-row">
                                 <h3><b>{{ $book->name }}</b></h3>
                             </div>

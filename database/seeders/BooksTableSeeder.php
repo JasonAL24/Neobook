@@ -40,9 +40,6 @@ class BooksTableSeeder extends Seeder
             $book->filename = $data[7];
             $book->category = $data[8];
             $book->pages = $data[9];
-            $book->rating = $data[10];
-            $book->last_rating_date = $data[11];
-            $book->last_rating_desc = $data[12];
             $book->save();
         }
 

@@ -12,12 +12,12 @@
             @if($firstBook)
                 @foreach ($member->books->sortByDesc('pivot.updated_at') as $book)
                     <div class="row mt-5 p-4" style="background-color: white; width: 80vw; margin-left: 5vw">
-                        <div class="col-lg-1">
+                        <div class="col-auto">
                             <a href="/books/{{$book->id}}" class="text-decoration-none text-black">
                                 <img src="/img/books/{{ $book['filename'] }}.png" alt="{{ $book['name'] }}" class="me-3 book-image">
                             </a>
                         </div>
-                        <div class="col ms-5 d-flex flex-column">
+                        <div class="col d-flex flex-column">
                             <div class="d-flex flex-row">
                                 <h2><b>{{ $book->name }}</b></h2>
                                 <button id="delete-book-{{ $book->id }}" class="btn btn-danger delete-book ms-4 ms-auto" data-book-id="{{ $book->id }}">
@@ -71,9 +71,11 @@
                                         </div>
                                     </a>
                                     <p class="book-name">{{ $book['name'] }}</p>
-                                    <div style="margin-top: -1em">
-                                        <img src="/img/svg/star_yellow.svg" alt="star"> {{$book->rating}}
-                                    </div>
+                                    @if($book->average_rating > 0)
+                                        <div style="margin-top: -1em">
+                                            <img src="/img/svg/star_yellow.svg" alt="star"> {{$book->average_rating}}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Validator;
 
 class BookController extends Controller
 {
+    public function viewAll()
+    {
+        $books = Book::all();
+        return view('books.viewall', [
+            "title" => "All Books",
+            "books" => $books
+        ]);
+    }
+
     public function show(Book $book)
     {
         $member = auth()->user()->member;
@@ -23,6 +32,8 @@ class BookController extends Controller
     public function search($query)
     {
         $results = Book::searchByName($query);
+        $results = $this->calculateAverageRating($results);
+
         return view('books.search_results', [
             "results" => $results
         ]);
@@ -123,16 +134,23 @@ class BookController extends Controller
         // Fetch only books that have ratings
         $books = Book::with('ratings')->has('ratings')->get();
 
-        // Calculate average rating for each book
-        foreach ($books as $book) {
-            $ratings = $book->ratings->pluck('rating')->toArray();
-            $book->average_rating = count($ratings) > 0 ? array_sum($ratings) / count($ratings) : 0;
-        }
+        $books = $this->calculateAverageRating($books);
 
         return view('books.viewrating', [
             "title" => "View Rating",
             "books" => $books,
             "member" => $member
         ]);
+    }
+
+    public function calculateAverageRating($books){
+        foreach ($books as $book) {
+            $ratings = $book->ratings->pluck('rating')->toArray();
+            $average_rating = count($ratings) > 0 ? array_sum($ratings) / count($ratings) : 0;
+            // Round the average rating to 1 decimal point
+            $book->average_rating = number_format($average_rating, 1);
+        }
+
+        return $books;
     }
 }
