@@ -68,6 +68,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/viewrating', [BookController::class, 'viewRating'])->name('books.viewRating');
 
+    Route::get('/forumdiskusi', function () {
+        return view('forum.forumdiskusi', [
+            "title" => "Forum Diskusi"
+        ]);
+    });
+
 //    FORUM
     Route::get('/forumdiskusi', function () {
         return view('forumdiskusi', [
@@ -76,16 +82,23 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/forumsaya', function () {
-        return view('forumsaya', [
+        return view('forum.forumsaya', [
             "title" => "Forum Saya"
         ]);
     });
 
     Route::get('/buatforum', function () {
-        return view('buatforum', [
-            "title" => "Buat Forum"
+        $books = \App\Models\Book::all()->toArray();
+        $bookNames = \App\Models\Book::pluck('name');
+        return view('forum.buatforum', [
+            "title" => "Buat Forum",
+            "books" => $books,
+            "bookNames" => $bookNames
         ]);
     });
+
+    Route::get('/buatforum/search/{query}', [BookController::class, 'searchOnForum']);
+
 
 //    KOLEKSI
     Route::get('/koleksi', function () {
