@@ -21,6 +21,11 @@ class Book extends Model
         return $this->belongsToMany(Member::class);
     }
 
+    public function forumposts()
+    {
+        return $this->hasMany(ForumPost::class);
+    }
+
     public static function searchByName($query)
     {
         $books = self::all();

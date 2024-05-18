@@ -8,7 +8,7 @@
                     <div>
                         <h6 class="mb-1">{{$book->name}}</h6>
                         <p class="mb-0 text-muted">Penulis: {{ $book->author }}</p>
-                        <p class="mb-0 text-muted">Rating: {{ $book->rating }}</p>
+                        <p class="mb-0 text-muted">Rating: {{ $book->average_rating }}</p>
                     </div>
                 </a>
             </div>

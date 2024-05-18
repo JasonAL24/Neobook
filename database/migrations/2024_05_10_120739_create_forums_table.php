@@ -16,11 +16,13 @@ class CreateForumsTable extends Migration
         Schema::create('forum_posts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('member_id');
+            $table->unsignedBigInteger('book_id');
             $table->string('title');
             $table->text('content');
             $table->timestamps();
 
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
         });
 
         // Forum Comments Table

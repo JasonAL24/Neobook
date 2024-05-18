@@ -43,3 +43,38 @@
     width: 50px;
 }
 
+.star-rating {
+    font-size: 0;
+    float: left;
+}
+.star-rating input[type="radio"] {
+    display: none;
+}
+.star-rating:not(:checked) label {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ccc;
+    float: right;
+    background-image: url('/img/svg/star_no_fill.svg');
+    background-size: contain;
+    width: 40px;
+    height: 40px;
+    margin-left: 0.5em;
+    /*margin-bottom: 5em;*/
+}
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating input[type="radio"]:hover ~ label {
+    background-image: url('/img/svg/star_yellow.svg');
+}
+
+.komentar textarea{
+    border:0;
+}
+
+.hidden {
+    display: none;
+}
+
+.expand-img {
+    transform: rotateX(180deg);
+}

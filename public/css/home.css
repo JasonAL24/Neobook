@@ -14,7 +14,8 @@
 }
 
 .img-large{
-    width: 168px;
+    width: 100%;
+    max-width: 168px;
     height: 240px;
 }
 
@@ -72,10 +73,12 @@
     color: white;
     font-size: 18px;
     display: block;
+    height: 30px;
 }
 
 .book-name{
-    font-size: 20px;
+    font-size: 16px;
+    width: 140px;
 }
 
 .no-blue {
@@ -109,8 +112,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 140px;
-    height: 200px;
     background-color: rgba(0, 0, 0, 0.5);
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -135,14 +136,14 @@
 
 .star {
     display: inline-block;
-    width: 24px; /* Adjust size of stars as needed */
-    height: 24px; /* Adjust size of stars as needed */
-    background-image: url('/img/svg/star_black.svg'); /* Image for empty star */
+    width: 24px;
+    height: 24px;
+    background-image: url('/img/svg/star_black.svg');
     background-size: cover;
 }
 
 .star.filled {
-    background-image: url('/img/svg/star_yellow.svg'); /* Image for filled star */
+    background-image: url('/img/svg/star_yellow.svg');
 }
 
 .profile-picture{
@@ -152,4 +153,18 @@
 
 .profile-form{
     width: 40vw;
+}
+
+.font-size-review{
+    font-size: 15px;
+}
+
+.book-image-lg{
+    width: 223px;
+    height: 319px;
+}
+
+.book-name-lg{
+    width: 223px;
+    font-size: 24px;
 }

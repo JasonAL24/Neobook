@@ -31,11 +31,8 @@ class AppServiceProvider extends ServiceProvider
                 $member = $user->member;
                 if ($member){
                     $view->with('member', $member);
-                } else{
-                    return redirect()->route('login')->with('alert', 'Mohon login terlebih dahulu');
                 }
             }
-            return redirect()->route('login')->with('alert', 'Mohon login terlebih dahulu');
         });
     }
 }

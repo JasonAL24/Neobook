@@ -8,17 +8,19 @@
                     <div class="profile-form text-center">
                         @php
                             $profile_picture = $member->profile_picture;
-                            if ($profile_picture == null){
-                                $profile_picture = 'default_pp';
-                            }
                         @endphp
-                        <img src="/img/profile/{{$profile_picture}}.png" alt="profile picture" style="width: 200px; height: 200px" class="rounded-circle">
+                        @if ($member->profile_picture)
+                            <img src="/img/profile/{{$member->id}}/{{$profile_picture}}" alt="profile picture" style="width: 200px; height: 200px" class="rounded-circle">
+                        @else
+                            <img src="/img/profile/default_pp.png" alt="profile picture" style="width: 200px; height: 200px" class="rounded-circle">
+                        @endif
                     </div>
                     <button id="uploadButton" class="btn text-light" style="width: 6vw; background-color: #252734; margin-top:-2em;">Ubah</button>
-                    <form action="{{ route('upload.profile.picture') }}" method="POST" enctype="multipart/form-data">
+                    <form id="uploadForm" action="{{ route('upload.profile.picture') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <input type="file" class="btn text-light" id="fileInput" name="profile_picture" accept=".png" style="display: none;">
+                        <input type="file" class="btn text-light" id="fileInput" name="profile_picture" accept="image/*" style="display: none;">
                     </form>
+
                     <div class="profile-form align-items-center">
                         <form method="POST" action="{{ route('members.update', $member->id) }}">
                             @csrf
@@ -41,8 +43,17 @@
                             </div>
                         </form>
                         @if (session('success'))
-                            <div class="alert alert-success">
+                            <div class="alert alert-success mt-3">
                                 {{ session('success') }}
+                            </div>
+                        @endif
+                        @if ($errors->any())
+                            <div class="alert alert-danger mt-3">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
                             </div>
                         @endif
                         <form method="POST" action="{{ route('logout') }}">
@@ -58,6 +69,10 @@
     <script>
         document.getElementById('uploadButton').addEventListener('click', function() {
             document.getElementById('fileInput').click();
+        });
+
+        document.getElementById('fileInput').addEventListener('change', function() {
+            document.getElementById('uploadForm').submit();
         });
     </script>
 @endsection

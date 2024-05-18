@@ -16,7 +16,7 @@ class CreateBookmemberTable extends Migration
         Schema::create('book_member', function (Blueprint $table) {
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('member_id');
-            $table->integer('last_page')->default(0);
+            $table->integer('last_page')->default(1);
             $table->timestamps();
 
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');

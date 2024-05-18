@@ -8,7 +8,7 @@
                     <a href="/books/{{$book->id}}">
                         <button type="button" class="btn btn-secondary" style="background-color: #282A36">
                             <img src="/img/svg/arrow_left_white.svg" alt="<-">
-                            <b>Kembali</b>
+                            <b>Detail Buku</b>
                         </button>
                     </a>
                 </div>
@@ -128,10 +128,16 @@
         document.getElementById('prevPage').addEventListener('click', prevPage);
 
         function nextPage() {
-            if (pageNum >= pdfDoc.numPages || pageRendering) return;
+            if (pageNum > pdfDoc.numPages || pageRendering) return;
+            else if (pageNum === pdfDoc.numPages){
+                var giveRatingUrl = "/books/{{$book->id}}/giverating";
+                window.location.href = giveRatingUrl;
+            }
             pageNum++;
-            updateLastPage(pageNum);
-            renderPage(pageNum);
+            if (pageNum <= pdfDoc.numPages){
+                updateLastPage(pageNum);
+                renderPage(pageNum);
+            }
         }
 
         function prevPage() {
