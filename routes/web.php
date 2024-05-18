@@ -75,11 +75,6 @@ Route::middleware('auth')->group(function () {
     });
 
 //    FORUM
-    Route::get('/forumdiskusi', function () {
-        return view('forumdiskusi', [
-            "title" => "Forum Diskusi"
-        ]);
-    });
 
     Route::get('/forumsaya', function () {
         return view('forum.forumsaya', [
