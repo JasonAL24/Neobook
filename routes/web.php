@@ -106,11 +106,9 @@ Route::middleware('auth')->group(function () {
     });
 
 //    UPLOAD
-    Route::get('/unggah', function () {
-        return view('unggah', [
-            "title" => "Unggah"
-        ]);
-    });
+    Route::get('/unggah', [BookController::class, 'viewUpload'])->name('viewUpload');
+    Route::get('/unggah/buat', [BookController::class, 'viewBookUpload'])->name('viewBookUpload');
+    Route::post('/unggah/buat', [BookController::class, 'createBook'])->name('createBook');
 
 //    KOMUNITAS
     Route::get('/komunitas', function () {

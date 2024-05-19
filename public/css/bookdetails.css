@@ -78,3 +78,7 @@
 .expand-img {
     transform: rotateX(180deg);
 }
+
+.input-label{
+    width: 10em;
+}

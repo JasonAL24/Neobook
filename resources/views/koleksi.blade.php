@@ -57,14 +57,14 @@
                 </div>
                 <div>
                     <h3 class="ms-5 mt-4">Ayo mulai baca dan simpan ke koleksi sekarang!</h3>
-                    <div class="row">
+                    <div class="row ms-5">
                         @foreach($books as $book)
-                            <div class="col">
+                            <div class="col-auto me-auto">
                                 <div class="text-center">
                                     <a class="no-blue" href="/books/{{$book['id']}}">
                                         <div class="book-container">
                                             <img src="/img/books/{{ $book['filename'] }}.png" alt="{{ $book['name'] }}" class="mb-3 book-image">
-                                            <div class="overlay d-flex flex-column">
+                                            <div class="overlay d-flex flex-column book-image">
                                                 <img src="img/svg/look.svg" alt="look">
                                                 <span class="text-overlay">Lihat</span>
                                             </div>

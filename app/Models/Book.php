@@ -18,12 +18,19 @@ class Book extends Model
 
     public function members()
     {
-        return $this->belongsToMany(Member::class);
+        return $this->belongsToMany(Member::class)
+            ->withTimestamps()
+            ->withPivot('last_page', 'updated_at', 'created_at');
     }
 
     public function forumposts()
     {
         return $this->hasMany(ForumPost::class);
+    }
+
+    public function record()
+    {
+        return $this->hasOne(Record::class);
     }
 
     public static function searchByName($query)

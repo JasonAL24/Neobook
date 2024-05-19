@@ -17,6 +17,9 @@ class CreateCommunitiesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
+            $table->string('profile_picture')->nullable();
+            $table->string('social_medias')->nullable();
+            $table->string('background_cover')->nullable();
             $table->timestamps();
         });
 

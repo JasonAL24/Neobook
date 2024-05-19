@@ -5,8 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Member;
 use App\Models\Rating;
+use App\Models\Record;
+use App\Models\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Spatie\PdfToText\Pdf;
+use Smalot\PdfParser\Parser;
 
 class BookController extends Controller
 {
@@ -67,11 +75,8 @@ class BookController extends Controller
         // Get the book ID from the request
         $bookId = $request->input('book_id');
 
-        // Retrieve the book
-        $book = Book::find($bookId);
-
         if ($member) {
-            $member->books()->attach($book->id);
+            $member->books()->sync([$bookId], false);
             return redirect()->back()->with('success', 'Buku berhasil ditambahkan ke koleksi!');
         } else {
             return redirect()->back()->with('error', 'Gagal menambahkan buku. Tolong coba ulang.');
@@ -161,4 +166,101 @@ class BookController extends Controller
 
         return $books;
     }
+
+    // Upload
+    public function viewUpload(){
+        $member = auth()->user()->member;
+
+        $records = $member->records()->with('book')->get();
+
+        return view('upload.unggah', [
+            "title" => 'Unggah',
+            "records" => $records
+        ]);
+    }
+
+    public function viewBookUpload(){
+        $member = auth()->user()->member;
+
+        return view('upload.createbook', [
+            "title" => 'Unggah',
+            "member" => $member
+        ]);
+    }
+
+    public function createBook(Request $request){
+        $validator = Validator::make($request->all(), [
+            'judul' => 'required|string',
+            'penulis' => 'required|string|max:30',
+            'deskripsi' => 'required|string|max:500',
+            'editor' => 'required|string|max:30',
+            'bahasa' => 'required|string|max:20|min:2',
+            'kategori' => 'required|string|max:20|min:2',
+            'ISBN' => 'required|string',
+            'penerbit' => 'required|string|max:30',
+            'pdf_file' => 'required|mimes:pdf|max:10240',
+            'cover_image' => 'required|image|mimes:png|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $pdfFilename = pathinfo($request->file('pdf_file')->getClientOriginalName(), PATHINFO_FILENAME);
+        $request->file('pdf_file')->move(public_path('/books'), $pdfFilename . '.pdf');
+        $pdfFullPath = public_path('books/' . $pdfFilename . '.pdf');
+
+        // Store cover image in public/img/books directory
+        $coverImageFilename = $pdfFilename . '.png';
+        $request->file('cover_image')->move(public_path('/img/books'), $coverImageFilename);
+        $imageFullPath = public_path('img/books/' . $coverImageFilename);
+
+        // Get max pages
+        $parser = new Parser();
+
+        $pdf = $parser->parseFile($pdfFullPath);
+        $totalPages = count($pdf->getPages());
+
+        // Redesign the description
+        $description = $request->input('deskripsi');
+        $descriptionWithPTags = '<p>' . str_replace("\n", '</p><p>', $description) . '</p>';
+
+        try{
+            $book = new Book();
+            $book->name = $request->input('judul');
+            $book->description = $descriptionWithPTags;
+            $book->author = $request->input('penulis');
+            $book->editor = $request->input('editor');
+            $book->language = $request->input('bahasa');
+            $book->publisher = $request->input('penerbit');
+            $book->category = $request->input('kategori');
+            $book->ISBN = $request->input('ISBN');
+            $book->filename = $pdfFilename;
+            $book->pages = $totalPages;
+            $book->save();
+
+            $member = auth()->user()->member;
+            $bookId = $book->getKey();
+
+            $record = new Record();
+            $record->book_id = $bookId;
+            $record->member_id = $member->id;
+            $record->uploaded_at = now();
+            $record->save();
+
+        } catch (QueryException $e){
+            File::delete($pdfFullPath);
+            File::delete($imageFullPath);
+            if ($e->errorInfo[1] === 1062) {
+                return redirect()->back()->with('error', 'Nama buku sudah ada, mohon unggah buku lain');
+            }
+
+//            return redirect()->back()->with('error', 'Terjadi error saat unggah buku.');
+        }
+
+
+        return redirect()->back()->with('success', 'Sukses! Buku telah diunggah!');
+    }
+
 }

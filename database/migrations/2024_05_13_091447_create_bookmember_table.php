@@ -24,6 +24,18 @@ class CreateBookmemberTable extends Migration
 
             $table->primary(['book_id', 'member_id']);
         });
+
+        Schema::create('records', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('member_id');
+            $table->timestamp('uploaded_at');
+            $table->string('status')->default('Menunggu persetujuan');
+            $table->timestamps();
+
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+        });
     }
 
     /**
@@ -34,5 +46,6 @@ class CreateBookmemberTable extends Migration
     public function down()
     {
         Schema::dropIfExists('book_member');
+        Schema::dropIfExists('record');
     }
 }
