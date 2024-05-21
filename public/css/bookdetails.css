@@ -39,6 +39,14 @@
     /*height: 60vw;*/
 }
 
+.small-white-container{
+    background-color: #FDFCF7;
+    /*background-color: grey;*/
+    width: 90%;
+    border-radius: 10px;
+    /*height: 60vw;*/
+}
+
 .delete-book{
     width: 50px;
 }

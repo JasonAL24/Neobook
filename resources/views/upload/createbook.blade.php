@@ -17,7 +17,7 @@
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-label">Deskripsi Buku</span>
-                        <div class="position-relative input-group" style="width: 89%; padding: 0">
+                        <div class="position-relative input-group form-control" style="padding: 0; border: 0">
                             <textarea id="deskripsi" name="deskripsi" class="form-control" maxlength="500" placeholder="Tulis deskripsi buku..." aria-label="Deskripsi" style="height: 10em;"></textarea>
                             <div class="position-absolute bottom-0 end-0 me-3" style="pointer-events: none; font-size: 16px; opacity: 50%; z-index:500">
                                 <span id="char-count" class="">0/500</span>
@@ -79,7 +79,7 @@
                         <div class="ms-auto">
                             <span id="pdfName" class="me-2"></span>
                             <button type="button" id="pdfUploadBtn" class="btn text-light fw-bold me-3" style="background-color: #252734; border-radius: 10px">
-                                Unggah File
+                                Unggah File Buku
                                 <img src="/img/svg/upload_book.svg" alt="upload" style="width: 23px">
                             </button>
                         </div>
@@ -87,16 +87,20 @@
                     </div>
                     <div class="input-group mb-3" style="background-color: white;">
                         <div class="input-group-prepend">
-                            <button type="button" class="btn" id="coverUploadBtn">
-                                <div class="mb-3" id="coverPreviewContainer">
-                                    <img src="/img/default_preview.png" alt="Cover Preview" id="coverPreview" style="max-width: 200px; max-height: 200px;">
-                                </div>
-                            </button>
+                            <div class="mb-3" id="coverPreviewContainer">
+                                <img src="/img/default_preview.png" alt="Cover Preview" id="coverPreview" style="max-width: 200px; max-height: 200px;">
+                            </div>
+
                         </div>
                         <div class="p-3 d-flex flex-column">
                             <span class="fs-5 fw-bold">Unggah Cover Buku</span>
                             <span class="opacity-50">*Cover buku musti berupa file png dan ukuran maksimal 2 MB</span>
+                            <button type="button" class="btn text-light fw-bold me-3 mt-auto mb-4" id="coverUploadBtn" style="background-color: #252734; border-radius: 10px; width: 12em;">
+                                Unggah Cover Buku
+                                <img src="/img/svg/upload_book.svg" alt="upload" style="width: 23px">
+                            </button>
                         </div>
+
 
                         <input type="file" name="cover_image" class="form-control d-none" accept=".png" aria-label="Cover Buku" id="coverInput">
                     </div>
@@ -120,7 +124,7 @@
                     @endif
                     <div class="d-flex flex-row">
                         <div class="ms-auto mt-4">
-                            <button type="submit" class="btn btn-secondary" style="width: 6vw">Unggah</button>
+                            <button type="submit" class="btn btn-secondary fw-bold fs-5" style="width: 6vw">Unggah</button>
                         </div>
                     </div>
                 </div>

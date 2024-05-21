@@ -27,4 +27,19 @@ class Member extends Model
     {
         return $this->hasMany(Record::class);
     }
+
+    public function communities()
+    {
+        return $this->hasManyThrough(Community::class, CommunityMember::class, 'member_id', 'id', 'id', 'community_id');
+    }
+
+    public function communitymembers()
+    {
+        return $this->hasMany(CommunityMember::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

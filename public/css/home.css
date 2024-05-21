@@ -168,3 +168,25 @@
     width: 223px;
     font-size: 24px;
 }
+
+.pp-komunitas-detail{
+    width: 160px;
+    height: 160px;
+    border: 5px solid white;
+    border-radius: 10px;
+    margin-top: -5em;
+}
+
+.pp-chat{
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+}
+
+.offcanvas.show {
+    transform: translateX(0);
+}
+
+.offcanvas:not(.show) {
+    transform: translateX(100%);
+}

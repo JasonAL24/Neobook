@@ -35,6 +35,27 @@ class CreateCommunitiesTable extends Migration
 
             $table->unique(['community_id', 'member_id']); // Ensuring uniqueness of community-member pair
         });
+
+        Schema::create('announcements', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('community_id');
+            $table->string('title');
+            $table->string('content');
+            $table->timestamps();
+
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
+        });
+
+        Schema::create('messages', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('community_id');
+            $table->unsignedBigInteger('member_id');
+            $table->text('content');
+            $table->timestamps();
+
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+        });
     }
 
     /**
@@ -46,5 +67,6 @@ class CreateCommunitiesTable extends Migration
     {
         Schema::dropIfExists('communities');
         Schema::dropIfExists('community_members');
+        Schema::dropIfExists('announcements');
     }
 }
