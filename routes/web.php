@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CommunityChatController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ForumController;
@@ -69,12 +71,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/viewrating', [BookController::class, 'viewRating'])->name('books.viewRating');
 
+
 //    FORUM
     Route::get('/forumdiskusi', function () {
         return view('forum.forumdiskusi', [
             "title" => "Forum Diskusi"
         ]);
     });
+
+//    FORUM
 
     Route::get('/forumsaya', function () {
         return view('forum.forumsaya', [
@@ -108,18 +113,21 @@ Route::middleware('auth')->group(function () {
     });
 
 //    UPLOAD
-    Route::get('/unggah', function () {
-        return view('unggah', [
-            "title" => "Unggah"
-        ]);
-    });
+    Route::get('/unggah', [BookController::class, 'viewUpload'])->name('viewUpload');
+    Route::get('/unggah/buat', [BookController::class, 'viewBookUpload'])->name('viewBookUpload');
+    Route::post('/unggah/buat', [BookController::class, 'createBook'])->name('createBook');
 
 //    KOMUNITAS
-    Route::get('/komunitas', function () {
-        return view('komunitas', [
-            "title" => "Komunitas"
-        ]);
-    });
+    Route::get('/komunitas', [CommunityController::class, 'viewAll'])->name('viewAllCommunity');
+    Route::get('/komunitas/{community}', [CommunityController::class, 'viewDetail'])->name('community.detail');
+    Route::get('/komunitas/{community}/members', [CommunityController::class, 'viewMembers'])->name('community.members');
+    Route::post('/community/{community}/join', [CommunityController::class, 'join'])->name('community.join');
+    Route::get('/komunitas/search/{query}', [CommunityController::class, 'search']);
+    Route::post('/komunitas/{community}/createannouncement', [CommunityController::class, 'createAnnouncement'])->name('community.createAnnouncement');
+
+    Route::get('/chats', [CommunityChatController::class, 'index'])->name('community.chat.index');
+    Route::get('/chats/{community}', [CommunityChatController::class, 'show'])->name('community.chat.show');
+    Route::post('/chats/{community}', [CommunityChatController::class, 'store'])->name('community.chat.store');
 
 //    LANGGANAN
     Route::get('/langganan', function () {
@@ -138,7 +146,7 @@ Route::middleware('auth')->group(function () {
 //    PROFILE
     Route::get('/profile', function () {
         return view('profile', [
-            "title" => "Profile"
+            "title" => "Pengaturan"
         ]);
     })->name('profile');
 

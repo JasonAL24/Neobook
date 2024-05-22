@@ -57,14 +57,14 @@
                 </div>
                 <div>
                     <h3 class="ms-5 mt-4">Ayo mulai baca dan simpan ke koleksi sekarang!</h3>
-                    <div class="row">
+                    <div class="row ms-5">
                         @foreach($books as $book)
-                            <div class="col">
+                            <div class="col-auto me-auto">
                                 <div class="text-center">
                                     <a class="no-blue" href="/books/{{$book['id']}}">
                                         <div class="book-container">
                                             <img src="/img/books/{{ $book['filename'] }}.png" alt="{{ $book['name'] }}" class="mb-3 book-image">
-                                            <div class="overlay d-flex flex-column">
+                                            <div class="overlay d-flex flex-column book-image">
                                                 <img src="img/svg/look.svg" alt="look">
                                                 <span class="text-overlay">Lihat</span>
                                             </div>
@@ -87,14 +87,14 @@
                     <div class="modal-content">
                         <div class="modal-header d-flex flex-row" style="border-bottom: 0;">
                             <h5 class="modal-title" id="deleteConfirmationModalLabel">Konfirmasi Penghapusan</h5>
-                            <button type="button" class="btn-close ms-auto" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close" onclick="closeModal()">
                             </button>
                         </div>
                         <div class="modal-body">
                             Apakah kamu yakin untuk menghapus buku ini dari koleksi?
                         </div>
                         <div class="modal-footer" style="border-top: 0;">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Batal</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeModal()">Batal</button>
                             <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
                         </div>
                     </div>
@@ -112,10 +112,6 @@
             $('#deleteConfirmationModal').modal('show'); // Show the modal
         });
         @endforeach
-
-        function closeModal(){
-            $('#deleteConfirmationModal').modal('hide');
-        }
 
         // Add event listener to the confirm delete button in the modal
         document.getElementById('confirmDeleteButton').addEventListener('click', function() {
