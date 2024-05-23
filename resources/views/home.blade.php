@@ -219,43 +219,37 @@
                     </div>
                 </div>
                 <div class="container font-size-18 mt-3">
-                    <div class="row">
-                        <div class="col-auto">
-                            <img src="img/book_group.png" alt="Book Group">
-                        </div>
-                        <div class="col">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <strong>The Nerds Group 🤓</strong>
+                    @if ($isMemberPremium)
+                    @php $countChat = 0 @endphp
+                    @foreach($communitiesWithLastMessage as $communityChat)
+                        @if($countChat < 3)
+                            <div class="row mb-4 align-items-center">
+                                <div class="col-auto">
+                                    <a href="/komunitas/{{$communityChat->id}}">
+                                        @if($communityChat->profile_picture)
+                                            <img src="/img/communities/profile_picture/{{$communityChat->id}}/{{$communityChat->profile_picture}}"
+                                                 alt="{{$communityChat->name}}" class="rounded-circle profile-picture">
+                                        @else
+                                            <img src="/img/communities/profile_picture/default_profile_picture.png"
+                                                 alt="Default Group Picture" class="profile-picture rounded-circle">
+                                        @endif
+                                    </a>
+                                </div>
+                                <div class="col d-flex flex-column">
+                                    <strong>{{$communityChat->name}}</strong>
+                                    @if($communityChat->lastMessage)
+                                        <small><strong>{{$communityChat->lastMessage->member->name}}:</strong> {{ $communityChat->lastMessage->content }}</small>
+                                    @else
+                                        <small>No messages yet.</small>
+                                    @endif
                                 </div>
                             </div>
-                            <div class="row row-custom-size mt-1">
-                                <div class="col">
-                                    <strong>User:</strong> Eh udah liat buku lord of the rings yang baru blom? Gua udah sampe hal....
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-3"></div>
-                <div class="container font-size-18">
-                    <div class="row">
-                        <div class="col-auto">
-                            <img src="img/harry_potter_group.png" alt="Harry Potter Group">
-                        </div>
-                        <div class="col">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <strong>Wizards 🧙</strong>
-                                </div>
-                            </div>
-                            <div class="row row-custom-size mt-1">
-                                <div class="col">
-                                    <strong>User:</strong> Gila ges, buku harry potter yang baru mau rilis ges, gw harus dateng per...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            @php $countChat++ @endphp
+                        @endif
+                    @endforeach
+                    @else
+                        <span>Langganan premium sekarang untuk membuka fitur ini!</span>
+                    @endif
                 </div>
             </div>
             <div class="container mt-5">

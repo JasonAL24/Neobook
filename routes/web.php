@@ -42,11 +42,24 @@ Route::middleware('auth')->group(function () {
         $booksWithRating = Book::with('ratings')->has('ratings')->get();
         $booksWithRating = (new BookController())->calculateAverageRating($booksWithRating);
 
+        $communities = $member->communities()->with(['messages' => function($query) {
+            $query->latest()->first();
+        }])->get();
+
+        $communitiesWithLastMessage = $communities->map(function ($community) {
+            $community->lastMessage = $community->messages->first();
+            return $community;
+        });
+
+        $isMemberPremium = $member->premium_status;
+
         return view('home', [
             "title" => "Home",
             "books" => $book,
             "member" => $member,
-            "booksWithRating" => $booksWithRating
+            "booksWithRating" => $booksWithRating,
+            "communitiesWithLastMessage" => $communitiesWithLastMessage,
+            "isMemberPremium" => $isMemberPremium,
         ]);
     });
 
@@ -126,6 +139,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/community/{community}/upload-background-cover', [CommunityController::class, 'updateBackgroundCover'])->name('community.upload.background');
     Route::post('/community/{community}/upload-profile-picture', [CommunityController::class, 'updateProfilePicture'])->name('community.upload.pp');
 
+//    CHATS
     Route::get('/chats', [CommunityChatController::class, 'index'])->name('community.chat.index');
     Route::get('/chats/{community}', [CommunityChatController::class, 'show'])->name('community.chat.show');
     Route::post('/chats/{community}', [CommunityChatController::class, 'store'])->name('community.chat.store');
@@ -136,6 +150,7 @@ Route::middleware('auth')->group(function () {
             "title" => "Langganan"
         ]);
     });
+    Route::post('/subscribe', [UserController::class, 'subscribe']);
 
 //    PENGATURAN
     Route::get('/pengaturan', function () {

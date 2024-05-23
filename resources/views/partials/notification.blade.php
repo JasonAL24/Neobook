@@ -10,7 +10,7 @@
                             <img src="/img/profile/default_pp.png" alt="default profile picture" class="profile-picture rounded-circle">
                         @endif
                         <p class="mb-0 ms-2">{{ explode(' ', $member->name)[0] }}</p>
-                        <img src="/img/svg/checkmark.svg" alt="checkmark">
+                        <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$member->premium_status ? 'd-block' : 'd-none'}}">
                     </div>
                 </a>
 
