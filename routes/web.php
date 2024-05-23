@@ -117,8 +117,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/komunitas/{community}', [CommunityController::class, 'viewDetail'])->name('community.detail');
     Route::get('/komunitas/{community}/members', [CommunityController::class, 'viewMembers'])->name('community.members');
     Route::post('/community/{community}/join', [CommunityController::class, 'join'])->name('community.join');
-    Route::get('/komunitas/search/{query}', [CommunityController::class, 'search']);
+    Route::get('/komunitas/search/{query}', [CommunityController::class, 'search'])->name('search.community');
+    Route::get('/buatkomunitas', [CommunityController::class, 'viewCreateCommunity']);
+    Route::post('/buatkomunitas', [CommunityController::class, 'createCommunity'])->name('community.create');
     Route::post('/komunitas/{community}/createannouncement', [CommunityController::class, 'createAnnouncement'])->name('community.createAnnouncement');
+    Route::delete('/community/{community}/member/{member}', [CommunityController::class, 'removeMember'])->name('community.member.delete');
+
+    Route::post('/community/{community}/upload-background-cover', [CommunityController::class, 'updateBackgroundCover'])->name('community.upload.background');
+    Route::post('/community/{community}/upload-profile-picture', [CommunityController::class, 'updateProfilePicture'])->name('community.upload.pp');
 
     Route::get('/chats', [CommunityChatController::class, 'index'])->name('community.chat.index');
     Route::get('/chats/{community}', [CommunityChatController::class, 'show'])->name('community.chat.show');

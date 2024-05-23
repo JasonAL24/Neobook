@@ -3,22 +3,46 @@
 @section('container')
     <div class="main-bg">
         <div class="white-container ms-4" style="width: 87vw">
-            @if($community->background_cover)
-                <img src="/img/communities/background_cover/{{$community->background_cover}}"
-                     alt="{{$community->title}}" style="width: 100%; height: 200px">
-            @else
-                <img src="/img/communities/background_cover/default_background_cover.png" alt="Default Background Cover"
-                     style="width: 100%; height: 200px">
-            @endif
+            <button class="btn p-0" id="uploadBackgroundCoverButton" style="pointer-events: {{$isModerator ? 'auto' : 'none'}}">
+                <div class="book-container">
+                    @if($community->background_cover)
+                        <img src="/img/communities/background_cover/{{$community->id}}/{{$community->background_cover}}"
+                             alt="{{$community->name}}" style="width: 87vw; height: 200px; border-radius: 10px 10px 0 0">
+                    @else
+                        <img src="/img/communities/background_cover/default_background_cover.png" alt="Default Background Cover"
+                             style="width: 100%; height: 200px">
+                    @endif
+                    <div class="overlay d-flex flex-column" style="width: 100%; height: 200px">
+                        <img src="/img/svg/trash.svg" alt="Ubah" style="width: 3em">
+                        <span class="text-overlay">Ubah</span>
+                    </div>
+                </div>
+            </button>
+            <form id="uploadBackgroundCover" action="{{ route('community.upload.background', ['community' => $community->id]) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <input type="file" class="btn text-light" id="backgroundInput" name="background_cover" accept="image/*" style="display: none;">
+            </form>
             <div class="row">
                 <div class="col-lg-3 p-3 text-center d-flex flex-column align-items-center">
-                    @if($community->profile_picture)
-                        <img src="/img/communities/profile_picture/{{$community->profile_picture}}"
-                             alt="{{$community->title}}" class="pp-komunitas-detail">
-                    @else
-                        <img src="/img/communities/profile_picture/default_profile_picture.png"
-                             alt="Default Group Picture" class="pp-komunitas-detail">
-                    @endif
+                    <button class="btn p-0" id="uploadPPButton" style="pointer-events: {{$isModerator ? 'auto' : 'none'}}">
+                        <div class="book-container">
+                            @if($community->profile_picture)
+                                <img src="/img/communities/profile_picture/{{$community->id}}/{{$community->profile_picture}}"
+                                     alt="{{$community->name}}" class="pp-komunitas-detail">
+                            @else
+                                <img src="/img/communities/profile_picture/default_profile_picture.png"
+                                     alt="Default Group Picture" class="pp-komunitas-detail">
+                            @endif
+                            <div class="overlay d-flex flex-column pp-komunitas-detail">
+                                <img src="/img/svg/trash.svg" alt="Ubah">
+                                <span class="text-overlay">Ubah</span>
+                            </div>
+                        </div>
+                    </button>
+                    <form id="uploadPP" action="{{ route('community.upload.pp', ['community' => $community->id]) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" class="btn text-light" id="ppInput" name="profile_picture" accept="image/*" style="display: none;">
+                    </form>
                     @if(!$isMember)
                         <form action="{{ route('community.join', ['community' => $community->id]) }}" method="POST"
                               style="width: 100%;">
@@ -29,6 +53,15 @@
                                 Ikuti
                             </button>
                         </form>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-danger mt-3">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
                     <span class="fw-bold mt-5">Anggota</span>
                     <div class="d-flex flex-row ms-3 mt-3">
@@ -68,13 +101,22 @@
                             </div>
                         </div>
                     @endforeach
+
+                    @if($community->social_media)
+                        <span class="fw-bold mt-5 mb-3">Media Sosial</span>
+                        <div class="row align-items-center mb-2">
+                            <div class="col p-0">
+                                <span>{{$community->social_media}}</span>
+                            </div>
+                        </div>
+                    @endif
                 </div>
-                <div class="col">
-                    <div class="small-white-container p-3" style="margin-top: -3em;">
-                        <div class="fw-bold fs-4">{{$community->title}}</div>
+                <div class="col d-flex flex-column">
+                    <div class="small-white-container p-3" style="margin-top: -3em; z-index: 500">
+                        <div class="fw-bold fs-4">{{$community->name}}</div>
                         <div>{{count($community->communitymembers)}} Anggota</div>
                         <div class="fw-bold mt-3">Tentang Kami</div>
-                        <div>{{$community->description}}</div>
+                        <div>{!! $community->description !!}</div>
                     </div>
 
                     <div class="small-white-container p-3">
@@ -124,7 +166,7 @@
                         <div>
                             @foreach($announcements as $announcement)
                                 <div class="d-flex flex-row mt-4">
-                                    <div class="fw-bold">{{$announcement->title}}</div>
+                                    <div class="fw-bold">{{$announcement->name}}</div>
                                     <div class="ms-auto"> {{$announcement->created_at->format('d-m-Y')}}</div>
                                 </div>
                                 <div>{{$announcement->content}}</div>
@@ -144,6 +186,22 @@
                 var charCount = $(this).val().length;
                 $('#char-count').text(charCount + '/100');
             });
+        });
+
+        document.getElementById('uploadBackgroundCoverButton').addEventListener('click', function() {
+            document.getElementById('backgroundInput').click();
+        });
+
+        document.getElementById('backgroundInput').addEventListener('change', function() {
+            document.getElementById('uploadBackgroundCover').submit();
+        });
+
+        document.getElementById('uploadPPButton').addEventListener('click', function() {
+            document.getElementById('ppInput').click();
+        });
+
+        document.getElementById('ppInput').addEventListener('change', function() {
+            document.getElementById('uploadPP').submit();
         });
     </script>
 @endsection

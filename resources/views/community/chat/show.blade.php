@@ -1,13 +1,13 @@
 <div class="ms-5 d-flex flex-row" style="margin-top:-2.5em">
     @if($community->profile_picture)
-        <img src="/img/communities/profile_picture/{{$community->profile_picture}}"
-             alt="{{$community->title}}" class="rounded-circle" style="width: 42px; height: 42px">
+        <img src="/img/communities/profile_picture/{{$community->id}}/{{$community->profile_picture}}"
+             alt="{{$community->name}}" class="rounded-circle" style="width: 42px; height: 42px">
     @else
         <img src="/img/communities/profile_picture/default_profile_picture.png"
              alt="Default Group Picture" class="rounded-circle" style="width: 42px; height: 42px">
     @endif
     <div class="ms-3">
-        <div class="fw-bold">{{ $community->title }}</div>
+        <div class="fw-bold">{{ $community->name }}</div>
         <div class="opacity-50">{{count($community->members)}} Anggota</div>
     </div>
 </div>
@@ -27,7 +27,7 @@
                     @endphp
 
                     <div class="d-flex {{ $isMember ? 'justify-content-end' : 'justify-content-start' }} mb-2">
-                        <div class="p-2 rounded {{ $isMember ? 'bg-light' : 'bg-secondary' }}" style="max-width: 75%;">
+                        <div class="p-2 rounded {{ $isMember ? 'bg-light' : 'bg-body-secondary' }}" style="max-width: 75%;">
                             {{ $message->content }}
                             <br>
                             <small class="text-muted">{{ $message->created_at->format('h:i A') }}</small>
