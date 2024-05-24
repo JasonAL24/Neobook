@@ -14,10 +14,10 @@
                     </div>
                 </a>
 
-                <a href="#" class="notification ms-4">
-                    <img src="/img/svg/Bell_light.svg" alt="Notification">
-                    <span class="badge">3</span>
-                </a>
+{{--                <a href="#" class="notification ms-4">--}}
+{{--                    <img src="/img/svg/Bell_light.svg" alt="Notification">--}}
+{{--                    <span class="badge">3</span>--}}
+{{--                </a>--}}
             </div>
         </div>
     </div>
