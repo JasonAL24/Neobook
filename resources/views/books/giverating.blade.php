@@ -47,12 +47,20 @@
                     <div class="row mt-3">
                         <div class="col fs-5 pb-2" style="margin-left: 6em;">
                             <div id="predefined-comments" class="mb-3" style="display: none;">
-                                <b>Pilih alasan berikut:</b>
-                                <div class="mt-2 btn-group row ms-1" role="group" aria-label="Predefined Comments">
-                                    <input type="button" class="btn btn-outline-secondary predefined-comment col-auto" value="Ceritanya sangat menarik!">
-                                    <input type="button" class="btn btn-outline-secondary predefined-comment col-auto" value="Saya sangat rekomendasi buku ini!">
-                                    <input type="button" class="btn btn-outline-secondary predefined-comment col-auto" value="Karakter dalam cerita sangat menginspirasi!">
-                                    <input type="button" class="btn btn-outline-secondary predefined-comment col-auto" value="Alur cerita sangat mendebarkan!">
+                                <b>Terima kasih atas rating 5!</b>
+                                <b>Mohon pilih alasan berikut:</b>
+                                <div class="mt-2 btn-group ms-1" role="group" aria-label="Predefined Comments">
+                                    <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+                                    <label class="btn btn-outline-secondary" for="btncheck1">Ceritanya sangat menarik!</label>
+
+                                    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+                                    <label class="btn btn-outline-secondary" for="btncheck2">Saya sangat rekomendasi buku ini!</label>
+
+                                    <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+                                    <label class="btn btn-outline-secondary" for="btncheck3">Karakter dalam cerita sangat menginspirasi!</label>
+
+                                    <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
+                                    <label class="btn btn-outline-secondary" for="btncheck4">Alur cerita sangat mendebarkan!</label>
                                 </div>
                             </div>
                         </div>
@@ -92,8 +100,7 @@
                 }
             });
 
-            $('.predefined-comment').on('click', function() {
-                $(this).toggleClass('btn-outline-secondary btn-secondary');
+            $('input.btn-check').on('change', function() {
                 updateReview();
             });
 
@@ -107,8 +114,8 @@
 
             function updateReview() {
                 var selectedComments = [];
-                $('.predefined-comment.btn-secondary').each(function() {
-                    selectedComments.push($(this).val());
+                $('input.btn-check:checked').each(function() {
+                    selectedComments.push($('label[for="' + $(this).attr('id') + '"]').text());
                 });
 
                 $('#review').val(selectedComments.join(' ') + (selectedComments.length ? ' ' : ''));
