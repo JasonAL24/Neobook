@@ -26,10 +26,11 @@
                 </div>
             </div>
             <div class="row mt-3 align-items-center justify-content-center">
-                <div class="col-lg-1">
-                    <button id="prevPage" class="btn btn-light rounded-circle" style="width: 72px; height: 72px">
+                <div class="col-lg-1 text-center">
+                    <button id="prevPage" class="btn btn-light rounded-circle prev-button" style="width: 72px; height: 72px">
                         <img src="/img/svg/arrow.svg" alt="arrow_left">
                     </button>
+                    <span class="prev-text">Halaman sebelumnya</span>
                 </div>
                 <div class="col-lg-10 text-center">
                     <canvas id="pdfViewer" class="mx-auto book-content"></canvas>
@@ -39,10 +40,11 @@
                         <p>Mohon periksa ulang di lain waktu</p>
                     </div>
                 </div>
-                <div class="col-lg-1">
-                    <button id="nextPage" class="btn btn-light rounded-circle" style="width: 72px; height: 72px">
+                <div class="col-lg-1 text-center">
+                    <button id="nextPage" class="btn btn-light rounded-circle next-button" style="width: 72px; height: 72px">
                         <img src="/img/svg/arrow.svg" alt="arrow_right" style="transform: scaleX(-1);">
                     </button>
+                    <span class="next-text">Halaman berikutnya</span>
                 </div>
             </div>
             <div class="row bottom-controls align-items-center" id="bottomControls">

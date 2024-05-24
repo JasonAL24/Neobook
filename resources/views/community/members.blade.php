@@ -4,7 +4,7 @@
     <div class="main-bg">
         <div class="white-container ms-4" style="width: 87vw">
             @if($community->background_cover)
-                <img src="/img/communities/background_cover/{{$community->background_cover}}"
+                <img src="/img/communities/background_cover/{{$community->id}}/{{$community->background_cover}}"
                      alt="{{$community->name}}" style="width: 100%; height: 200px">
             @else
                 <img src="/img/communities/background_cover/default_background_cover.png" alt="Default Background Cover"
@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col pb-3 mt-3 text-center d-flex flex-column align-items-center">
                     @if($community->profile_picture)
-                        <img src="/img/communities/profile_picture/{{$community->profile_picture}}"
+                        <img src="/img/communities/profile_picture/{{$community->id}}/{{$community->profile_picture}}"
                              alt="{{$community->name}}" class="pp-komunitas-detail">
                     @else
                         <img src="/img/communities/profile_picture/default_profile_picture.png"

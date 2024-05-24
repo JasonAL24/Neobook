@@ -90,3 +90,21 @@
 .input-label{
     width: 10em;
 }
+
+.prev-text{
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.prev-button:hover + .prev-text{
+    opacity: 1;
+}
+
+.next-text{
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.next-button:hover + .next-text{
+    opacity: 1;
+}

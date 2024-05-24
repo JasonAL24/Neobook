@@ -121,7 +121,7 @@ class BookController extends Controller
     public function createRating(Request $request){
         $validator = Validator::make($request->all(), [
             'ratingnumber' => 'required|int|between:1,5',
-            'review' => 'nullable|string|max:100',
+            'review' => 'nullable|string|max:200',
         ]);
 
         if ($validator->fails()) {
