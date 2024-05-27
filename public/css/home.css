@@ -1,5 +1,5 @@
 .home-bg{
-    height: 100%;
+    min-height: 86.5vh;
     width: 50vw;
     background-color: #F0EEE2;
     display: block;

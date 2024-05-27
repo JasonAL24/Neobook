@@ -77,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/books/{book}/read', [BookController::class, 'read']);
 
     Route::get('/search/{query}', [BookController::class, 'search']);
+    Route::get('/kategori/{query}', [BookController::class, 'viewCategory']);
 
     Route::get('/books/{book}/giverating', [BookController::class, 'giveRating'])->name('books.giverating');
     Route::post('/giverating', [BookController::class, 'createRating'])->name('books.createrating');

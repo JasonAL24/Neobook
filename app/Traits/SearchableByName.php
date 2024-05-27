@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Overtrue\LaravelPinyin\Facades\Pinyin;
+
 trait SearchableByName
 {
     public static function searchByName($query)
@@ -10,12 +12,24 @@ trait SearchableByName
         $results = [];
 
         foreach ($items as $item) {
-            if (self::kmpSearch($query, $item->name)) {
-                $results[] = $item;
+            if (self::containsChineseCharacters($item)){
+                $itemNamePinyin = strtolower(Pinyin::sentence($item->name));
+                if (self::kmpSearch($query, $itemNamePinyin)){
+                    $results[] = $item;
+                }
+            } else {
+                if (self::kmpSearch($query, $item->name)) {
+                    $results[] = $item;
+                }
             }
         }
 
         return $results;
+    }
+
+    private static function containsChineseCharacters($string)
+    {
+        return preg_match("/\p{Han}+/u", $string);
     }
 
     private static function kmpSearch($needle, $haystack)

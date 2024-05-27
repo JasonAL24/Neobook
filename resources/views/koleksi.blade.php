@@ -14,7 +14,7 @@
                     <div class="row mt-5 p-4" style="background-color: white; width: 80vw; margin-left: 5vw">
                         <div class="col-auto">
                             <a href="/books/{{$book->id}}" class="text-decoration-none text-black">
-                                <img src="/img/books/{{ $book['filename'] }}.png" alt="{{ $book['name'] }}" class="me-3 book-image">
+                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book['filename'] }}.jpg" alt="{{ $book['name'] }}" class="me-3 book-image">
                             </a>
                         </div>
                         <div class="col d-flex flex-column">
@@ -58,12 +58,14 @@
                 <div>
                     <h3 class="ms-5 mt-4">Ayo mulai baca dan simpan ke koleksi sekarang!</h3>
                     <div class="row ms-5">
+                        @php $count = 0 @endphp
                         @foreach($books as $book)
+                            @if ($count < 7)
                             <div class="col-auto me-auto">
                                 <div class="text-center">
                                     <a class="no-blue" href="/books/{{$book['id']}}">
                                         <div class="book-container">
-                                            <img src="/img/books/{{ $book['filename'] }}.png" alt="{{ $book['name'] }}" class="mb-3 book-image">
+                                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book['filename'] }}.jpg" alt="{{ $book['name'] }}" class="mb-3 book-image">
                                             <div class="overlay d-flex flex-column book-image">
                                                 <img src="img/svg/look.svg" alt="look">
                                                 <span class="text-overlay">Lihat</span>
@@ -78,6 +80,8 @@
                                     @endif
                                 </div>
                             </div>
+                            @php $count++ @endphp
+                            @endif
                         @endforeach
                     </div>
                 </div>

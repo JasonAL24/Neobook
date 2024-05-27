@@ -28,7 +28,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-auto">
-                            <img class="img-shadow img-large" src="/img/books/{{$firstBook->filename}}.png" alt="{{$firstBook->name}}">
+                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" class="img-shadow img-large" src="/img/books/{{$firstBook->filename}}.jpg" alt="{{$firstBook->name}}">
                         </div>
                         <div class="col">
                             <div class="d-flex flex-column flex-fill">
@@ -66,7 +66,7 @@
                                     <div class="text-center">
                                         <a class="no-blue" href="/books/{{$book->id}}">
                                             <div class="book-container">
-                                                <img src="/img/books/{{ $book->filename }}.png" alt="{{ $book->name }}" class="mb-3 book-image">
+                                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book->filename }}.jpg" alt="{{ $book->name }}" class="mb-3 book-image">
                                                 <div class="overlay d-flex flex-column book-image">
                                                     <img src="img/svg/look.svg" alt="look">
                                                     <span class="text-overlay">Lihat</span>
@@ -108,26 +108,35 @@
                     <p class="fw-semibold mt-3" style="font-size: 32px">Karya Tulis Orisinil</p>
                     <div class="container">
                         <div class="row">
-                        @php $count = 0 @endphp
-                        @foreach ($books as $book)
-                                @if($book['category'] == 'cerpen' && $count < 4)
-                                    <div class="col-auto me-auto">
-                                        <div class="text-center">
-                                            <a class="no-blue" href="/books/{{$book->id}}">
-                                                <div class="book-container">
-                                                    <img src="/img/books/{{ $book->filename}}.png" alt="{{ $book->name }}" class="img-fluid mb-3 book-image">
-                                                    <div class="overlay d-flex flex-column">
-                                                        <img src="img/svg/look.svg" alt="look">
-                                                        <span class="text-overlay">Lihat</span>
-                                                    </div>
+                        @php
+                            $count = 0;
+                            $nonNovelBooks = [];
+                            foreach ($books as $book) {
+                                if ($book['category'] != 'novel') {
+                                    $nonNovelBooks[] = $book;
+                                }
+                            }
+                            shuffle($nonNovelBooks);
+                        @endphp
+                        @foreach ($nonNovelBooks as $book)
+                            @if($count < 4)
+                                <div class="col-auto me-auto">
+                                    <div class="text-center">
+                                        <a class="no-blue" href="/books/{{$book->id}}">
+                                            <div class="book-container">
+                                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';"  src="/img/books/{{ $book->filename}}.jpg" alt="{{ $book->name }}" class="img-fluid mb-3 book-image">
+                                                <div class="overlay d-flex flex-column book-image">
+                                                    <img src="img/svg/look.svg" alt="look">
+                                                    <span class="text-overlay">Lihat</span>
                                                 </div>
-                                            </a>
-                                            <p class="book-name">{{ $book->name }}</p>
-                                        </div>
+                                            </div>
+                                        </a>
+                                        <p class="book-name">{{ $book->name }}</p>
                                     </div>
-                                    @php $count++ @endphp
-                                @endif
-                            @endforeach
+                                </div>
+                                @php $count++ @endphp
+                            @endif
+                        @endforeach
                         </div>
                         <div class="row">
                             <div class="col d-flex flex-row">
@@ -268,7 +277,7 @@
                             <div class="text-center">
                                 <a class="no-blue" href="/books/{{$book_rating->id}}">
                                     <div>
-                                        <img src="/img/books/{{ $book_rating->filename }}.png" alt="{{ $book_rating->name }}" class="img-small mt-2">
+                                        <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book_rating->filename }}.jpg" alt="{{ $book_rating->name }}" class="img-small mt-2">
                                     </div>
                                 </a>
                             </div>
