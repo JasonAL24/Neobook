@@ -156,68 +156,49 @@
             <div class="container">
                 <h2 class="mb-3">Forum Diskusi</h2>
                 <div class="container font-size-18">
+                    @foreach($forumPosts as $post)
                     <div class="row">
                         <div class="col-auto">
-                            <img src="img/profile_picture_mike.png" alt="Profile Picture of Mike">
+                            @if ($post->member->profile_picture)
+                                <img src="/img/profile/{{$post->member->id}}/{{ $post->member->profile_picture }}" alt="profile picture" class="rounded-circle profile-picture">
+                            @else
+                                <img src="/img/profile/default_pp.png" alt="profile picture" class="rounded-circle profile-picture">
+                            @endif
                         </div>
                         <div class="col">
                             <div class="row align-items-center">
-                                <div class="col">
-                                    Mike
-                                    <img src="img/svg/checkmark.svg" alt="Checkmark">
+                                <div class="col d-flex flex-row align-items-center">
+                                    {{ $post->member->name }}
+                                    <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$post->member->premium_status ? 'd-block' : 'd-none'}}">
                                 </div>
                             </div>
                             <div class="row row-custom-size mt-1">
                                 <div class="col">
-                                    <strong>Buku Harry Potter yang baru mau rilis!!</strong>
+                                    <a href="/forumdiskusi/{{$post->id}}" class="text-decoration-none text-dark">
+                                        <strong>{{$post->title}}</strong>
+                                    </a>
                                 </div>
                             </div>
                             <div class="row row-custom-size mt-1">
                                 <div class="col">
-                                    Hype parah sih, jadi inget buku terakhirnya seru abis, apalagi pas bagian le..
+                                    <a href="/forumdiskusi/{{$post->id}}" class="text-decoration-none text-dark">
+                                        {{$post->content}}
+                                    </a>
                                 </div>
                             </div>
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <img src="img/svg/heart.svg" alt="like"> 14
-                                    <img src="img/svg/comment.svg" alt="comment" class="ms-3"> 9
+{{--                                    <img src="img/svg/heart.svg" alt="like"> 14--}}
+                                    <a href="/forumdiskusi/{{$post->id}}" class="text-decoration-none text-dark">
+                                        <img src="img/svg/comment.svg" alt="comment"> {{count($post->comments)}}
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
                 <div class="mt-3"></div>
-                <div class="container font-size-18">
-                    <div class="row">
-                        <div class="col-auto">
-                            <img src="img/profile_picture_hannah.png" alt="Profile Picture of Hannah">
-                        </div>
-                        <div class="col">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    Hannah
-                                    <img src="img/svg/checkmark.svg" alt="Checkmark">
-                                </div>
-                            </div>
-                            <div class="row row-custom-size mt-1">
-                                <div class="col">
-                                    <strong>Just finished "American Wolf" by Nate Blakeslee and loved every minute of it</strong>
-                                </div>
-                            </div>
-                            <div class="row row-custom-size mt-1">
-                                <div class="col">
-                                    I just finished reading American Wolf by Nate Blakeslee and it was really good. I am surprised...
-                                </div>
-                            </div>
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <img src="img/svg/heart.svg" alt="like"> 40
-                                    <img src="img/svg/comment.svg" alt="comment" class="ms-3"> 21
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="container mt-5">
                 <div class="d-flex flex-row align-items-center">
@@ -285,8 +266,9 @@
                         <div class="col d-flex flex-column">
                             <b class="mt-1" style="font-size: 18px">{{ $book_rating->name }}</b>
                             <div class="d-flex flex-row align-items-center mt-2 row-custom-size mt-auto">
-                                <div>
+                                <div class="d-flex flex-row align-items-center">
                                     <b>{{$latestRating->member->name}}</b>
+                                    <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$member->premium_status ? 'd-block' : 'd-none'}}">
                                 </div>
                                 <div class="ms-auto">
                                     {{$latestRating->created_at->format('d-m-Y')}}

@@ -54,6 +54,7 @@
                                 <div class="ms-4">
                                     <div class="d-flex flex-row">
                                         <div><b>{{$member->name}} </b> </div>
+                                        <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$member->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                         <div class="ms-3 text-secondary">Diunggah {{ $rating->created_at->diffForHumans()}}</div>
                                     </div>
                                     <div>{{ $rating->review }}</div>

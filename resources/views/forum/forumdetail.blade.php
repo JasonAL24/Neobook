@@ -23,8 +23,9 @@
                 <div class="col fs-6 mt-3">
                     <div class="d-flex flex-row">
                         <div class="d-flex flex-column align-items-start">
-                            <div class="user-info">
+                            <div class="user-info d-flex flex-row align-items-center">
                                 <span class="fw-bold">{{ $post->member->name }}</span>
+                                <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$post->member->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                 <span class="opacity-50 ms-4">{{ $post->created_at->diffForHumans() }}</span>
                             </div>
                             <div class="post-content mt-4">
@@ -88,8 +89,9 @@
 
                             </div>
                             <div class="col fs-6 mt-3">
-                                <div class="user-info">
+                                <div class="user-info d-flex flex-row align-items-center">
                                     <span class="fw-bold">{{ $commentMember->name }}</span>
+                                    <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$commentMember->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                     <span class="opacity-50 ms-4">{{ $comment->created_at->diffForHumans() }}</span>
                                 </div>
                                 <div class="post-content mt-4">
@@ -151,8 +153,9 @@
 
                                     </div>
                                     <div class="col fs-6 mt-3">
-                                        <div class="user-info">
+                                        <div class="user-info d-flex flex-row align-items-center">
                                             <span class="fw-bold">{{ $replyMember->name }}</span>
+                                            <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$replyMember->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                             <span class="opacity-50 ms-4">{{ $reply->created_at->diffForHumans() }}</span>
                                         </div>
                                         <div class="post-content mt-4">

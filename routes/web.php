@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ForumController;
 use App\Models\Book;
 use App\Models\Category;
+use App\Models\ForumPost;
 use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,8 @@ Route::middleware('auth')->group(function () {
 
         $isMemberPremium = $member->premium_status;
 
+        $forumPosts = ForumPost::with(['member', 'member.user', 'book'])->get();
+
         return view('home', [
             "title" => "Home",
             "books" => $book,
@@ -62,6 +65,7 @@ Route::middleware('auth')->group(function () {
             "booksWithRating" => $booksWithRating,
             "communitiesWithLastMessage" => $communitiesWithLastMessage,
             "isMemberPremium" => $isMemberPremium,
+            "forumPosts" => $forumPosts,
         ]);
     });
 

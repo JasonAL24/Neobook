@@ -39,8 +39,9 @@
                                      style="width: 56px; height: 56px;" class="rounded-circle">
                             @endif
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-5 d-flex flex-row align-items-center">
                             {{$communityMember->member->name}}
+                            <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$communityMember->member->premium_status ? 'd-block' : 'd-none'}} ms-2">
                         </div>
                         <div class="col">
                             {{ucfirst($communityMember->membership_status)}}
