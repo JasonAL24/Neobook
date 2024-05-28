@@ -49,8 +49,8 @@
             </div>
             <div class="row bottom-controls align-items-center" id="bottomControls">
                 <div class="col-lg-2"></div>
-                <div class="col-lg-7 text-center">
-                    <p id="currentPage"></p>
+                <div class="col-lg-7 text-center d-flex flex-column">
+                    <div id="currentPage" class="btn" data-bs-toggle="modal" data-bs-target="#pageModal"></div>
                     <i id="currentPageId"></i>
                 </div>
                 <div class="col-lg-1 d-flex flex-row">
@@ -64,6 +64,30 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="pageModal" tabindex="-1" aria-labelledby="pageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pageModalLabel">Pindah ke Halaman</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="pageForm">
+                        <div class="mb-3">
+                            <label for="pageNumberInput" class="form-label">Nomor Halaman</label>
+                            <input type="number" class="form-control" id="pageNumberInput" min="1">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary" id="goToPageButton">Pindah</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         var pdfUrl = '/books/{{$book->filename}}.pdf';
         var pdfDoc = null;
@@ -81,26 +105,6 @@
         }
 
         var scale = 1.5;
-
-        function renderPage(num) {
-            pageRendering = true;
-            pdfDoc.getPage(num).then(function(page) {
-                var viewport = page.getViewport({ scale: scale });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                var renderContext = {
-                    canvasContext: ctx,
-                    viewport: viewport
-                };
-                var renderTask = page.render(renderContext);
-
-                renderTask.promise.then(function() {
-                    pageRendering = false;
-                });
-            });
-            updatePageNumber(num);
-        }
 
         document.getElementById('zoomIn').addEventListener('click', function(){
             if (scale <= 2){
@@ -205,6 +209,30 @@
             document.getElementById('notAvailableText').style.display = 'block';
         });
 
+        function renderPage(num) {
+            pageRendering = true;
+            console.log(num);
+
+            pdfDoc.getPage(num).then(function(page) {
+                var viewport = page.getViewport({ scale: scale });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                var renderContext = {
+                    canvasContext: ctx,
+                    viewport: viewport
+                };
+                var renderTask = page.render(renderContext);
+
+                renderTask.promise.then(function() {
+                    pageRendering = false;
+                });
+            }).catch(function (error){
+                console.error('Error rendering page:', error);
+            });
+            updatePageNumber(num);
+        }
+
         function goToPage(page) {
             pageNum = parseInt(page);
             updateLastPage(pageNum);
@@ -229,8 +257,7 @@
 
         function renderSpecifiedPage() {
             pageNum = {{$startPageNum}};
-
-            if (isNaN(pageNumber) || pageNumber < 1) {
+            if (isNaN(pageNum) || pageNum < 1) {
                 pageNum = 1;
                 return;
             }
@@ -238,6 +265,35 @@
             renderPage(pageNum);
         }
 
+        document.getElementById('goToPageButton').addEventListener('click', function() {
+            var pageInput = document.getElementById('pageNumberInput').value;
+            var pageNumber = parseInt(pageInput);
+            if (pageNumber >= 1 && pageNumber <= pdfDoc.numPages) {
+                goToPage(pageNumber);
+                var pageModal = bootstrap.Modal.getInstance(document.getElementById('pageModal'));
+                pageModal.hide();
+            } else {
+                alert('Please enter a valid page number.');
+            }
+        });
+
+        document.getElementById('pageNumberInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter'){
+                event.preventDefault();
+                var pageInput = document.getElementById('pageNumberInput').value;
+                var pageNumber = parseInt(pageInput);
+                if (pageNumber >= 1 && pageNumber <= pdfDoc.numPages) {
+                    goToPage(pageNumber);
+                    var pageModal = bootstrap.Modal.getInstance(document.getElementById('pageModal'));
+                    pageModal.hide();
+                } else {
+                    alert('Please enter a valid page number.');
+                }
+            }
+        });
+
         renderSpecifiedPage();
+
+
     </script>
 @endsection
