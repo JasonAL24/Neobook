@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CommunityChatController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ForumController;
@@ -169,6 +170,9 @@ Route::middleware('auth')->group(function () {
         ->name('upload.profile.picture');
 
     Route::put('/members/{id}', [UserController::class, 'update'])->name('members.update');
+
+    // NOTIFICATION
+    Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
 });
 
 

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-    <div class="white-container p-3 position-relative">
+    <div class="white-container p-3">
         <div class="p-4 pb-0 pt-2">
             <h1 class="fw-bold mb-3">Komunitas</h1>
             @php $locked = !$member->premium_status @endphp

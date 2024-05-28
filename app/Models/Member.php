@@ -57,4 +57,9 @@ class Member extends Model
     {
         return $this->hasMany(ForumReply::class);
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }

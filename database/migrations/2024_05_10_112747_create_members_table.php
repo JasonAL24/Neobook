@@ -25,6 +25,18 @@ class CreateMembersTable extends Migration
             $table->unsignedBigInteger('user_id')->unique(); // Foreign key referencing users table
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('member_id');
+            $table->string('content');
+            $table->string('image')->nullable();
+            $table->string('link')->nullable();
+            $table->string('status')->default('unread'); // read or unread
+            $table->timestamps();
+
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+        });
     }
 
     /**
@@ -35,5 +47,6 @@ class CreateMembersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('members');
+        Schema::dropIfExists('notifications');
     }
 }

@@ -64,9 +64,6 @@
 }
 
 .notification .badge {
-    position: absolute;
-    top: 1px;
-    right: 3px;
     padding: 5px 7px;
     border-radius: 50%;
     background: red;

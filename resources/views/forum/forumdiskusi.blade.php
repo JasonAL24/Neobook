@@ -67,6 +67,7 @@
                                     @endif
                                     <input type="text" name="commentContent" placeholder="Tulis komentar..." class="form-control ms-3 border-0 border-bottom">
                                     <input type="hidden" name="forum_post_id" value="{{ $post->id }}">
+                                    <input type="hidden" name="forum_member_id" value="{{ $post->member->id }}">
                                 </div>
                                 <div class="d-flex justify-content-end align-items-center">
                                     <button type="button" class="btn text-danger" data-bs-toggle="collapse" data-bs-target="#komentar-{{$post->id}}" aria-expanded="false">
