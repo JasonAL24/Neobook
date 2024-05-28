@@ -1,5 +1,5 @@
 .home-bg{
-    height: 100%;
+    min-height: 86.5vh;
     width: 50vw;
     background-color: #F0EEE2;
     display: block;
@@ -126,11 +126,11 @@
 }
 
 .book-container:hover .overlay {
-    opacity: 1; /* Ketika dihover, tampilkan overlay dengan opacity 1 */
+    opacity: 1;
 }
 
 .rating {
-    font-size: 0; /* Remove white space between inline-block elements */
+    font-size: 0;
     width: 120px;
 }
 
@@ -189,4 +189,14 @@
 
 .offcanvas:not(.show) {
     transform: translateX(100%);
+}
+
+.create-text{
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Smooth transition */
+
+}
+
+.create-button:hover + .create-text{
+    opacity: 1;
 }

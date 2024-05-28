@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CommunityChatController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ForumController;
@@ -43,11 +44,24 @@ Route::middleware('auth')->group(function () {
         $booksWithRating = Book::with('ratings')->has('ratings')->get();
         $booksWithRating = (new BookController())->calculateAverageRating($booksWithRating);
 
+        $communities = $member->communities()->with(['messages' => function($query) {
+            $query->latest()->first();
+        }])->get();
+
+        $communitiesWithLastMessage = $communities->map(function ($community) {
+            $community->lastMessage = $community->messages->first();
+            return $community;
+        });
+
+        $isMemberPremium = $member->premium_status;
+
         return view('home', [
             "title" => "Home",
             "books" => $book,
             "member" => $member,
-            "booksWithRating" => $booksWithRating
+            "booksWithRating" => $booksWithRating,
+            "communitiesWithLastMessage" => $communitiesWithLastMessage,
+            "isMemberPremium" => $isMemberPremium,
         ]);
     });
 
@@ -65,6 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/books/{book}/read', [BookController::class, 'read']);
 
     Route::get('/search/{query}', [BookController::class, 'search']);
+    Route::get('/kategori/{query}', [BookController::class, 'viewCategory']);
 
     Route::get('/books/{book}/giverating', [BookController::class, 'giveRating'])->name('books.giverating');
     Route::post('/giverating', [BookController::class, 'createRating'])->name('books.createrating');
@@ -73,21 +88,12 @@ Route::middleware('auth')->group(function () {
 
 
 //    FORUM
-    Route::get('/forumdiskusi', function () {
-        return view('forum.forumdiskusi', [
-            "title" => "Forum Diskusi"
-        ]);
-    });
-
     Route::get('/forumdiskusi', [ForumController::class, 'index']);
+    Route::get('/forumdiskusi/{forumpost}', [ForumController::class, 'showDetailForum']);
+    Route::post('/forumdiskusi/addcomment', [ForumController::class, 'addComment'])->name('addComment');
+    Route::post('/forumdiskusi/addreply', [ForumController::class, 'addReply'])->name('addReply');
 
-//    FORUM
-
-    Route::get('/forumsaya', function () {
-        return view('forum.forumsaya', [
-            "title" => "Forum Saya"
-        ]);
-    });
+    Route::get('/forumsaya', [ForumController::class, 'showPost']);
 
     Route::get('/buatforum', function () {
         $books = \App\Models\Book::all()->toArray();
@@ -124,9 +130,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/komunitas/{community}', [CommunityController::class, 'viewDetail'])->name('community.detail');
     Route::get('/komunitas/{community}/members', [CommunityController::class, 'viewMembers'])->name('community.members');
     Route::post('/community/{community}/join', [CommunityController::class, 'join'])->name('community.join');
-    Route::get('/komunitas/search/{query}', [CommunityController::class, 'search']);
+    Route::get('/komunitas/search/{query}', [CommunityController::class, 'search'])->name('search.community');
+    Route::get('/buatkomunitas', [CommunityController::class, 'viewCreateCommunity']);
+    Route::post('/buatkomunitas', [CommunityController::class, 'createCommunity'])->name('community.create');
     Route::post('/komunitas/{community}/createannouncement', [CommunityController::class, 'createAnnouncement'])->name('community.createAnnouncement');
+    Route::delete('/community/{community}/member/{member}', [CommunityController::class, 'removeMember'])->name('community.member.delete');
 
+    Route::post('/community/{community}/upload-background-cover', [CommunityController::class, 'updateBackgroundCover'])->name('community.upload.background');
+    Route::post('/community/{community}/upload-profile-picture', [CommunityController::class, 'updateProfilePicture'])->name('community.upload.pp');
+
+//    CHATS
     Route::get('/chats', [CommunityChatController::class, 'index'])->name('community.chat.index');
     Route::get('/chats/{community}', [CommunityChatController::class, 'show'])->name('community.chat.show');
     Route::post('/chats/{community}', [CommunityChatController::class, 'store'])->name('community.chat.store');
@@ -137,6 +150,7 @@ Route::middleware('auth')->group(function () {
             "title" => "Langganan"
         ]);
     });
+    Route::post('/subscribe', [UserController::class, 'subscribe']);
 
 //    PENGATURAN
     Route::get('/pengaturan', function () {
@@ -156,6 +170,9 @@ Route::middleware('auth')->group(function () {
         ->name('upload.profile.picture');
 
     Route::put('/members/{id}', [UserController::class, 'update'])->name('members.update');
+
+    // NOTIFICATION
+    Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
 });
 
 

@@ -147,4 +147,16 @@ class UserController extends Controller
             return redirect()->back()->withErrors($e->validator->errors())->withInput();
         }
     }
+
+    public function subscribe(Request $request)
+    {
+        $member = auth()->user()->member;
+
+        $member->premium_status = true;
+        $member->save();
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
 }

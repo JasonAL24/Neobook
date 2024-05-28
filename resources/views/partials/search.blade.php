@@ -10,25 +10,25 @@
                         <div class="dropdown-header"><b>Kategori</b></div>
                         <div class="row">
                             <div class="col">
-                                <a class="dropdown-item" href="#">Aksi/Laga</a>
-                                <a class="dropdown-item" href="#">Komedi</a>
-                                <a class="dropdown-item" href="#">Pertualangan</a>
-                                <a class="dropdown-item" href="#">Biografi</a>
-                                <a class="dropdown-item" href="#">Fiksi Ilmiah</a>
+                                <a class="dropdown-item" href="/kategori/aksi">Aksi</a>
+                                <a class="dropdown-item" href="/kategori/komedi">Komedi</a>
+                                <a class="dropdown-item" href="/kategori/pertualangan">Pertualangan</a>
+                                <a class="dropdown-item" href="/kategori/biografi">Biografi</a>
+                                <a class="dropdown-item" href="/kategori/fiksi ilmiah">Fiksi ilmiah</a>
                             </div>
                             <div class="col">
-                                <a class="dropdown-item" href="#">Romantis</a>
-                                <a class="dropdown-item" href="#">Misteri</a>
-                                <a class="dropdown-item" href="#">Horror</a>
-                                <a class="dropdown-item" href="#">Sejarah</a>
-                                <a class="dropdown-item" href="#">Cerpen</a>
+                                <a class="dropdown-item" href="/kategori/romantis">Romantis</a>
+                                <a class="dropdown-item" href="/kategori/misteri">Misteri</a>
+                                <a class="dropdown-item" href="/kategori/horror">Horror</a>
+                                <a class="dropdown-item" href="/kategori/sejarah">Sejarah</a>
+                                <a class="dropdown-item" href="/kategori/cerpen">Cerpen</a>
                             </div>
                             <div class="col">
-                                <a class="dropdown-item" href="#">Anak-anak</a>
-                                <a class="dropdown-item" href="#">Dewasa</a>
-                                <a class="dropdown-item" href="#">Filosofi</a>
-                                <a class="dropdown-item" href="#">Novel</a>
-                                <a class="dropdown-item" href="#">Drama</a>
+                                <a class="dropdown-item" href="/kategori/anak-anak">Anak-anak</a>
+                                <a class="dropdown-item" href="/kategori/pembelajaran">Pembelajaran</a>
+                                <a class="dropdown-item" href="/kategori/filosofi">Filosofi</a>
+                                <a class="dropdown-item" href="/kategori/novel">Novel</a>
+                                <a class="dropdown-item" href="/kategori/drama">Drama</a>
                             </div>
                         </div>
                     </div>

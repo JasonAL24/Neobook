@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ForumPost extends Model
 {
+    /**
+     * @var mixed
+     */
     protected $guarded = ['id'];
     protected $fillable = ['member_id', 'book_id', 'title', 'content'];
 

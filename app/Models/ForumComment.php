@@ -11,12 +11,17 @@ class ForumComment extends Model
 
     public function post()
     {
-        return $this->belongsTo(ForumPost::class, 'forum_post_id');
+        return $this->belongsTo(ForumPost::class);
     }
 
     public function member()
     {
         return $this->belongsTo(Member::class);
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(ForumReply::class);
     }
 
     use HasFactory;

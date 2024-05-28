@@ -18,7 +18,7 @@ class BooksTableSeeder extends Seeder
         $csvPath = storage_path('/app/csv/books.csv');
 
         // Open the CSV file for reading
-        $file = fopen($csvPath, 'r');
+        $file = fopen($csvPath, 'r','UTF-8');
 
         // Skip the header row
         fgetcsv($file);
@@ -37,8 +37,11 @@ class BooksTableSeeder extends Seeder
             $book->publisher = $data[4];
             $book->ISBN = $data[5];
             $book->description = $data[6];
-            $book->filename = $data[7];
-            $book->category = $data[8];
+
+            $filename = str_replace("'", "", $data[7]);
+            $book->filename = $filename;
+
+            $book->category = strtolower($data[8]);
             $book->pages = $data[9];
             $book->save();
         }

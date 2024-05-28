@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
-use Spatie\PdfToText\Pdf;
 use Smalot\PdfParser\Parser;
 
 class BookController extends Controller
@@ -21,6 +20,7 @@ class BookController extends Controller
     public function viewAll()
     {
         $books = Book::all();
+        $books = $this->calculateAverageRating($books);
         return view('books.viewall', [
             "title" => "All Books",
             "books" => $books
@@ -44,6 +44,17 @@ class BookController extends Controller
 
         return view('books.search_results', [
             "results" => $results
+        ]);
+    }
+
+    public function viewCategory($query)
+    {
+        $books = Book::where('category', $query)->get();
+
+        return view('books.kategori', [
+            "title" => 'Kategori',
+            "books" => $books,
+            "query" => $query,
         ]);
     }
 
@@ -121,7 +132,7 @@ class BookController extends Controller
     public function createRating(Request $request){
         $validator = Validator::make($request->all(), [
             'ratingnumber' => 'required|int|between:1,5',
-            'review' => 'nullable|string|max:100',
+            'review' => 'nullable|string|max:200',
         ]);
 
         if ($validator->fails()) {
@@ -189,6 +200,8 @@ class BookController extends Controller
     }
 
     public function createBook(Request $request){
+        $member = auth()->user()->member;
+        $maxFileSize = $member->premium_status ? 102400 : 20480; // 100MB if premium, 20MB if not
         $validator = Validator::make($request->all(), [
             'judul' => 'required|string',
             'penulis' => 'required|string|max:30',
@@ -198,8 +211,8 @@ class BookController extends Controller
             'kategori' => 'required|string|max:20|min:2',
             'ISBN' => 'required|string',
             'penerbit' => 'required|string|max:30',
-            'pdf_file' => 'required|mimes:pdf|max:10240',
-            'cover_image' => 'required|image|mimes:png|max:2048',
+            'pdf_file' => 'required|mimes:pdf|max:' . $maxFileSize,
+            'cover_image' => 'required|image|mimes:jpg',
         ]);
 
         if ($validator->fails()) {
@@ -212,7 +225,7 @@ class BookController extends Controller
         $pdfFullPath = public_path('books/' . $pdfFilename . '.pdf');
 
         // Store cover image in public/img/books directory
-        $coverImageFilename = $pdfFilename . '.png';
+        $coverImageFilename = $pdfFilename . '.jpg';
         $request->file('cover_image')->move(public_path('/img/books'), $coverImageFilename);
         $imageFullPath = public_path('img/books/' . $coverImageFilename);
 

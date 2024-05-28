@@ -19,6 +19,7 @@ class CreateForumsTable extends Migration
             $table->unsignedBigInteger('book_id');
             $table->string('title');
             $table->text('content');
+            $table->integer('like')->default(0);
             $table->timestamps();
 
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
@@ -31,9 +32,22 @@ class CreateForumsTable extends Migration
             $table->unsignedBigInteger('forum_post_id');
             $table->unsignedBigInteger('member_id');
             $table->text('content');
+            $table->integer('like')->default(0);
             $table->timestamps();
 
             $table->foreign('forum_post_id')->references('id')->on('forum_posts')->onDelete('cascade');
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+        });
+
+        Schema::create('forum_replies', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('forum_comment_id');
+            $table->unsignedBigInteger('member_id');
+            $table->text('content');
+            $table->integer('like')->default(0);
+            $table->timestamps();
+
+            $table->foreign('forum_comment_id')->references('id')->on('forum_comments')->onDelete('cascade');
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
         });
     }
@@ -47,5 +61,6 @@ class CreateForumsTable extends Migration
     {
         Schema::dropIfExists('forum_posts');
         Schema::dropIfExists('forum_comments');
+        Schema::dropIfExists('forum_replies');
     }
 }

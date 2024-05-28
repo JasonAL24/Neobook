@@ -84,7 +84,7 @@
                                     <div class="fs-4 d-none d-sm-inline">
                                         <img class="image-setting" src="/img/svg/Setting_line_light.svg">
                                     </div>
-                                    <div class="text">Pengaturan </div>
+                                    <div class="text">Pengaturan</div>
                                 </div>
                             </a>
                         </li>

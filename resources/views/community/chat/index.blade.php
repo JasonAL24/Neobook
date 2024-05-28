@@ -9,22 +9,22 @@
             <h4 class="offcanvas-title fw-bold" id="offcanvasRightLabel">Pesan Masuk</h4>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="offcanvas-body" id="chatContent">
+        <div class="offcanvas-body" id="chatContent" style="padding-bottom: 0">
             <div id="community-list">
                 @foreach($communitiesWithLastMessage as $communityChat)
                     <a href="#" class="community-link text-decoration-none text-black" data-id="{{ $communityChat->id }}" id="community-link">
                         <div class="row align-items-center mb-4">
                             <div class="col-auto ms-5">
                                 @if($communityChat->profile_picture)
-                                    <img src="/img/communities/profile_picture/{{$communityChat->profile_picture}}"
-                                         alt="{{$communityChat->title}}" class="pp-chat">
+                                    <img src="/img/communities/profile_picture/{{$communityChat->id}}/{{$communityChat->profile_picture}}"
+                                         alt="{{$communityChat->name}}" class="pp-chat">
                                 @else
                                     <img src="/img/communities/profile_picture/default_profile_picture.png"
                                          alt="Default Group Picture" class="pp-chat">
                                 @endif
                             </div>
                             <div class="col">
-                                <div class="fw-bold fs-5">{{ $communityChat->title }}</div>
+                                <div class="fw-bold fs-5">{{ $communityChat->name }}</div>
                                 <div>
                                     @if($communityChat->lastMessage)
                                         <small><strong>{{$communityChat->lastMessage->member->name}}

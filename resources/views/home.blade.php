@@ -28,7 +28,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-auto">
-                            <img class="img-shadow img-large" src="/img/books/{{$firstBook->filename}}.png" alt="{{$firstBook->name}}">
+                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" class="img-shadow img-large" src="/img/books/{{$firstBook->filename}}.jpg" alt="{{$firstBook->name}}">
                         </div>
                         <div class="col">
                             <div class="d-flex flex-column flex-fill">
@@ -66,7 +66,7 @@
                                     <div class="text-center">
                                         <a class="no-blue" href="/books/{{$book->id}}">
                                             <div class="book-container">
-                                                <img src="/img/books/{{ $book->filename }}.png" alt="{{ $book->name }}" class="mb-3 book-image">
+                                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book->filename }}.jpg" alt="{{ $book->name }}" class="mb-3 book-image">
                                                 <div class="overlay d-flex flex-column book-image">
                                                     <img src="img/svg/look.svg" alt="look">
                                                     <span class="text-overlay">Lihat</span>
@@ -108,26 +108,35 @@
                     <p class="fw-semibold mt-3" style="font-size: 32px">Karya Tulis Orisinil</p>
                     <div class="container">
                         <div class="row">
-                        @php $count = 0 @endphp
-                        @foreach ($books as $book)
-                                @if($book['category'] == 'cerpen' && $count < 4)
-                                    <div class="col-auto me-auto">
-                                        <div class="text-center">
-                                            <a class="no-blue" href="/books/{{$book->id}}">
-                                                <div class="book-container">
-                                                    <img src="/img/books/{{ $book->filename}}.png" alt="{{ $book->name }}" class="img-fluid mb-3 book-image">
-                                                    <div class="overlay d-flex flex-column">
-                                                        <img src="img/svg/look.svg" alt="look">
-                                                        <span class="text-overlay">Lihat</span>
-                                                    </div>
+                        @php
+                            $count = 0;
+                            $nonNovelBooks = [];
+                            foreach ($books as $book) {
+                                if ($book['category'] != 'novel') {
+                                    $nonNovelBooks[] = $book;
+                                }
+                            }
+                            shuffle($nonNovelBooks);
+                        @endphp
+                        @foreach ($nonNovelBooks as $book)
+                            @if($count < 4)
+                                <div class="col-auto me-auto">
+                                    <div class="text-center">
+                                        <a class="no-blue" href="/books/{{$book->id}}">
+                                            <div class="book-container">
+                                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';"  src="/img/books/{{ $book->filename}}.jpg" alt="{{ $book->name }}" class="img-fluid mb-3 book-image">
+                                                <div class="overlay d-flex flex-column book-image">
+                                                    <img src="img/svg/look.svg" alt="look">
+                                                    <span class="text-overlay">Lihat</span>
                                                 </div>
-                                            </a>
-                                            <p class="book-name">{{ $book->name }}</p>
-                                        </div>
+                                            </div>
+                                        </a>
+                                        <p class="book-name">{{ $book->name }}</p>
                                     </div>
-                                    @php $count++ @endphp
-                                @endif
-                            @endforeach
+                                </div>
+                                @php $count++ @endphp
+                            @endif
+                        @endforeach
                         </div>
                         <div class="row">
                             <div class="col d-flex flex-row">
@@ -219,43 +228,37 @@
                     </div>
                 </div>
                 <div class="container font-size-18 mt-3">
-                    <div class="row">
-                        <div class="col-auto">
-                            <img src="img/book_group.png" alt="Book Group">
-                        </div>
-                        <div class="col">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <strong>The Nerds Group 🤓</strong>
+                    @if ($isMemberPremium)
+                    @php $countChat = 0 @endphp
+                    @foreach($communitiesWithLastMessage as $communityChat)
+                        @if($countChat < 3)
+                            <div class="row mb-4 align-items-center">
+                                <div class="col-auto">
+                                    <a href="/komunitas/{{$communityChat->id}}">
+                                        @if($communityChat->profile_picture)
+                                            <img src="/img/communities/profile_picture/{{$communityChat->id}}/{{$communityChat->profile_picture}}"
+                                                 alt="{{$communityChat->name}}" class="rounded-circle profile-picture">
+                                        @else
+                                            <img src="/img/communities/profile_picture/default_profile_picture.png"
+                                                 alt="Default Group Picture" class="profile-picture rounded-circle">
+                                        @endif
+                                    </a>
+                                </div>
+                                <div class="col d-flex flex-column">
+                                    <strong>{{$communityChat->name}}</strong>
+                                    @if($communityChat->lastMessage)
+                                        <small><strong>{{$communityChat->lastMessage->member->name}}:</strong> {{ $communityChat->lastMessage->content }}</small>
+                                    @else
+                                        <small>No messages yet.</small>
+                                    @endif
                                 </div>
                             </div>
-                            <div class="row row-custom-size mt-1">
-                                <div class="col">
-                                    <strong>User:</strong> Eh udah liat buku lord of the rings yang baru blom? Gua udah sampe hal....
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-3"></div>
-                <div class="container font-size-18">
-                    <div class="row">
-                        <div class="col-auto">
-                            <img src="img/harry_potter_group.png" alt="Harry Potter Group">
-                        </div>
-                        <div class="col">
-                            <div class="row align-items-center">
-                                <div class="col">
-                                    <strong>Wizards 🧙</strong>
-                                </div>
-                            </div>
-                            <div class="row row-custom-size mt-1">
-                                <div class="col">
-                                    <strong>User:</strong> Gila ges, buku harry potter yang baru mau rilis ges, gw harus dateng per...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            @php $countChat++ @endphp
+                        @endif
+                    @endforeach
+                    @else
+                        <span>Langganan premium sekarang untuk membuka fitur ini!</span>
+                    @endif
                 </div>
             </div>
             <div class="container mt-5">
@@ -274,7 +277,7 @@
                             <div class="text-center">
                                 <a class="no-blue" href="/books/{{$book_rating->id}}">
                                     <div>
-                                        <img src="/img/books/{{ $book_rating->filename }}.png" alt="{{ $book_rating->name }}" class="img-small mt-2">
+                                        <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book_rating->filename }}.jpg" alt="{{ $book_rating->name }}" class="img-small mt-2">
                                     </div>
                                 </a>
                             </div>

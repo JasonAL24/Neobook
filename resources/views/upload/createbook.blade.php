@@ -46,21 +46,21 @@
                         <span class="input-label">Kategori</span>
                         <select name="kategori" class="form-select" aria-label="Kategori">
                             <option selected disabled>Pilih Kategori</option>
-                            <option value="Aksi/Laga">Aksi/Laga</option>
-                            <option value="Komedi">Komedi</option>
-                            <option value="Pertualangan">Pertualangan</option>
-                            <option value="Biografi">Biografi</option>
-                            <option value="Fiksi Ilmiah">Fiksi Ilmiah</option>
-                            <option value="Romantis">Romantis</option>
-                            <option value="Misteri">Misteri</option>
-                            <option value="Horror">Horror</option>
-                            <option value="Sejarah">Sejarah</option>
-                            <option value="Cerpen">Cerpen</option>
-                            <option value="Anak-anak">Anak-anak</option>
-                            <option value="Dewasa">Dewasa</option>
-                            <option value="Filosofi">Filosofi</option>
-                            <option value="Novel">Novel</option>
-                            <option value="Drama">Drama</option>
+                            <option value="aksi">Aksi</option>
+                            <option value="komedi">Komedi</option>
+                            <option value="pertualangan">Pertualangan</option>
+                            <option value="biografi">Biografi</option>
+                            <option value="fiksi ilmiah">Fiksi Ilmiah</option>
+                            <option value="romantis">Romantis</option>
+                            <option value="misteri">Misteri</option>
+                            <option value="horror">Horror</option>
+                            <option value="sejarah">Sejarah</option>
+                            <option value="cerpen">Cerpen</option>
+                            <option value="anak-anak">Anak-anak</option>
+                            <option value="pembelajaran">Pembelajaran</option>
+                            <option value="filosofi">Filosofi</option>
+                            <option value="novel">Novel</option>
+                            <option value="drama">Drama</option>
                         </select>
                     </div>
                     <div class="input-group mb-3 align-items-center">
@@ -71,11 +71,18 @@
                         <span class="input-label">Penerbit</span>
                         <input type="text" name="penerbit" class="form-control" placeholder="Tulis penerbit buku..." aria-label="ISBN" >
                     </div>
+                    @if (!$member->premium_status)
+                    <div class="rounded p-1" style="background-color: yellow;">
+                        <img src="/img/svg/checkmark.svg" alt="Checkmark">
+                        Dengan premium, anda dapat mengunggah file buku dengan ukuran maksimal 100 MB!
+                    </div>
+                    @endif
                     <div class="input-group mb-3 align-items-center" style="background-color: white; height: 5em;">
                         <div class="d-flex flex-column p-2">
                             <span class="input-label fw-bold">Unggah File Buku</span>
-                            <span class="opacity-50">*File buku musti berupa file pdf dan ukuran maksimal 10 MB</span>
+                            <span class="opacity-50">*File buku musti berupa file PDF dan ukuran maksimal {{$member->premium_status ? '100 MB' : '20 MB'}}</span>
                         </div>
+
                         <div class="ms-auto">
                             <span id="pdfName" class="me-2"></span>
                             <button type="button" id="pdfUploadBtn" class="btn text-light fw-bold me-3" style="background-color: #252734; border-radius: 10px">
@@ -85,6 +92,7 @@
                         </div>
                         <input type="file" name="pdf_file" class="form-control d-none" accept=".pdf" aria-label="File PDF" id="pdfInput">
                     </div>
+
                     <div class="input-group mb-3" style="background-color: white;">
                         <div class="input-group-prepend">
                             <div class="mb-3" id="coverPreviewContainer">
@@ -94,7 +102,7 @@
                         </div>
                         <div class="p-3 d-flex flex-column">
                             <span class="fs-5 fw-bold">Unggah Cover Buku</span>
-                            <span class="opacity-50">*Cover buku musti berupa file png dan ukuran maksimal 2 MB</span>
+                            <span class="opacity-50">*Cover buku musti berupa file JPG</span>
                             <button type="button" class="btn text-light fw-bold me-3 mt-auto mb-4" id="coverUploadBtn" style="background-color: #252734; border-radius: 10px; width: 12em;">
                                 Unggah Cover Buku
                                 <img src="/img/svg/upload_book.svg" alt="upload" style="width: 23px">

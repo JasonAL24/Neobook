@@ -44,7 +44,6 @@
             <div class="col-sm-10">
                 <input type="text" name="content"  class="form-control" id="content" aria-label="With textarea" placeholder="Tulis forum anda disini...">
             </div>
-
         </div>
 
         <div class="row mb-3 ms-5">
@@ -52,6 +51,13 @@
                 <button type="submit" class="btn btn-secondary mt-4 " style="width: 6vw">Kirim</button>
             </div>
         </div>
+        @if ($errors->any())
+            <div>
+                @foreach ($errors->all() as $error)
+                    <div class="text-danger">{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
