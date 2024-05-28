@@ -2,7 +2,7 @@ const optionMenu = document.querySelector(".select-menu");
       selectBtn  = optionMenu.querySelector(".select-btn");
       options    = optionMenu.querySelectorAll(".option");
       sBtn_text  = optionMenu.querySelector(".sBtn-text");
-        custom_input_forum = optionMenu.querySelector(".custom-input-forum");
+      custom_input_forum = optionMenu.querySelector(".custom-input-forum");
 
 selectBtn.addEventListener("click", () => optionMenu.classList.toggle("active"));
 selectBtn.addEventListener("click", () => sBtn_text.classList.add("active"));
@@ -60,10 +60,12 @@ document.getElementById('searchInputForum').addEventListener('input', function()
                 document.querySelectorAll('.search-result-item').forEach(item => {
                     item.addEventListener('click', function() {
                         let selectedOption = this.querySelector('.option-text').innerText;
-                        let sBtnTextElement = document.querySelector('.sBtn-text');
-                        document.querySelector('.sBtn-text').innerText = selectedOption;
-                        document.getElementById('searchResultsDropdownForum').style.display = 'none';
+                        let selectedOptionId = this.querySelector('.option-id').innerText;
 
+                        document.querySelector('.sBtn-text').innerText = selectedOption;
+                        document.querySelector('.sBtn-text-id').value = selectedOptionId;  // Set the value correctly
+
+                        document.getElementById('searchResultsDropdownForum').style.display = 'none';
                         optionMenu.classList.remove("active");
                         custom_input_forum.classList.remove("active");
                     });
@@ -77,46 +79,3 @@ document.getElementById('searchInputForum').addEventListener('input', function()
 });
 
 
-// const wrapper = document.querySelector(".wrapper"),
-//     selectBtn = wrapper.querySelector(".select-btn"),
-//     searchInp = wrapper.querySelector("input"),
-//     optionz = wrapper.querySelector(".optionz");
-//
-// let countries = ["Afghanistan", "Algeria", "Argentina", "Australia", "Bangladesh", "Belgium", "Bhutan",
-//     "Brazil", "Canada", "China", "Denmark", "Ethiopia", "Finland", "France", "Germany",
-//     "Hungary", "Iceland", "India", "Indonesia", "Iran", "Italy", "Japan", "Malaysia",
-//     "Maldives", "Mexico", "Morocco", "Nepal", "Netherlands", "Nigeria", "Norway", "Pakistan",
-//     "Peru", "Russia", "Romania", "South Africa", "Spain", "Sri Lanka", "Sweden", "Switzerland",
-//     "Thailand", "Turkey", "Uganda", "Ukraine", "United States", "United Kingdom", "Vietnam"];
-//
-//
-// function addCountry(selectedCountry) {
-//     optionz.innerHTML = "";
-//     countries.forEach(country => {
-//         let isSelected = country == selectedCountry ? "selected" : "";
-//         let li = `<li onclick="updateName(this)" class="${isSelected}">${country}</li>`;
-//         optionz.insertAdjacentHTML("beforeend", li);
-//     });
-// }
-// addCountry();
-//
-// function updateName(selectedLi) {
-//     searchInp.value = "";
-//     addCountry(selectedLi.innerText);
-//     wrapper.classList.remove("active");
-//     selectBtn.firstElementChild.innerText = selectedLi.innerText;
-// }
-//
-// searchInp.addEventListener("keyup", () => {
-//     let arr = [];
-//     let searchWord = searchInp.value.toLowerCase();
-//     arr = countries.filter(data => {
-//         return data.toLowerCase().startsWith(searchWord);
-//     }).map(data => {
-//         let isSelected = data == selectBtn.firstElementChild.innerText ? "selected" : "";
-//         return `<li onclick="updateName(this)" class="${isSelected}">${data}</li>`;
-//     }).join("");
-//     optionz.innerHTML = arr ? arr : `<p style="margin-top: 10px;">Oops! Country not found</p>`;
-// });
-//
-// selectBtn.addEventListener("click", () => wrapper.classList.toggle("active"));

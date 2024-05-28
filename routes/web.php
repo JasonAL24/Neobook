@@ -5,6 +5,7 @@ use App\Http\Controllers\CommunityChatController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ForumController;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Post;
@@ -84,11 +85,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/viewrating', [BookController::class, 'viewRating'])->name('books.viewRating');
 
+
+//    FORUM
     Route::get('/forumdiskusi', function () {
         return view('forum.forumdiskusi', [
             "title" => "Forum Diskusi"
         ]);
     });
+
+    Route::get('/forumdiskusi', [ForumController::class, 'index']);
 
 //    FORUM
 
@@ -107,6 +112,8 @@ Route::middleware('auth')->group(function () {
             "bookNames" => $bookNames
         ]);
     });
+
+    Route::post('add', [ForumController::class,'addData'])->name('addForum');
 
     Route::get('/buatforum/search/{query}', [BookController::class, 'searchOnForum']);
 

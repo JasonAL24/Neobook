@@ -24,7 +24,7 @@ class Book extends Model
             ->withPivot('last_page', 'updated_at', 'created_at');
     }
 
-    public function forumposts()
+    public function forumPosts()
     {
         return $this->hasMany(ForumPost::class);
     }
