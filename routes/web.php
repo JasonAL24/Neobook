@@ -87,21 +87,12 @@ Route::middleware('auth')->group(function () {
 
 
 //    FORUM
-    Route::get('/forumdiskusi', function () {
-        return view('forum.forumdiskusi', [
-            "title" => "Forum Diskusi"
-        ]);
-    });
-
     Route::get('/forumdiskusi', [ForumController::class, 'index']);
+    Route::get('/forumdiskusi/{forumpost}', [ForumController::class, 'showDetailForum']);
+    Route::post('/forumdiskusi/addcomment', [ForumController::class, 'addComment'])->name('addComment');
+    Route::post('/forumdiskusi/addreply', [ForumController::class, 'addReply'])->name('addReply');
 
-//    FORUM
-
-    Route::get('/forumsaya', function () {
-        return view('forum.forumsaya', [
-            "title" => "Forum Saya"
-        ]);
-    });
+    Route::get('/forumsaya', [ForumController::class, 'showPost']);
 
     Route::get('/buatforum', function () {
         $books = \App\Models\Book::all()->toArray();

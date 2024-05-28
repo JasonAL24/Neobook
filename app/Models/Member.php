@@ -52,4 +52,9 @@ class Member extends Model
     {
         return $this->hasMany(ForumComment::class);
     }
+
+    public function forumReplies()
+    {
+        return $this->hasMany(ForumReply::class);
+    }
 }
