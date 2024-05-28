@@ -34,7 +34,7 @@
                         <input class="custom-input" type="search" id="searchInputForum" placeholder="cari nama buku..." aria-label="Search">
 
                     </div>
-                    <div class="options" id="searchResultsDropdownForum" aria-labelledby="searchInput" style="height: 26vh">
+                    <div class="options" id="searchResultsDropdownForum" aria-labelledby="searchInput" style="height: 100%">
                     </div>
                 </div>
             </div>
@@ -43,7 +43,6 @@
             <label for="isiforum" class="col-sm-1 col-form-label">Isi Forum</label>
             <div class="col-sm-10">
                 <input type="text" name="content"  class="form-control" id="content" aria-label="With textarea" placeholder="Tulis forum anda disini...">
-{{--                <textarea name="content" class="form-control" id="content" aria-label="With textarea" placeholder="Tulis forum anda disini..."></textarea>--}}
             </div>
 
         </div>
@@ -65,5 +64,5 @@
 
 
 
-    <script src="/js/search2.js"></script>
+    <script src="/js/searchforum.js"></script>
 @endsection

@@ -79,6 +79,8 @@ Route::middleware('auth')->group(function () {
         ]);
     });
 
+    Route::get('/forumdiskusi', [ForumController::class, 'index']);
+
 //    FORUM
 
     Route::get('/forumsaya', function () {

@@ -57,20 +57,6 @@ document.getElementById('searchInputForum').addEventListener('input', function()
                 $('#searchResultsDropdownForum').html(response);
                 $('#searchResultsDropdownForum').show(); // Show the dropdown
 
-                // document.querySelectorAll('.search-result-item').forEach(item => {
-                //     item.addEventListener('click', function() {
-                //         let selectedOption = this.querySelector('.option-text').innerText;
-                //         let selectedOptionId = this.querySelector('.option-id').innerText;
-                //         let sBtnTextElement = document.querySelector('.sBtn-text');
-                //         document.querySelector('.sBtn-text').innerText = selectedOption;
-                //         document.querySelector('.sBtn-text-id').innerText = selectedOptionId;
-                //         document.getElementById('searchResultsDropdownForum').style.display = 'none';
-                //
-                //         optionMenu.classList.remove("active");
-                //         custom_input_forum.classList.remove("active");
-                //     });
-                // });
-
                 document.querySelectorAll('.search-result-item').forEach(item => {
                     item.addEventListener('click', function() {
                         let selectedOption = this.querySelector('.option-text').innerText;

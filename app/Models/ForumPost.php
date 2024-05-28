@@ -8,15 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class ForumPost extends Model
 {
     protected $guarded = ['id'];
+    protected $fillable = ['member_id', 'book_id', 'title', 'content'];
 
     public function member()
     {
         return $this->belongsTo(Member::class);
     }
 
-    public function books()
+    public function book()
     {
         return $this->belongsTo(Book::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(ForumComment::class);
     }
     use HasFactory;
 }
