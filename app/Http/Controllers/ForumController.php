@@ -42,8 +42,8 @@ class ForumController extends Controller
     function addData(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'title' => 'required|string|max:50',
-            'content' => 'required|string|max:100',
+            'title' => 'required|string|max:100',
+            'content' => 'required|string|max:250',
             'book_id' => 'required|integer'
         ]);
 

@@ -159,4 +159,16 @@
     box-shadow: 0 0 1px rgba(0,0,0,0.4);
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.container-forum::-webkit-scrollbar {
+    display: none;
+}
+
+/* For other browsers (like Firefox) */
+.container-forum {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
 
