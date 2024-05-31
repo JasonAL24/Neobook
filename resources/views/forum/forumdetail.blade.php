@@ -29,7 +29,8 @@
                             </div>
                             <div class="post-content mt-3">
                                 <p class="fw-bold">{{ $post->title }}</p>
-                                <p style="margin-top:0.5em;">{{ $post->content }}</p>
+                                <p style="margin-top:-0.5em;">{{ $post->content }}</p>
+                            </div>
                                 <div class="mt-auto">
                                     <button class="expand-comments border-0 btn p-0" data-bs-toggle="collapse" data-bs-target="#komentar-{{$post->id}}" aria-expanded="false" aria-controls="komentar">
                                         <img src="/img/svg/comment_forum.svg" alt="comment">
@@ -40,7 +41,6 @@
                                         <img src="/img/svg/expand.svg" alt="expand">
                                     </a>
                                 </div>
-                            </div>
                         </div>
                         <div class="book-info ms-auto">
                             <img src="/img/books/{{ $post->book->filename }}.jpg" alt="Book Image" class="book-image">
@@ -89,20 +89,14 @@
 
                             </div>
                             <div class="col fs-6 mt-3">
-{{--                                <div class="user-info">--}}
-{{--                                    <span class="fw-bold">{{ $commentMember->name }}</span>--}}
-{{--                                    <span class="opacity-50 ms-4">{{ $comment->created_at->diffForHumans() }}</span>--}}
-{{--                                </div>--}}
-{{--                                <div class="post-content mt-4">--}}
-{{--                                    <p>{{ $comment->content }}</p>--}}
-{{--                                </div>--}}
-
-                                <div class="user-info mb-1">
-                                    <span class="fw-bold me-2">{{ $commentMember->name }}</span>
-                                    <span>{{ $comment->content }}</span>
-
+                                <div class="user-info">
+                                    <span class="fw-bold">{{ $commentMember->name }}</span>
+                                    <span class="opacity-50 ms-4">{{ $comment->created_at->diffForHumans() }}</span>
                                 </div>
-                                <span class="opacity-50 me-3">{{ $comment->created_at->diffForHumans() }}</span>
+                                <div class="post-content mt-2">
+                                    <p>{{ $comment->content }}</p>
+                                </div>
+
                                 <button class="expand-replies border-0 btn p-0" data-bs-toggle="collapse" data-bs-target="#balas-{{$comment->id}}" aria-expanded="false" aria-controls="komentar">
                                     <img src="/img/svg/comment_forum.svg" alt="comment" >
                                     Balas
@@ -148,8 +142,8 @@
                                 @php
                                     $replyMember = $reply->member;
                                 @endphp
-                                <div class="row p-3 align-items-center">
-                                    <div class="col-auto mt-3">
+                                <div class="row p-3" style="margin-bottom:-1.5em;">
+                                    <div class="col-auto mt-4">
                                         @if ($replyMember->profile_picture)
                                             <img src="/img/profile/{{$replyMember->id}}/{{ $replyMember->profile_picture }}" alt="profile picture" class="rounded-circle"  style="width: 56px; height: 56px">
                                         @else
@@ -157,21 +151,13 @@
                                         @endif
 
                                     </div>
-                                    <div class="col fs-6 mt-3">
-{{--                                        <div class="user-info">--}}
-{{--                                            <span class="fw-bold">{{ $replyMember->name }}</span>--}}
-{{--                                            <span class="opacity-50 ms-4">{{ $reply->created_at->diffForHumans() }}</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="post-content mt-4">--}}
-{{--                                            <p>{{ $reply->content }}</p>--}}
-{{--                                        </div>--}}
-
+                                    <div class="col-auto fs-6 mt-4 ms-1">
                                         <div class="user-info">
-                                            <span class="fw-bold me-2">{{ $replyMember->name }}</span>
-                                            <span>{{ $reply->content }}</span>
+                                            <span class="fw-bold">{{ $replyMember->name }}</span>
+                                            <span class="opacity-50 ms-4">{{ $reply->created_at->diffForHumans() }}</span>
                                         </div>
-                                        <div class="post-timestamp">
-                                            <span class="opacity-50">{{ $reply->created_at->diffForHumans() }}</span>
+                                        <div class="post-content mt-2">
+                                            <p>{{ $reply->content }}</p>
                                         </div>
                                     </div>
                                 </div>
