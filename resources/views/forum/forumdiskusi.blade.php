@@ -16,7 +16,7 @@
             <h2 class="fw-bold"> Forum Diskusi Kosong</h2>
         </div>
     @else
-        <div class style="max-height: 55vh; overflow:auto; width:83.5vw;">
+        <div class="container-forum" style="max-height: 55vh; overflow:auto; width:83.5vw;">
             @foreach($posts as $post)
                 <div class="row p-3 mb-3 ms-5" style="background-color: white; width: 80vw; border-radius: 10px">
                     <div class="col-auto mt-3">
@@ -31,14 +31,14 @@
                     <div class="col fs-6 mt-3">
                         <div class="d-flex flex-row">
                             <div class="d-flex flex-column align-items-start">
-                                <div class="user-info d-flex flex-row align-items-center">
+                                <div class="user-info">
                                     <span class="fw-bold">{{ $post->member->name }}</span>
                                     <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$post->member->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                     <span class="opacity-50 ms-4">{{ $post->created_at->diffForHumans() }}</span>
                                 </div>
-                                <div class="post-content mt-4">
+                                <div class="post-content mt-3">
                                     <p class="fw-bold">{{ $post->title }}</p>
-                                    <p>{{ $post->content }}</p>
+                                    <p style="margin-top:-0.5em;">{{ $post->content }}</p>
                                 </div>
                                 <div class="mt-auto">
                                     <button class="expand-comments border-0 btn p-0" data-bs-toggle="collapse" data-bs-target="#komentar-{{$post->id}}" aria-expanded="false" aria-controls="komentar">
@@ -85,5 +85,12 @@
             @endforeach
         </div>
 
+        {{-- Button Buat Forum--}}
+        <div class="position-absolute bottom-0 end-0 p-4">
+            <a href="/buatforum" class="btn text-light rounded-circle create-button" style="background-color: #252734; width: 5em; height: 5em">
+                <img src="/img/svg/plus.svg" alt="plus" style="width: 4em; margin-left: -.3em;" class="rounded-circle">
+            </a>
+            <div class="mt-2 create-text">Buat Forum</div>
+        </div>
     @endif
 @endsection

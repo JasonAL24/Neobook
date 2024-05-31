@@ -23,25 +23,25 @@
                 <div class="col fs-6 mt-3">
                     <div class="d-flex flex-row">
                         <div class="d-flex flex-column align-items-start">
-                            <div class="user-info d-flex flex-row align-items-center">
+                            <div class="user-info">
                                 <span class="fw-bold">{{ $post->member->name }}</span>
                                 <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$post->member->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                 <span class="opacity-50 ms-4">{{ $post->created_at->diffForHumans() }}</span>
                             </div>
-                            <div class="post-content mt-4">
+                            <div class="post-content mt-3">
                                 <p class="fw-bold">{{ $post->title }}</p>
-                                <p>{{ $post->content }}</p>
+                                <p style="margin-top:-0.5em;">{{ $post->content }}</p>
                             </div>
-                            <div class="mt-auto">
-                                <button class="expand-comments border-0 btn p-0" data-bs-toggle="collapse" data-bs-target="#komentar-{{$post->id}}" aria-expanded="false" aria-controls="komentar">
-                                    <img src="/img/svg/comment_forum.svg" alt="comment">
-                                    Tulis Komentar
-                                </button>
-                                <a href="/forumdiskusi" class="expand-comments border-0 btn p-0 ms-5">
-                                    Balik ke halaman forum diskusi
-                                    <img src="/img/svg/expand.svg" alt="expand">
-                                </a>
-                            </div>
+                                <div class="mt-auto">
+                                    <button class="expand-comments border-0 btn p-0" data-bs-toggle="collapse" data-bs-target="#komentar-{{$post->id}}" aria-expanded="false" aria-controls="komentar">
+                                        <img src="/img/svg/comment_forum.svg" alt="comment">
+                                        Tulis Komentar
+                                    </button>
+                                    <a href="/forumdiskusi" class="expand-comments border-0 btn p-0 ms-5">
+                                        Balik ke halaman forum diskusi
+                                        <img src="/img/svg/expand.svg" alt="expand">
+                                    </a>
+                                </div>
                         </div>
                         <div class="book-info ms-auto">
                             <img src="/img/books/{{ $post->book->filename }}.jpg" alt="Book Image" class="book-image">
@@ -89,12 +89,12 @@
 
                             </div>
                             <div class="col fs-6 mt-3">
-                                <div class="user-info d-flex flex-row align-items-center">
+                                <div class="user-info">
                                     <span class="fw-bold">{{ $commentMember->name }}</span>
                                     <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$commentMember->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                     <span class="opacity-50 ms-4">{{ $comment->created_at->diffForHumans() }}</span>
                                 </div>
-                                <div class="post-content mt-4">
+                                <div class="post-content mt-2">
                                     <p>{{ $comment->content }}</p>
                                 </div>
 
@@ -103,7 +103,7 @@
                                     Balas
                                 </button>
                                 @if (count($comment->replies) > 0)
-                                <button class="expand-comments border-0 btn p-0 ms-5" onclick="toggleReply({{ $comment->id }})">
+                                <button class="expand-comments border-0 btn p-0 ms-3" onclick="toggleReply({{ $comment->id }})">
                                     Lihat Balasan
                                     <img id="expand-img-reply-{{ $comment->id }}" class="expand-img" src="/img/svg/expand.svg" alt="expand">
                                 </button>
@@ -138,13 +138,13 @@
                         </div>
 
                         {{--  Reply --}}
-                        <div id="member-reply-{{ $comment->id }}" class="member-reviews hidden ms-5">
+                        <div id="member-reply-{{ $comment->id }}" class="member-reviews hidden" style="margin-left:6em; margin-top:-1.5em;">
                             @foreach ($comment->replies as $reply)
                                 @php
                                     $replyMember = $reply->member;
                                 @endphp
-                                <div class="row p-3 ms-2">
-                                    <div class="col-auto mt-3">
+                                <div class="row p-3" style="margin-bottom:-1.5em;">
+                                    <div class="col-auto mt-4">
                                         @if ($replyMember->profile_picture)
                                             <img src="/img/profile/{{$replyMember->id}}/{{ $replyMember->profile_picture }}" alt="profile picture" class="rounded-circle"  style="width: 56px; height: 56px">
                                         @else
@@ -152,13 +152,13 @@
                                         @endif
 
                                     </div>
-                                    <div class="col fs-6 mt-3">
-                                        <div class="user-info d-flex flex-row align-items-center">
+                                    <div class="col-auto fs-6 mt-4 ms-1">
+                                        <div class="user-info">
                                             <span class="fw-bold">{{ $replyMember->name }}</span>
                                             <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$replyMember->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                             <span class="opacity-50 ms-4">{{ $reply->created_at->diffForHumans() }}</span>
                                         </div>
-                                        <div class="post-content mt-4">
+                                        <div class="post-content mt-2">
                                             <p>{{ $reply->content }}</p>
                                         </div>
                                     </div>
