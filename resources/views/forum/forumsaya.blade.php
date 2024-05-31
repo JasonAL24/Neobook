@@ -36,8 +36,9 @@
                     <div class="col fs-6 mt-3">
                         <div class="d-flex flex-row">
                             <div class="d-flex flex-column align-items-start">
-                                <div class="user-info">
+                                <div class="user-info d-flex flex-row align-items-center">
                                     <span class="fw-bold">{{ $post->member->name }}</span>
+                                    <img src="/img/svg/checkmark.svg" alt="checkmark" class="{{$post->member->premium_status ? 'd-block' : 'd-none'}} ms-2">
                                     <span class="opacity-50 ms-4">{{ $post->created_at->diffForHumans() }}</span>
                                 </div>
                                 <div class="post-content mt-3">
@@ -49,7 +50,7 @@
                                         <img src="/img/svg/comment_forum.svg" alt="comment">
                                         Tulis Komentar
                                     </button>
-                                    <a href="forumdiskusi/{{$post->id}}" class="expand-comments border-0 btn p-0 ms-5" onclick="toggleComments({{ $post->id }})">
+                                    <a href="forumdiskusi/{{$post->id}}" class="expand-comments border-0 btn p-0 ms-5">
                                         Lihat Komentar Selengkapnya
                                         <img id="expand-img-{{ $post->id }}" class="expand-img" src="/img/svg/expand.svg" alt="expand">
                                     </a>
@@ -96,9 +97,4 @@
             <div class="mt-2 create-text">Buat Forum</div>
         </div>
     @endif
-
-
-
-
-
 @endsection
