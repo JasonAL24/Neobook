@@ -25,13 +25,13 @@
             <div class="col">
                 <img src="/img/book_access.png" alt="Akses Buku" style="height: 10em">
                 <div class="fs-4 fw-bold mt-4">
-                    Akses buku yang tidak terbatas
+                    Rekomendasi buku personal
                 </div>
             </div>
             <div class="col">
                 <img src="/img/personal_books.png" alt="Akses Buku Personal" style="height: 10em">
                 <div class="fs-4 fw-bold mt-4">
-                    Dapatkan rekomendasi buku personal
+                    Akses buku yang tidak terbatas
                 </div>
             </div>
         </div>

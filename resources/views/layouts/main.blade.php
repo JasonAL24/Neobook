@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neobook | {{$title}}</title>
+    <link rel="icon" href="/img/Neobook.png" type="image/png">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{--    Styles   --}}
