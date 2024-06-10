@@ -155,8 +155,16 @@ class UserController extends Controller
         $member->premium_status = true;
         $member->save();
 
-        return response()->json([
-            'success' => true
+        return redirect()->back()->with('success', 'Langganan berhasil.');
+    }
+
+    public function showQris(Request $request)
+    {
+        $price = $request->input('price');
+        $formattedPrice = 'Rp' . number_format($price, 0, ',', '.');
+        return view('payqris', [
+            "title" => "Pay QRIS",
+            "price" => $formattedPrice
         ]);
     }
 }

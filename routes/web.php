@@ -154,7 +154,8 @@ Route::middleware('auth')->group(function () {
             "title" => "Langganan"
         ]);
     });
-    Route::post('/subscribe', [UserController::class, 'subscribe']);
+    Route::post('/subscribe', [UserController::class, 'subscribe'])->name('subscribe');
+    Route::get('/qris', [UserController::class, 'showQris'])->name('qris');
 
 //    PENGATURAN
     Route::get('/pengaturan', function () {

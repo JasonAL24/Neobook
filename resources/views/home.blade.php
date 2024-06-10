@@ -156,7 +156,9 @@
             <div class="container">
                 <h2 class="mb-3">Forum Diskusi</h2>
                 <div class="container font-size-18">
+                @php $countForum = 0; @endphp
                     @foreach($forumPosts as $post)
+                    @if ($countForum < 2)
                     <div class="row">
                         <div class="col-auto">
                             @if ($post->member->profile_picture)
@@ -196,6 +198,8 @@
                             </div>
                         </div>
                     </div>
+                    @endif
+                    @php $countForum++ @endphp
                     @endforeach
                 </div>
                 <div class="mt-3"></div>
