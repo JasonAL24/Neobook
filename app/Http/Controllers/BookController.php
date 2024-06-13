@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Bookmark;
+use App\Models\BookMember;
 use App\Models\Member;
 use App\Models\Rating;
 use App\Models\Record;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -68,7 +72,7 @@ class BookController extends Controller
 
     public function read(Request $request, Book $book)
     {
-        $startPageNum = $request->query('startPage');
+        $startPageNum = $request->input('startPage');
 
         $title = "Baca: " . $book->name;
         return view('books.read', [
@@ -201,7 +205,7 @@ class BookController extends Controller
 
     public function createBook(Request $request){
         $member = auth()->user()->member;
-        $maxFileSize = $member->premium_status ? 102400 : 20480; // 100MB if premium, 20MB if not
+        $maxFileSize = $member->premium_status ? 51200 : 20480; // 50MB if premium, 20MB if not
         $validator = Validator::make($request->all(), [
             'judul' => 'required|string',
             'penulis' => 'required|string|max:30',
@@ -274,6 +278,46 @@ class BookController extends Controller
 
 
         return redirect()->back()->with('success', 'Sukses! Buku telah diunggah!');
+    }
+
+    public function storeBookmark(Request $request)
+    {
+        $request->validate([
+            'book_id' => 'required|integer',
+            'page_number' => 'required|integer',
+        ]);
+
+        $member = auth()->user()->member;
+
+        // Cek apakah bookmark sudah ada
+        $existingBookmark = Bookmark::where('member_id', $member->id)
+            ->where('book_id', $request->book_id)
+            ->where('page_number', $request->page_number)
+            ->first();
+
+        if ($existingBookmark) {
+            return response()->json(['success' => false, 'message' => 'Bookmark already exists']);
+        }
+
+        // Simpan bookmark baru
+        Bookmark::create([
+            'member_id' => $member->id,
+            'book_id' => $request->book_id,
+            'page_number' => $request->page_number,
+        ]);
+
+        return response()->json(['success' => true]);
+    }
+
+    public function getBookmarks($bookId)
+    {
+        $member = auth()->user()->member;
+
+        $bookmarks = Bookmark::where('member_id', $member->id)
+            ->where('book_id', $bookId)
+            ->get(['page_number']);
+
+        return response()->json($bookmarks);
     }
 
 }

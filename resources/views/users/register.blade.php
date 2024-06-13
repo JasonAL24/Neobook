@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neobook | {{$title}}</title>
+    <link rel="icon" href="/img/Neobook.png" type="image/png">
     <link rel="stylesheet" href="{{ asset('/css/user.css') }}" type="text/css">
 
     {{--    BootStrap (5.3.3)  --}}

@@ -4,6 +4,19 @@
     <div class="main-bg">
         <div class="white-container p-3">
             <h2 class="fw-bold p-3 mb-4">Unggah</h2>
+            @if ($errors->any())
+                <ul class="alert alert-danger ms-5">
+                <div class="fw-bold">Error! Mohon unggah ulang. Berikut error yang didapat:</div>
+                @foreach ($errors->all() as $error)
+                        <li class="ms-3">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+            @if (session('success'))
+                <div class="alert alert-success mt-3">
+                    {{ session('success') }}
+                </div>
+            @endif
             <form method="POST" action="{{ route('createBook') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="ms-5" style="width: 90%">
@@ -74,13 +87,13 @@
                     @if (!$member->premium_status)
                     <div class="rounded p-1" style="background-color: yellow;">
                         <img src="/img/svg/checkmark.svg" alt="Checkmark">
-                        Dengan premium, anda dapat mengunggah file buku dengan ukuran maksimal 100 MB!
+                        Dengan premium, anda dapat mengunggah file buku dengan ukuran maksimal 50 MB!
                     </div>
                     @endif
                     <div class="input-group mb-3 align-items-center" style="background-color: white; height: 5em;">
                         <div class="d-flex flex-column p-2">
                             <span class="input-label fw-bold">Unggah File Buku</span>
-                            <span class="opacity-50">*File buku musti berupa file PDF dan ukuran maksimal {{$member->premium_status ? '100 MB' : '20 MB'}}</span>
+                            <span class="opacity-50">*File buku musti berupa file PDF dan ukuran maksimal {{$member->premium_status ? '50 MB' : '20 MB'}}</span>
                         </div>
 
                         <div class="ms-auto">
@@ -108,28 +121,10 @@
                                 <img src="/img/svg/upload_book.svg" alt="upload" style="width: 23px">
                             </button>
                         </div>
-
-
-                        <input type="file" name="cover_image" class="form-control d-none" accept=".png" aria-label="Cover Buku" id="coverInput">
+                        <input type="file" name="cover_image" class="form-control d-none" accept=".jpg" aria-label="Cover Buku" id="coverInput">
                     </div>
 
-                    @if ($errors->any())
-                        <div>
-                            @foreach ($errors->all() as $error)
-                                <div class="text-danger">{{ $error }}</div>
-                            @endforeach
-                        </div>
-                    @endif
-                    @if (session('success'))
-                        <div class="alert alert-success mt-3">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if(session('error'))
-                        <div class="alert alert-danger mt-3">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+
                     <div class="d-flex flex-row">
                         <div class="ms-auto mt-4">
                             <button type="submit" class="btn btn-secondary fw-bold fs-5" style="width: 6vw">Unggah</button>

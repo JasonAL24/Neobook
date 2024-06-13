@@ -36,6 +36,17 @@ class CreateBookmemberTable extends Migration
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
             $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
         });
+
+        Schema::create('bookmarks', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('book_id');
+            $table->unsignedBigInteger('member_id');
+            $table->integer('page_number');
+            $table->timestamps();
+
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
+        });
     }
 
     /**
@@ -47,5 +58,6 @@ class CreateBookmemberTable extends Migration
     {
         Schema::dropIfExists('book_member');
         Schema::dropIfExists('record');
+        Schema::dropIfExists('bookmarks');
     }
 }

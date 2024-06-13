@@ -21,16 +21,37 @@
                     <div class="col text-center">
                         <h2>{{$book->name}}</h2>
                     </div>
-                    <div class="col-lg-2">
+{{--                    Dropdown buat bookmark --}}
+                    <div class="col-auto">
                         <div class="dropdown">
-                            <button class="btn" type="button" id="contentsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn position-relative" type="button" id="contentsBookmarkDropdown" data-bs-toggle="dropdown" aria-expanded="false" onclick="fetchBookmarks(); this.onclick=null;">
                                 <img src="/img/svg/menu.svg" alt="menu">
                             </button>
-                            <ul class="dropdown-menu" aria-labelledby="contentsDropdown" id="contentsMenu" style="max-height: 400px; overflow-y: auto;">
+                            <ul class="dropdown-menu" aria-labelledby="contentsBookmarkDropdown" id="contentsBookmarkMenu" style="max-height: 400px; overflow-y: auto;">
+                                <li class="fw-bold dropdown-header text-dark fs-5">Ditandai</li>
                             </ul>
                         </div>
                     </div>
+                    <div class="col-auto">
+                        <button class="btn" onclick="addBookmark()" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-custom-class="custom-tooltip"
+                                data-bs-title="This top tooltip is themed via CSS variables.">
+                            <img src="/img/svg/Bookmark.svg" alt="bookmark" class="pt-1">
+                        </button>
+                        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                            <div id="bookmarkToast" class="toast bg-light-subtle" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+                                    <strong class="me-auto">Neobook</strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                                <div class="toast-body">
+                                    Halaman berhasil ditandai.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="row mt-3 align-items-center justify-content-center">
                     <div class="col-lg-1 text-center">
                         <button id="prevPage" class="btn btn-light rounded-circle prev-button" style="width: 72px; height: 72px">
@@ -70,7 +91,7 @@
                 </div>
             </div>
         </div>
-
+{{--        Modal untuk pindah halaman --}}
         <div class="modal fade" id="pageModal" tabindex="-1" aria-labelledby="pageModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -102,6 +123,7 @@
         var pageRendering = false;
         var canvas = document.getElementById('pdfViewer');
         var ctx = canvas.getContext('2d');
+        var bookmarks = [];
 
         function updatePageNumber(currentPage) {
             var maxPage = pdfDoc.numPages;
@@ -176,9 +198,6 @@
                     book_id: bookId,
                     last_page: lastPage
                 },
-                success: function(response) {
-                    console.log('Last page updated successfully.');
-                },
                 error: function(xhr, status, error) {
                     console.error('Error updating last page:', error);
                 }
@@ -189,24 +208,24 @@
             pdfDoc = pdfDoc_;
             renderPage(pageNum);
 
-            pdfDoc.getOutline().then(function(outline) {
-                if (outline) {
-                    var contentsMenu = document.getElementById('contentsMenu');
-                    for (let i = 0; i < outline.length; i++) {
-                        const dest = outline[i].dest;
-                        pdfDoc.getDestination(dest).then(function(dest) {
-                            const ref = dest[0];
-                            pdfDoc.getPageIndex(ref).then(function(id) {
-                                const pageNumber = parseInt(id) + 1;
-                                const title = outline[i].title;
-                                const listItem = document.createElement('li');
-                                listItem.innerHTML = '<a class="dropdown-item" href="#" onclick="goToPage(' + pageNumber + ')">' + title + '</a>';
-                                contentsMenu.appendChild(listItem);
-                            });
-                        });
-                    }
-                }
-            });
+            // pdfDoc.getOutline().then(function(outline) {
+            //     if (outline) {
+            //         var contentsMenu = document.getElementById('contentsMenu');
+            //         for (let i = 0; i < outline.length; i++) {
+            //             const dest = outline[i].dest;
+            //             pdfDoc.getDestination(dest).then(function(dest) {
+            //                 const ref = dest[0];
+            //                 pdfDoc.getPageIndex(ref).then(function(id) {
+            //                     const pageNumber = parseInt(id) + 1;
+            //                     const title = outline[i].title;
+            //                     const listItem = document.createElement('li');
+            //                     listItem.innerHTML = '<a class="dropdown-item" href="#" onclick="goToPage(' + pageNumber + ')">' + title + '</a>';
+            //                     contentsMenu.appendChild(listItem);
+            //                 });
+            //             });
+            //         }
+            //     }
+            // });
 
         }).catch(function(error) {
             document.getElementById('prevPage').style.display = 'none';
@@ -216,9 +235,21 @@
             document.getElementById('notAvailableText').style.display = 'block';
         });
 
+        renderSpecifiedPage();
+
+        function renderSpecifiedPage() {
+            pageNum = {{$startPageNum}};
+            if (isNaN(pageNum) || pageNum < 1) {
+                pageNum = 1;
+                return;
+            }
+
+            renderPage(pageNum);
+        }
+
         function renderPage(num) {
             pageRendering = true;
-            console.log(num);
+            // console.log(num);
 
             pdfDoc.getPage(num).then(function(page) {
                 var viewport = page.getViewport({ scale: scale });
@@ -262,16 +293,6 @@
         window.addEventListener("load", updateBottomControlsPosition);
         window.addEventListener("scroll", updateBottomControlsPosition);
 
-        function renderSpecifiedPage() {
-            pageNum = {{$startPageNum}};
-            if (isNaN(pageNum) || pageNum < 1) {
-                pageNum = 1;
-                return;
-            }
-
-            renderPage(pageNum);
-        }
-
         document.getElementById('goToPageButton').addEventListener('click', function() {
             var pageInput = document.getElementById('pageNumberInput').value;
             var pageNumber = parseInt(pageInput);
@@ -299,8 +320,50 @@
             }
         });
 
-        renderSpecifiedPage();
+        function fetchBookmarks() {
+            // console.log('fetching...')
+            fetch(`/bookmarks/{{$book->id}}`)
+                .then(response => response.json())
+                .then(data => {
+                    bookmarks = data.map(bookmark => bookmark.page_number);
+                    updateBookmarkMenu();
+                });
+        }
 
+        function updateBookmarkMenu() {
+            var bookmarkMenu = document.getElementById('contentsBookmarkMenu');
+            bookmarkMenu.innerHTML = '<li class="fw-bold dropdown-header text-dark fs-5">Ditandai</li>';
 
+            bookmarks.sort((a, b) => a - b);
+
+            bookmarks.forEach(page => {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = '<a class="dropdown-item" href="#" onclick="goToPage(' + page + ')">Halaman ' + page + '</a>';
+                bookmarkMenu.appendChild(listItem);
+            });
+        }
+
+        function addBookmark() {
+            const bookmarkToastElement = document.getElementById('bookmarkToast')
+            if (!bookmarks.includes(pageNum)) {
+                bookmarks.push(pageNum);
+                updateBookmarkMenu();
+
+                fetch('/bookmarks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        book_id: {{$book->id}},
+                        page_number: pageNum
+                    })
+                });
+
+                const toastBootstrap = bootstrap.Toast.getOrCreateInstance(bookmarkToastElement);
+                toastBootstrap.show();
+            }
+        }
     </script>
 @endsection

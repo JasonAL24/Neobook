@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neobook | {{$title}}</title>
+    <link rel="icon" href="/img/Neobook.png" type="image/png">
     <link rel="stylesheet" href="{{ asset('/css/user.css') }}" type="text/css">
 
     {{--    BootStrap (5.3.3)  --}}
@@ -27,11 +28,11 @@
 
 <form method="POST" action="{{ route('login') }}">
     @csrf
-    <div class="row align-items-center justify-content-center" style="margin-right: 0;">
-        <div class="col-lg-6">
+    <div class="row align-items-center justify-content-center position-relative" style="margin-right: 0;">
+        <div class="col-lg-6 d-none d-lg-block">
             <img src="/img/background/login_background.png" alt="login background" style="height: 100vh; width: 800px">
         </div>
-        <div class="col align-items-center justify-content-center mb-5 me-5">
+        <div class="col align-items-center justify-content-center">
             <h1><b>Selamat Datang</b></h1>
             <div class="d-flex flex-column mt-4">
                 <label for="email">Email</label>
@@ -60,11 +61,11 @@
                 </div>
             @endif
         </div>
-    </div>
-    <div class="row fixed-bottom justify-content-end mr-3 mb-3">
-        <div class="col-auto d-flex flex-row align-items-center me-5">
-            <img src="/img/OIG2_RemoveBG.png" alt="Logo Neobook" class="size-img">
-            <h3 class="mt-2" style="margin-left: -.5em;"><b>Neobook</b></h3>
+        <div class="row position-absolute bottom-0 end-0 justify-content-end p-0 d-lg-flex d-none mb-2 me-2">
+            <div class="col-auto d-flex flex-row align-items-center me-5 p-0">
+                <img src="/img/OIG2_RemoveBG.png" alt="Logo Neobook" class="size-img">
+                <h3 class="mt-2" style="margin-left: -.5em;"><b>Neobook</b></h3>
+            </div>
         </div>
     </div>
 </form>

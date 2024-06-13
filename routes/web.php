@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/update-last-page', [BookController::class, 'updateLastPage'])->name('update-last-page');
 
     Route::get('/books/{book}/read', [BookController::class, 'read']);
+    Route::post('/bookmarks', [BookController::class, 'storeBookmark']);
+    Route::get('/bookmarks/{bookId}', [BookController::class, 'getBookmarks']);
 
     Route::get('/search/{query}', [BookController::class, 'search']);
     Route::get('/kategori/{query}', [BookController::class, 'viewCategory']);
