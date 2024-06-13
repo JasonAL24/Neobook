@@ -103,13 +103,13 @@
                         <form id="pageForm">
                             <div class="mb-3">
                                 <label for="pageNumberInput" class="form-label">Nomor Halaman</label>
-                                <input type="number" class="form-control" id="pageNumberInput" min="1">
+                                <input type="number" class="form-control" id="pageNumberInput" min="1" onkeydown="handleEnter(event)">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        <button type="button" class="btn btn-primary" id="goToPageButton">Pindah</button>
+                        <button type="button" class="btn btn-primary" onclick="goToInputPage()">Pindah</button>
                     </div>
                 </div>
             </div>
@@ -293,32 +293,25 @@
         window.addEventListener("load", updateBottomControlsPosition);
         window.addEventListener("scroll", updateBottomControlsPosition);
 
-        document.getElementById('goToPageButton').addEventListener('click', function() {
+        function goToInputPage() {
             var pageInput = document.getElementById('pageNumberInput').value;
             var pageNumber = parseInt(pageInput);
-            if (pageNumber >= 1 && pageNumber <= pdfDoc.numPages) {
+            var maxPage =  pdfDoc.numPages;
+            if (pageNumber >= 1 && pageNumber <= maxPage) {
                 goToPage(pageNumber);
                 var pageModal = bootstrap.Modal.getInstance(document.getElementById('pageModal'));
                 pageModal.hide();
             } else {
-                alert('Please enter a valid page number.');
+                alert('Nomor halaman harus lebih dari 1 dan kurang dari ' + maxPage + '.');
             }
-        });
+        }
 
-        document.getElementById('pageNumberInput').addEventListener('keydown', function(event) {
+        function handleEnter(event) {
             if (event.key === 'Enter'){
                 event.preventDefault();
-                var pageInput = document.getElementById('pageNumberInput').value;
-                var pageNumber = parseInt(pageInput);
-                if (pageNumber >= 1 && pageNumber <= pdfDoc.numPages) {
-                    goToPage(pageNumber);
-                    var pageModal = bootstrap.Modal.getInstance(document.getElementById('pageModal'));
-                    pageModal.hide();
-                } else {
-                    alert('Please enter a valid page number.');
-                }
+                goToInputPage();
             }
-        });
+        }
 
         function fetchBookmarks() {
             // console.log('fetching...')

@@ -208,15 +208,18 @@ class BookController extends Controller
         $maxFileSize = $member->premium_status ? 51200 : 20480; // 50MB if premium, 20MB if not
         $validator = Validator::make($request->all(), [
             'judul' => 'required|string',
-            'penulis' => 'required|string|max:30',
+            'penulis' => ['required', 'string', 'max:50', 'regex:/^[^0-9]*$/'],
             'deskripsi' => 'required|string|max:500',
-            'editor' => 'required|string|max:30',
+            'editor' => ['required', 'string', 'max:50', 'regex:/^[^0-9]*$/'],
             'bahasa' => 'required|string|max:20|min:2',
             'kategori' => 'required|string|max:20|min:2',
             'ISBN' => 'required|string',
-            'penerbit' => 'required|string|max:30',
+            'penerbit' => 'required|string|max:50',
             'pdf_file' => 'required|mimes:pdf|max:' . $maxFileSize,
             'cover_image' => 'required|image|mimes:jpg',
+        ], [
+            'penulis.regex' => 'Penulis tidak boleh ada angka.',
+            'editor.regex' => 'Editor tidak boleh ada angka.',
         ]);
 
         if ($validator->fails()) {

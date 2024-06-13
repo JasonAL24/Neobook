@@ -166,7 +166,7 @@
                         <div>
                             @foreach($announcements as $announcement)
                                 <div class="d-flex flex-row mt-4">
-                                    <div class="fw-bold">{{$announcement->name}}</div>
+                                    <div class="fw-bold">{{$announcement->title}}</div>
                                     <div class="ms-auto"> {{$announcement->created_at->format('d-m-Y')}}</div>
                                 </div>
                                 <div>{{$announcement->content}}</div>

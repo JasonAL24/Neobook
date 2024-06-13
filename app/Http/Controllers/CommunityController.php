@@ -254,11 +254,13 @@ class CommunityController extends Controller
 
     public function createCommunity(Request $request){
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string',
+            'nama' => 'required|string|regex:/^[a-zA-Z ]+$/',
             'deskripsi' => 'required|string|max:500',
             'social_media' => 'nullable|string',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'background_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'nama.regex' => 'Nama Komunitas tidak boleh berupa angka/simbol',
         ]);
 
         if ($validator->fails()) {

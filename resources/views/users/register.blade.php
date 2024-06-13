@@ -43,6 +43,14 @@
                 <p class="text-primary fs-1">.</p>
             </div>
             <p>Sudah memiliki akun? <a href="{{route('login')}}">Log In</a></p>
+            @if ($errors->any())
+                <ul class="alert alert-danger">
+                    <div class="fw-bold">Error! Mohon registrasi ulang. Berikut error yang didapat:</div>
+                    @foreach ($errors->all() as $error)
+                        <li class="ms-3">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
             <div class="d-flex flex-column mt-5">
                 <label for="nama">Nama Lengkap</label>
                 <input type="text" id="nama" name="nama" value="{{ old('nama') }}" class="input-box text-light" placeholder="Tulis nama lengkap Anda...">
@@ -62,13 +70,7 @@
                     <img src="/img/svg/eye.svg" alt="eye" class="eye-icon">
                 </button>
             </div>
-            @if ($errors->any())
-                <div>
-                    @foreach ($errors->all() as $error)
-                        <div class="error-text">{{ $error }}</div>
-                    @endforeach
-                </div>
-            @endif
+
             <div class="text-end me-3">
                 <button type="submit" class="register-button mt-5">Daftar</button>
             </div>

@@ -152,6 +152,7 @@
             </div>
         </div>
         {{-- Right Column --}}
+{{--        Forum --}}
         <div class="col bg-color-white ms-5">
             <div class="container">
                 <h2 class="mb-3">Forum Diskusi</h2>
@@ -204,6 +205,7 @@
                 </div>
                 <div class="mt-3"></div>
             </div>
+{{--            Group --}}
             <div class="container mt-5">
                 <div class="d-flex flex-row align-items-center">
                     <h2 class="mt-1">Obrolan Grup</h2>
@@ -216,7 +218,7 @@
                     @if ($isMemberPremium)
                     @php $countChat = 0 @endphp
                     @foreach($communitiesWithLastMessage as $communityChat)
-                        @if($countChat < 3)
+                        @if($countChat < 2)
                             <div class="row mb-4 align-items-center">
                                 <div class="col-auto">
                                     <a href="/komunitas/{{$communityChat->id}}">
@@ -249,14 +251,14 @@
             <div class="container mt-5">
                 <h2 class="mb-1">Penilaian</h2>
                 @php
-                    $count = 0;
+                    $countRating = 0;
                 @endphp
                 <div class="row pb-3">
                     @foreach ($booksWithRating->shuffle() as $book_rating)
                         @php
                             $latestRating = $book_rating->ratings()->latest()->first();
                         @endphp
-                        @if($count < 3)
+                        @if($countRating < 3)
                         <div class="mt-3"></div>
                         <div class="col-auto">
                             <div class="text-center">
@@ -293,7 +295,7 @@
                             </div>
                             <a href="/viewrating" class="text-decoration-none font-inter font-size-review align-items-center"><img src="/img/svg/arrow_blue.svg" alt=">">Baca selengkapnya</a>
                         </div>
-                        @php $count++; @endphp
+                        @php $countRating++; @endphp
                         @endif
                     @endforeach
                 </div>

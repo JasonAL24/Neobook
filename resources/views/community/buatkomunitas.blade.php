@@ -4,6 +4,14 @@
     <div class="main-bg">
         <div class="white-container p-3">
             <h2 class="fw-bold p-3 mb-4">Buat Komunitas</h2>
+            @if ($errors->any())
+                <ul class="alert alert-danger">
+                    <div class="fw-bold">Error! Mohon buat komunitas ulang. Berikut error yang didapat:</div>
+                    @foreach ($errors->all() as $error)
+                        <li class="ms-3">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
             <form method="POST" action="{{ route('community.create') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="ms-5 fw-bold" style="width: 90%">
@@ -14,9 +22,9 @@
                     <div class="input-group mb-3">
                         <span class="input-label">Deskripsi Komunitas</span>
                         <div class="position-relative input-group form-control" style="padding: 0; border: 0">
-                            <textarea id="deskripsi" name="deskripsi" class="form-control" maxlength="100" placeholder="Tulis deskripsi komunitas..." aria-label="Deskripsi" style="height: 10em;"></textarea>
+                            <textarea id="deskripsi" name="deskripsi" class="form-control" maxlength="500" placeholder="Tulis deskripsi komunitas..." aria-label="Deskripsi" style="height: 10em;"></textarea>
                             <div class="position-absolute bottom-0 end-0 me-3" style="pointer-events: none; font-size: 16px; opacity: 50%; z-index:500">
-                                <span id="char-count" class="">0/100</span>
+                                <span id="char-count" class="">0/500</span>
                             </div>
                         </div>
                     </div>
@@ -69,15 +77,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    @if ($errors->any())
-                        <div>
-                            @foreach ($errors->all() as $error)
-                                <div class="text-danger">{{ $error }}</div>
-                            @endforeach
-                        </div>
-                    @endif
                     @if (session('success'))
                         <div class="alert alert-success mt-3">
                             {{ session('success') }}
@@ -101,7 +100,7 @@
         $(document).ready(function() {
             $('#deskripsi').on('input', function() {
                 var charCount = $(this).val().length;
-                $('#char-count').text(charCount + '/100');
+                $('#char-count').text(charCount + '/500');
             });
         });
 

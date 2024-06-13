@@ -48,13 +48,12 @@
                             </div>
                         @endif
                         @if ($errors->any())
-                            <div class="alert alert-danger mt-3">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                            <ul class="alert alert-danger">
+                                <div class="fw-bold">Error! Mohon update profil ulang. Berikut error yang didapat:</div>
+                                @foreach ($errors->all() as $error)
+                                    <li class="ms-3">{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         @endif
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

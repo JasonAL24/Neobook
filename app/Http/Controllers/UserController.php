@@ -33,12 +33,18 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
+        Validator::extend('custom_email', function ($attribute, $value, $parameters, $validator) {
+            return filter_var($value, FILTER_VALIDATE_EMAIL) && preg_match('/^[^@\s]+@[^@\s]+\.[^@\s]+$/', $value);
+        });
         // Validate registration data
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'nullable|string|max:20',
+            'nama' => 'required|string|max:255|regex:/^[a-zA-Z ]+$/',
+            'email' => 'required|string|custom_email|max:255|unique:users',
+            'phone' => 'nullable|string|min:10|max:13|regex:/^[0-9]+$/',
             'password' => 'required|string|min:8|unique:users',
+        ], [
+            'nama.regex' => 'Nama Lengkap tidak boleh berupa angka/simbol',
+            'phone.regex' => 'Nomor Handphone tidak boleh berupa huruf/simbol',
         ]);
 
         if ($validator->fails()) {
@@ -81,17 +87,24 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        Validator::extend('custom_email', function ($attribute, $value, $parameters, $validator) {
+            return filter_var($value, FILTER_VALIDATE_EMAIL) && preg_match('/^[^@\s]+@[^@\s]+\.[^@\s]+$/', $value);
+        });
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z ]+$/',
             'address' => 'nullable|string|max:255',
-            'phone' => 'nullable|string|max:20',
+            'phone' => 'nullable|string|min:10|max:13|regex:/^[0-9]+$/',
             'email' => [
                 'required',
                 'string',
-                'email',
+                'custom_email',
                 'max:255',
                 Rule::unique('users')->ignore($id), // Ensure email is unique except for the current user
             ],
+        ], [
+            'name.regex' => 'Nama tidak boleh berupa angka/simbol',
+            'phone.regex' => 'Nomor Handphone tidak boleh berupa huruf/simbol',
         ]);
 
         if ($validator->fails()) {

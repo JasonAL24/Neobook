@@ -117,6 +117,7 @@ return [
     'uploaded'             => 'Isian :attribute gagal mengunggah.',
     'url'                  => 'Format isian :attribute tidak valid.',
     'uuid'                 => 'Isian :attribute harus berupa UUID yang valid.',
+    'custom_email' => 'Isian :attribute harus berupa alamat surel yang valid. Contoh alamat surel yang valid: user@domain.com',
 
     /*
     |--------------------------------------------------------------------------

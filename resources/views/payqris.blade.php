@@ -31,7 +31,7 @@
     <div class="text-center mt-5">
         <form action="{{route('subscribe')}}" method="POST">
             @csrf
-            <button class="btn btn-primary" type="submit" onclick="resetCountdown()">
+            <button class="btn btn-primary" type="submit">
                 Sudah Membayar
             </button>
         </form>
@@ -44,22 +44,8 @@
     @endif
 </div>
 <script>
-    function resetCountdown() {
-        // Hapus tanggal akhir countdown dari localStorage
-        localStorage.removeItem('deadline');
-    }
-
-    // Cek apakah tanggal akhir countdown sudah disimpan di localStorage
-    var deadline = localStorage.getItem('deadline');
-
-    if (!deadline) {
-        // Jika tidak ada, atur tanggal akhir 24 jam dari sekarang dan simpan di localStorage
-        var now = new Date().getTime();
-        deadline = now + 24 * 60 * 60 * 1000;
-        localStorage.setItem('deadline', deadline);
-    } else {
-        deadline = parseInt(deadline);
-    }
+    var now = new Date().getTime();
+    deadline = now + 24 * 60 * 60 * 1000;
 
     // Update countdown setiap 1 detik
     var x = setInterval(function() {
