@@ -204,6 +204,9 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/booklist/search', [AdminController::class, 'searchBook'])->name('admin.books.search');
     Route::get('/admin/booklist/uploadbook', [AdminController::class, 'showUploadForm'])->name('admin.books.upload');
     Route::post('/admin/booklist/uploadbook', [AdminController::class, 'createBook'])->name('admin.create.book');
+
+    Route::get('/admin/booklist/updatebook/{id}/edit', [AdminController::class, 'showUpdateForm'])->name('admin.books.update');
+    Route::put('/admin/booklist/updatebook/{id}', [AdminController::class, 'updateBook'])->name('admin.update.book');
 });
 
 

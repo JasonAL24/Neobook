@@ -14,7 +14,7 @@
             <tr style="height: 4em" class="text-align-center">
                 <td class="align-middle text-center">{{ $book->id }}</td>
                 <td class="align-middle text-center">
-                    <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{$book->filename}}.jpg" alt="{{$book->name}}" style="width: 40px;">
+                    <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{$book->cover_image}}.jpg" alt="{{$book->name}}" style="width: 40px;">
                 </td>
                 <td class="align-middle">
                     {{$book->name}}
@@ -23,9 +23,9 @@
                     {{$book->active ? "Aktif" : "Non Aktif"}}
                 </td>
                 <td class="align-middle">
-                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal{{$book->id}}">
+                    <a href="/admin/booklist/updatebook/{{$book->id}}/edit" class="btn btn-secondary">
                         Ubah
-                    </button>
+                    </a>
                 </td>
             </tr>
         @endforeach

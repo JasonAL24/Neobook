@@ -37,12 +37,10 @@ class BooksTableSeeder extends Seeder
             $book->publisher = $data[4];
             $book->ISBN = $data[5];
             $book->description = $data[6];
-
-            $filename = str_replace("'", "", $data[7]);
-            $book->filename = $filename;
-
-            $book->category = strtolower($data[8]);
-            $book->pages = $data[9];
+            $book->pdf_file = $data[7];
+            $book->cover_image = $data[8];
+            $book->category = strtolower($data[9]);
+            $book->pages = $data[10];
             $book->save();
         }
 

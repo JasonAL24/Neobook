@@ -9,7 +9,7 @@
                     <div class="row mt-5 p-4" style="background-color: white; width: 80vw; margin-left: 5vw">
                         <div class="col-auto">
                             <a href="/books/{{$book->id}}" class="text-decoration-none text-black">
-                                <img src="/img/books/{{ $book['filename'] }}.jpg" alt="{{ $book['name'] }}" class="me-3 book-image">
+                                <img src="/img/books/{{ $book->cover_image }}.jpg" alt="{{ $book->name }}" class="me-3 book-image">
                             </a>
                         </div>
                         <div class="col d-flex flex-column">

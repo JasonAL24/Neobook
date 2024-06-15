@@ -223,7 +223,6 @@ class BookController extends Controller
         ]);
 
         if ($validator->fails()) {
-
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
@@ -256,7 +255,8 @@ class BookController extends Controller
             $book->publisher = $request->input('penerbit');
             $book->category = $request->input('kategori');
             $book->ISBN = $request->input('ISBN');
-            $book->filename = $pdfFilename;
+            $book->pdf_file = $pdfFilename;
+            $book->cover_image = $pdfFilename;
             $book->pages = $totalPages;
             $book->save();
 

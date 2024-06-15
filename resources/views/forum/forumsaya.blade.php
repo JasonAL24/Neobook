@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="book-info ms-auto">
-                                <img src="/img/books/{{ $post->book->filename }}.jpg" alt="Book Image" class="book-image">
+                                <img src="/img/books/{{ $post->book->cover_image }}.jpg" alt="Book Image" class="book-image">
                             </div>
                         </div>
 

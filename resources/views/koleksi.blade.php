@@ -14,7 +14,7 @@
                     <div class="row mt-5 p-4" style="background-color: white; width: 80vw; margin-left: 5vw">
                         <div class="col-auto">
                             <a href="/books/{{$book->id}}" class="text-decoration-none text-black">
-                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book['filename'] }}.jpg" alt="{{ $book['name'] }}" class="me-3 book-image">
+                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book->cover_image }}.jpg" alt="{{ $book->name }}" class="me-3 book-image">
                             </a>
                         </div>
                         <div class="col d-flex flex-column">
@@ -65,7 +65,7 @@
                                 <div class="text-center">
                                     <a class="no-blue" href="/books/{{$book['id']}}">
                                         <div class="book-container">
-                                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book['filename'] }}.jpg" alt="{{ $book['name'] }}" class="mb-3 book-image">
+                                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book->cover_image }}.jpg" alt="{{ $book->name }}" class="mb-3 book-image">
                                             <div class="overlay d-flex flex-column book-image">
                                                 <img src="img/svg/look.svg" alt="look">
                                                 <span class="text-overlay">Lihat</span>

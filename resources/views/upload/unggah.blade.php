@@ -35,7 +35,7 @@
                 @foreach($records as $record)
                     <div class="row ms-5 mb-4 align-items-center">
                         <div class="col">
-                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{$record->book->filename}}.jpg" alt="{{$record->book->name}}" style="width: 70px; height: 101px;">
+                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{$record->book->cover_image}}.jpg" alt="{{$record->book->name}}" style="width: 70px; height: 101px;">
                         </div>
                         <div class="col fs-5">
                             {{$record->book->name}}

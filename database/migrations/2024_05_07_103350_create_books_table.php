@@ -22,7 +22,8 @@ class CreateBooksTable extends Migration
             $table->string('publisher');
             $table->string('ISBN');
             $table->text('description')->nullable();
-            $table->string('filename');
+            $table->string('pdf_file');
+            $table->string('cover_image');
             $table->string('category');
             $table->integer('pages');
             $table->boolean('active')->default(true);

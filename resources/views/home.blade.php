@@ -28,7 +28,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-auto">
-                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" class="img-shadow img-large" src="/img/books/{{$firstBook->filename}}.jpg" alt="{{$firstBook->name}}">
+                            <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" class="img-shadow img-large" src="/img/books/{{$firstBook->cover_image}}.jpg" alt="{{$firstBook->name}}">
                         </div>
                         <div class="col">
                             <div class="d-flex flex-column flex-fill">
@@ -66,7 +66,7 @@
                                     <div class="text-center">
                                         <a class="no-blue" href="/books/{{$book->id}}">
                                             <div class="book-container">
-                                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book->filename }}.jpg" alt="{{ $book->name }}" class="mb-3 book-image">
+                                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book->cover_image }}.jpg" alt="{{ $book->name }}" class="mb-3 book-image">
                                                 <div class="overlay d-flex flex-column book-image">
                                                     <img src="img/svg/look.svg" alt="look">
                                                     <span class="text-overlay">Lihat</span>
@@ -124,7 +124,7 @@
                                     <div class="text-center">
                                         <a class="no-blue" href="/books/{{$book->id}}">
                                             <div class="book-container">
-                                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';"  src="/img/books/{{ $book->filename}}.jpg" alt="{{ $book->name }}" class="mb-3 book-image">
+                                                <img onerror="this.onerror=null; this.src='/img/default_book.jpg';"  src="/img/books/{{ $book->cover_image}}.jpg" alt="{{ $book->name }}" class="mb-3 book-image">
                                                 <div class="overlay d-flex flex-column book-image">
                                                     <img src="img/svg/look.svg" alt="look">
                                                     <span class="text-overlay">Lihat</span>
@@ -264,7 +264,7 @@
                             <div class="text-center">
                                 <a class="no-blue" href="/books/{{$book_rating->id}}">
                                     <div>
-                                        <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book_rating->filename }}.jpg" alt="{{ $book_rating->name }}" class="img-small mt-2">
+                                        <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{ $book_rating->cover_image }}.jpg" alt="{{ $book_rating->name }}" class="img-small mt-2">
                                     </div>
                                 </a>
                             </div>

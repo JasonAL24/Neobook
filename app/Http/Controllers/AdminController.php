@@ -223,7 +223,8 @@ class AdminController extends Controller
             $book->publisher = $request->input('penerbit');
             $book->category = $request->input('kategori');
             $book->ISBN = $request->input('ISBN');
-            $book->filename = $pdfFilename;
+            $book->pdf_file = $pdfFilename;
+            $book->cover_image = $pdfFilename;
             $book->pages = $totalPages;
             $book->save();
 
@@ -239,4 +240,117 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Sukses! Buku telah diunggah!');
     }
 
+    public function showUpdateForm($id)
+    {
+        $book = Book::findOrFail($id);
+        return view('admin.updatebook', [
+            "title" => "Daftar Buku",
+            "book" => $book
+        ]);
+    }
+
+    public function updateBook(Request $request, $id)
+    {
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'judul' => 'required|string',
+            'penulis' => ['required', 'string', 'max:50', 'regex:/^[^0-9]*$/'],
+            'deskripsi' => 'required|string|max:500',
+            'editor' => ['required', 'string', 'max:50', 'regex:/^[^0-9]*$/'],
+            'bahasa' => 'required|string|max:20|min:2',
+            'kategori' => 'required|string|max:20|min:2',
+            'ISBN' => 'required|string',
+            'penerbit' => 'required|string|max:50',
+            'pdf_file' => 'nullable|mimes:pdf|max:51200',
+            'cover_image' => 'nullable|image|mimes:jpg',
+        ], [
+            'penulis.regex' => 'Penulis tidak boleh ada angka.',
+            'editor.regex' => 'Editor tidak boleh ada angka.',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Find the book by ID
+        $book = Book::findOrFail($id);
+
+        $filename = $book->name;
+
+        // Handle PDF file if provided
+        if ($request->hasFile('pdf_file')) {
+            $pdfFilename = pathinfo($request->file('pdf_file')->getClientOriginalName(), PATHINFO_FILENAME);
+            $request->file('pdf_file')->move(public_path('/books'), $pdfFilename . '.pdf');
+            $pdfFullPath = public_path('books/' . $pdfFilename . '.pdf');
+
+            // Update the total pages if the PDF file is updated
+            $parser = new Parser();
+            $pdf = $parser->parseFile($pdfFullPath);
+            $totalPages = count($pdf->getPages());
+
+            // Delete old PDF file
+            File::delete(public_path('books/' . $book->pdf_file . '.pdf'));
+
+            // Update book fields
+            $book->pdf_file = $pdfFilename;
+            $book->pages = $totalPages;
+        }
+
+        // Handle cover image if provided
+        if ($request->hasFile('cover_image')) {
+            $coverImageFilename = $filename . '.jpg';
+            $request->file('cover_image')->move(public_path('/img/books'), $coverImageFilename);
+            $imageFullPath = public_path('img/books/' . $coverImageFilename);
+
+            // Delete old cover image
+            File::delete(public_path('img/books/' . $book->cover_image . '.jpg'));
+            $book->cover_image = $filename;
+        }
+
+        // Update other book fields
+        $description = $request->input('deskripsi');
+        $descriptionWithPTags = '<p>' . str_replace("\n", '</p><p>', $description) . '</p>';
+
+        // Check if the title is being changed
+        if ($request->input('judul') !== $book->name) {
+            // Title is being changed, check uniqueness
+            $validator = Validator::make($request->all(), [
+                'judul' => 'unique:books,name,' . $book->id,
+            ], [
+                'judul.unique' => 'Nama buku sudah ada, mohon unggah buku lain.',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+
+            // Update the title
+            $book->name = $request->input('judul');
+        }
+
+        // Update other fields
+        $book->description = $descriptionWithPTags;
+        $book->author = $request->input('penulis');
+        $book->editor = $request->input('editor');
+        $book->language = $request->input('bahasa');
+        $book->publisher = $request->input('penerbit');
+        $book->category = $request->input('kategori');
+        $book->ISBN = $request->input('ISBN');
+
+        try {
+            $book->save();
+        } catch (QueryException $e) {
+            if (isset($pdfFullPath)) {
+                File::delete($pdfFullPath);
+            }
+            if (isset($imageFullPath)) {
+                File::delete($imageFullPath);
+            }
+            if ($e->errorInfo[1] === 1062) {
+                return redirect()->back()->with('error', 'Nama buku sudah ada, mohon unggah buku lain');
+            }
+        }
+
+        return redirect()->back()->with('success', 'Sukses! Buku telah diperbarui!');
+    }
 }

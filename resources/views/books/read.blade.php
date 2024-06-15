@@ -117,7 +117,7 @@
     @endif
 
     <script>
-        var pdfUrl = '/books/{{$book->filename}}.pdf';
+        var pdfUrl = '/books/{{$book->pdf_file}}.pdf';
         var pdfDoc = null;
         var pageNum = 1;
         var pageRendering = false;

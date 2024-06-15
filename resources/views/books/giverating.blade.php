@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row" style="height: 300px">
                     <div class="col-lg-4 offset-md-1" style="height: 115%">
-                        <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{$book->filename}}.jpg" alt="Book Image" class="book-detail-image">
+                        <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/{{$book->cover_image}}.jpg" alt="Book Image" class="book-detail-image">
                     </div>
                     <div class="col-lg-7 justify-content-between" style="width: 30%">
                         <h1><strong>{{ $book->name }}</strong></h1>
