@@ -25,6 +25,7 @@ class CreateBooksTable extends Migration
             $table->string('filename');
             $table->string('category');
             $table->integer('pages');
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

@@ -50,6 +50,12 @@
             <div>
                 <button type="submit" class="submit-button mt-5">Masuk</button>
             </div>
+            <a href="/admin/login" class="text-decoration-none">
+                <div class="admin-button mt-4 text-center align-items-center justify-content-center d-flex text-light">
+                    Masuk sebagai Admin
+                </div>
+            </a>
+
             <div class="mb-5 mt-2">
                 Belom punya akun? <a href="{{route('register')}}"> Daftar Sekarang </a>
             </div>

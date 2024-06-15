@@ -170,5 +170,21 @@
     scrollbar-width: none;  /* Firefox */
 }
 
+.pagination .page-item.active .page-link {
+    background-color: #222222; /* Active background color */
+    border-color: #222222; /* Active border color */
+    color: #fff; /* Active text color */
+}
+
+.pagination .page-link {
+    color: #222222; /* Default text color */
+}
+
+.pagination .page-link:hover {
+    background-color: rgba(34, 34, 34, 0.11); /* Hover background color */
+    color: #222222; /* Default text color */
+
+}
+
 
 

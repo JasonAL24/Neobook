@@ -101,9 +101,9 @@
             $.ajax({
                 url: url,
                 type: 'DELETE',
-                headers: {
+                ``headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
+                },``
                 success: function(response) {
                     console.log(response.message);
                     const row = document.querySelector(`button[data-member-id="${memberId}"]`).closest('.row');

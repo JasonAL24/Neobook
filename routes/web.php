@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CommunityChatController;
 use App\Http\Controllers\CommunityController;
@@ -180,6 +181,29 @@ Route::middleware('auth')->group(function () {
 
     // NOTIFICATION
     Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
+});
+
+// ADMIN
+Route::get('/admin/login', [AdminController::class, 'showLoginForm'])->name('admin.login.form');
+Route::post('/admin/login', [AdminController::class, 'login'])->name('admin.login');
+
+Route::middleware(['admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'show'])->name('admin.dashboard');
+    Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    // User List
+    Route::get('/admin/userlist', [AdminController::class, 'showUserList'])->name('admin.userlist');
+    Route::post('/change-member-status', [AdminController::class, 'changeMemberStatus'])
+        ->name('admin.members.change-status');
+    Route::delete('/deletemember', [AdminController::class, 'deleteMember'])->name('admin.member.delete');
+    Route::get('/admin/userlist/search', [AdminController::class, 'searchMember'])->name('admin.member.search');
+
+
+    // Book List
+    Route::get('/admin/booklist', [AdminController::class, 'showBookList'])->name('admin.booklist');
+    Route::get('/admin/booklist/search', [AdminController::class, 'searchBook'])->name('admin.books.search');
+    Route::get('/admin/booklist/uploadbook', [AdminController::class, 'showUploadForm'])->name('admin.books.upload');
+    Route::post('/admin/booklist/uploadbook', [AdminController::class, 'createBook'])->name('admin.create.book');
 });
 
 

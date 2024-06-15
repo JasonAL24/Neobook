@@ -2,24 +2,25 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Collection;
 use Overtrue\LaravelPinyin\Facades\Pinyin;
 
 trait SearchableByName
 {
-    public static function searchByName($query)
+    public static function searchByName($query): Collection
     {
         $items = self::all();
-        $results = [];
+        $results = new Collection();
 
         foreach ($items as $item) {
-            if (self::containsChineseCharacters($item)){
+            if (self::containsChineseCharacters($item->name)){
                 $itemNamePinyin = strtolower(Pinyin::sentence($item->name));
                 if (self::kmpSearch($query, $itemNamePinyin)){
-                    $results[] = $item;
+                    $results->push($item);
                 }
             } else {
                 if (self::kmpSearch($query, $item->name)) {
-                    $results[] = $item;
+                    $results->push($item);
                 }
             }
         }
