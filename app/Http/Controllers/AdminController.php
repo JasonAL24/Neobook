@@ -302,8 +302,6 @@ class AdminController extends Controller
             $request->file('cover_image')->move(public_path('/img/books'), $coverImageFilename);
             $imageFullPath = public_path('img/books/' . $coverImageFilename);
 
-            // Delete old cover image
-            File::delete(public_path('img/books/' . $book->cover_image . '.jpg'));
             $book->cover_image = $filename;
         }
 
