@@ -44,7 +44,13 @@ class AdminController extends Controller
     public function show()
     {
         $admin = Auth::guard('admin')->user();
-        $books = Book::all();
+        $books = Book::leftJoin('records', 'books.id', '=', 'records.book_id')
+            ->where(function ($query) {
+                $query->where('records.status', '!=', 'Menunggu persetujuan')
+                    ->orWhereNull('records.status');
+            })
+            ->select('books.*')
+            ->get();
         $communities = Community::all();
         $members = Member::all();
         $records = Record::all();
@@ -146,7 +152,14 @@ class AdminController extends Controller
 
     public function showBookList()
     {
-        $books = Book::paginate(8);
+        $booksQuery = Book::leftJoin('records', 'books.id', '=', 'records.book_id')
+            ->where(function ($query) {
+                $query->where('records.status', '!=', 'Menunggu persetujuan')
+                    ->orWhereNull('records.status');
+            })
+            ->select('books.*');
+
+        $books = $booksQuery->paginate(8);
 
         return view('admin.booklist', [
             "title" => "Daftar Buku",

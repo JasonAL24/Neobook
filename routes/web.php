@@ -40,7 +40,7 @@ Route::redirect('/logout', '/login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
-        $book = \App\Models\Book::all();
+        $books = Book::where('active', true)->get();
         $member = auth()->user()->member;
 
         $booksWithRating = Book::with('ratings')->has('ratings')->get();
@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
 
         return view('home', [
             "title" => "Home",
-            "books" => $book,
+            "books" => $books,
             "member" => $member,
             "booksWithRating" => $booksWithRating,
             "communitiesWithLastMessage" => $communitiesWithLastMessage,

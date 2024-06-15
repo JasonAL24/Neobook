@@ -23,7 +23,7 @@ class BookController extends Controller
 {
     public function viewAll()
     {
-        $books = Book::all();
+        $books = Book::where('active', true)->get();
         $books = $this->calculateAverageRating($books);
         return view('books.viewall', [
             "title" => "All Books",
@@ -33,6 +33,10 @@ class BookController extends Controller
 
     public function show(Book $book)
     {
+        if (!$book->active) {
+            abort(404); // Or handle inactive book scenario as per your application logic
+        }
+
         $member = auth()->user()->member;
         return view('books.detail', [
             "title" => "Book Details",
@@ -43,7 +47,7 @@ class BookController extends Controller
 
     public function search($query)
     {
-        $results = Book::searchByName($query);
+        $results = Book::searchByName($query)->where('active', true);
         $results = $this->calculateAverageRating($results);
 
         return view('books.search_results', [
@@ -53,7 +57,9 @@ class BookController extends Controller
 
     public function viewCategory($query)
     {
-        $books = Book::where('category', $query)->get();
+        $books = Book::where('category', $query)
+            ->where('active', true) // Optionally filter for active books
+            ->get();
 
         return view('books.kategori', [
             "title" => 'Kategori',
@@ -64,7 +70,7 @@ class BookController extends Controller
 
     public function searchOnForum($query)
     {
-        $results = Book::searchByName($query);
+        $results = Book::searchByName($query)->where('active', true);
         return view('forum.booksearch_forum', [
             "results" => $results
         ]);
@@ -72,6 +78,10 @@ class BookController extends Controller
 
     public function read(Request $request, Book $book)
     {
+        if (!$book->active) {
+            abort(404);
+        }
+
         $startPageNum = $request->input('startPage');
 
         $title = "Baca: " . $book->name;
@@ -258,6 +268,7 @@ class BookController extends Controller
             $book->pdf_file = $pdfFilename;
             $book->cover_image = $pdfFilename;
             $book->pages = $totalPages;
+            $book->active = false;
             $book->save();
 
             $member = auth()->user()->member;
