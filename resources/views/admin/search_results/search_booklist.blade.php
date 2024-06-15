@@ -19,7 +19,7 @@
             </div>
 
             @if($books->isEmpty())
-                <p>Tidak ada buku '{{$query}}' tersedia.</p>
+                <h3><a href="{{route('admin.booklist')}}" class="btn btn-secondary me-2">&#8592; Balik</a>Tidak ada buku '{{$query}}' tersedia.</h3>
             @else
                 <h3><a href="{{route('admin.booklist')}}" class="btn btn-secondary me-2">&#8592; Balik</a>Berikut hasil pencarian buku '{{$query}}'</h3>
                 @include('admin.tables.booklist-table')

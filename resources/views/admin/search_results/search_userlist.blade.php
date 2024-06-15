@@ -11,7 +11,7 @@
         </form>
         <div class="mt-4">
             @if($members->isEmpty())
-                <p>Tidak ada user '{{$query}}' tersedia.</p>
+                <h3><a href="{{route('admin.userlist')}}" class="btn btn-secondary me-2">&#8592; Balik</a>Tidak ada pengguna '{{$query}}' tersedia.</h3>
             @else
                 <h3><a href="{{route('admin.userlist')}}" class="btn btn-secondary me-2">&#8592; Balik</a>Berikut hasil pencarian user '{{$query}}'</h3>
                 @include('admin.tables.userlist-table')
