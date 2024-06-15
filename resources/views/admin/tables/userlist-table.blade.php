@@ -62,12 +62,12 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="confirmModalLabel">Delete Member</h5>
+                                <h5 class="modal-title" id="confirmModalLabel">Hapus Pengguna</h5>
                                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close">
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Apakah Anda yakin untuk menghapus member {{$member->name}}?
+                                Apakah Anda yakin untuk menghapus pengguna {{$member->name}}?
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -77,7 +77,7 @@
                                     <input type="hidden" name="member_id" value="{{ $member->id }}">
                                     <button type="submit" class="btn btn-danger btn-confirm-status-change"
                                             data-member-id="{{ $member->id }}">
-                                        Ya, Hapus Member
+                                        Ya, Hapus Pengguna
                                     </button>
                                 </form>
                             </div>
