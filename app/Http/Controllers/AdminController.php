@@ -364,4 +364,18 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Sukses! Buku telah diperbarui!');
     }
+
+    public function updateStatus(Request $request)
+    {
+        $book = Book::find($request->id);
+
+        if ($book) {
+            $book->active = $request->active;
+            $book->save();
+
+            return response()->json(['success' => true, 'book' => $book]);
+        }
+
+        return response()->json(['success' => false], 404);
+    }
 }

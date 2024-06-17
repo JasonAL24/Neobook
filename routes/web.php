@@ -207,6 +207,7 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/admin/booklist/updatebook/{id}/edit', [AdminController::class, 'showUpdateForm'])->name('admin.books.update');
     Route::put('/admin/booklist/updatebook/{id}', [AdminController::class, 'updateBook'])->name('admin.update.book');
+    Route::post('/admin/booklist/update-status', [AdminController::class, 'updateStatus'])->name('book.updateStatus');
 });
 
 
