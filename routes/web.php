@@ -208,6 +208,31 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/booklist/updatebook/{id}/edit', [AdminController::class, 'showUpdateForm'])->name('admin.books.update');
     Route::put('/admin/booklist/updatebook/{id}', [AdminController::class, 'updateBook'])->name('admin.update.book');
     Route::post('/admin/booklist/update-status', [AdminController::class, 'updateStatus'])->name('book.updateStatus');
+
+    // Uploaded Books List
+    Route::get('/admin/uploadedbooks', [AdminController::class, 'showRecordList'])->name('admin.recordlist');
+    Route::get('/admin/uploadedbooks/{id}/view', [AdminController::class, 'showDetailRecordBook'])->name('admin.book.detail');
+    Route::post('/admin/uploadedbooks/{id}/approved', [AdminController::class, 'approveBook'])->name('admin.book.approve');
+    Route::post('/admin/uploadedbooks/{id}/rejected', [AdminController::class, 'rejectBook'])->name('admin.book.reject');
+
+    // Community List
+    Route::get('/admin/communitylist', [AdminController::class, 'showCommunityList'])->name('admin.communitylist');
+    Route::get('/admin/communitylist/search', [AdminController::class, 'searchCommunity'])->name('admin.community.search');
+    Route::post('/change-community-status', [AdminController::class, 'changeCommunityStatus'])
+        ->name('admin.community.change-status');
+    Route::get('/admin/communitylist/search', [AdminController::class, 'searchCommunity'])->name('admin.community.search');
+
+    // Admin List
+    Route::get('/admin/adminlist', [AdminController::class, 'showAdminList'])->name('admin.adminlist');
+    Route::get('/admin/adminlist/search', [AdminController::class, 'searchAdmin'])->name('admin.admins.search');
+    Route::get('/admin/adminlist/add', [AdminController::class, 'showAddAdmin'])->name('admin.admins.add');
+    Route::post('/admin/adminlist/add', [AdminController::class, 'addAdmin'])->name('admin.add');
+
+
+    // Pengaturan
+    Route::get('/admin/pengaturan', [AdminController::class, 'showSettings'])->name('admin.settings');
+    Route::put('/admin/pengaturan/{id}', [AdminController::class, 'updateSettings'])->name('admin.update');
+
 });
 
 

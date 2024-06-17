@@ -53,7 +53,7 @@
                 </a>
             </div>
             <div class="col-auto me-auto">
-                <div class="card p-3" style="width: 15em; height: 17em;">
+                <a href="/admin/communitylist" class="card p-3 text-decoration-none" style="width: 15em; height: 17em;">
                     <div class="card-body text-center d-flex flex-column">
                         <div>
                             <h5>Daftar Komunitas</h5>
@@ -65,7 +65,7 @@
                             <img src="/img/svg/community_lists.svg" alt="daftar komunitas" style="width: 48px">
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-auto me-auto">
                 <a href="/admin/booklist" class="card p-3 text-decoration-none" style="width: 15em; height: 17em;">
@@ -84,7 +84,7 @@
             </div>
             @if($admin->role === 'superadmin')
                 <div class="col-auto me-auto">
-                    <div class="card p-3" style="width: 15em; height: 17em;">
+                    <a href="/admin/adminlist" class="card p-3 text-decoration-none" style="width: 15em; height: 17em;">
                         <div class="card-body text-center d-flex flex-column">
                             <div>
                                 <h5>Daftar Admin</h5>
@@ -96,7 +96,7 @@
                                 <img src="/img/svg/admin_lists.svg" alt="daftar admin" style="width: 48px">
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             @endif
         </div>

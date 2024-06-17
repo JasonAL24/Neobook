@@ -12,7 +12,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use OwenIt\Auditing\Facades\Auditor;
 use Smalot\PdfParser\Parser;
 
@@ -41,12 +43,14 @@ class AdminController extends Controller
         ]);
     }
 
+    // Dashboard
     public function show()
     {
         $admin = Auth::guard('admin')->user();
         $books = Book::leftJoin('records', 'books.id', '=', 'records.book_id')
             ->where(function ($query) {
                 $query->where('records.status', '!=', 'Menunggu persetujuan')
+                    ->where('records.status', '!=', 'Ditolak')
                     ->orWhereNull('records.status');
             })
             ->select('books.*')
@@ -87,6 +91,8 @@ class AdminController extends Controller
         return redirect()->route('admin.login'); // Redirect to the admin login page
     }
 
+    // Daftar Pengguna
+
     public function showUserList()
     {
         $members = Member::paginate(8);
@@ -106,7 +112,7 @@ class AdminController extends Controller
         $member->premium_status = $newStatus;
         $member->save();
 
-        $admin = auth()->guard('admin')->user(); // Get the authenticated admin
+        $admin = auth()->guard('admin')->user();
         $auditDataOld = [
             "old_status" => ($oldStatus ? "premium" : "member"),
         ];
@@ -115,14 +121,11 @@ class AdminController extends Controller
         ];
 
 
-        // Associate the audit record with the admin who performed the action
         $admin->audits()->create([
             'event' => 'Perubahan status pengguna ID ' . $member->id,
-            'auditable_id' => $member->id,
-            'auditable_type' => 'App\Models\Member',
-            'old_values' => $auditDataOld, // Convert array to JSON
-            'new_values' => $auditDataNew, // Assuming you don't want to store new values in admin's audit log
-            // Add other optional fields like URL, IP address, user agent, etc. if needed
+            'auditable_id' => $admin->id,
+            'old_values' => $auditDataOld,
+            'new_values' => $auditDataNew,
         ]);
 
         return redirect()->back()->with('success', 'Status Pengguna Berhasil Diubah!');
@@ -130,7 +133,25 @@ class AdminController extends Controller
 
     public function deleteMember(Request $request){
         $member = Member::findOrFail($request->member_id);
+
+        $admin = auth()->guard('admin')->user();
+        $auditDataOld = [
+            "old_status" => $member->name . " ada",
+        ];
+        $auditDataNew = [
+            "new_status" => $member->name . " berhasil dihapus",
+        ];
+
+
+        $admin->audits()->create([
+            'event' => 'Penghapusan pengguna ID ' . $member->id,
+            'auditable_id' => $admin->id,
+            'old_values' => $auditDataOld,
+            'new_values' => $auditDataNew,
+        ]);
+
         $member->delete();
+
 
         return redirect()->back()->with('success', 'Pengguna Berhasil Dihapus!');
     }
@@ -150,14 +171,17 @@ class AdminController extends Controller
         ]);
     }
 
+    // Daftar Buku
     public function showBookList()
     {
         $booksQuery = Book::leftJoin('records', 'books.id', '=', 'records.book_id')
             ->where(function ($query) {
                 $query->where('records.status', '!=', 'Menunggu persetujuan')
+                    ->where('records.status', '!=', 'Ditolak')
                     ->orWhereNull('records.status');
             })
-            ->select('books.*');
+            ->select('books.*')
+            ->orderBy('books.id');
 
         $books = $booksQuery->paginate(8);
 
@@ -170,10 +194,27 @@ class AdminController extends Controller
     public function searchBook(Request $request)
     {
         $query = $request->input('query');
-        if ($query === null){
+
+        if ($query === null) {
             return redirect()->back();
         }
-        $books = Book::searchByName($query);
+
+        // Base query with left join and condition
+        $booksQuery = Book::leftJoin('records', 'books.id', '=', 'records.book_id')
+            ->where(function ($query) {
+                $query->where('records.status', '!=', 'Menunggu persetujuan')
+                    ->where('records.status', '!=', 'Ditolak')
+                    ->orWhereNull('records.status');
+            })
+            ->select('books.*');
+
+        // Apply search condition if a search term is provided
+        $booksQuery = $booksQuery->where(function ($subQuery) use ($query) {
+            $subQuery->whereIn('books.id', Book::searchByName($query)->pluck('id'));
+        });
+
+        // Paginate the results
+        $books = $booksQuery->paginate(8);
 
         return view('admin.search_results.search_booklist', [
             "title" => "Daftar Buku",
@@ -182,6 +223,7 @@ class AdminController extends Controller
         ]);
     }
 
+// Mendaftar Buku
     public function showUploadForm()
     {
         return view('admin.uploadbook', [
@@ -249,10 +291,26 @@ class AdminController extends Controller
             }
         }
 
+        $admin = auth()->guard('admin')->user();
+        $auditDataOld = [
+            "old_status" => "",
+        ];
+        $auditDataNew = [
+            "new_status" => $book->name . " berhasil ditambahkan",
+        ];
+
+        $admin->audits()->create([
+            'event' => 'Penambahan Buku dengan ID ' . $book->id,
+            'auditable_id' => $admin->id,
+            'old_values' => $auditDataOld,
+            'new_values' => $auditDataNew,
+        ]);
+
 
         return redirect()->back()->with('success', 'Sukses! Buku telah diunggah!');
     }
 
+//    Update Buku (Update detail buku dan update status buku)
     public function showUpdateForm($id)
     {
         $book = Book::findOrFail($id);
@@ -362,6 +420,22 @@ class AdminController extends Controller
             }
         }
 
+        $admin = auth()->guard('admin')->user();
+        $auditDataOld = [
+            "old_status" => "",
+        ];
+        $auditDataNew = [
+            "new_status" => $book->name . " berhasil di update",
+        ];
+
+
+        $admin->audits()->create([
+            'event' => 'Update Buku dengan ID ' . $book->id,
+            'auditable_id' => $admin->id,
+            'old_values' => $auditDataOld,
+            'new_values' => $auditDataNew,
+        ]);
+
         return redirect()->back()->with('success', 'Sukses! Buku telah diperbarui!');
     }
 
@@ -370,6 +444,21 @@ class AdminController extends Controller
         $book = Book::find($request->id);
 
         if ($book) {
+            $admin = auth()->guard('admin')->user();
+            $auditDataOld = [
+                "old_status" => ($book->active ? "Aktif" : "Non-Aktif"),
+            ];
+            $auditDataNew = [
+                "new_status" => ($request->active ? "Aktif" : "Non-Aktif"),
+            ];
+
+            $admin->audits()->create([
+                'event' => 'Update Status Buku dengan ID ' . $book->id,
+                'auditable_id' => $admin->id,
+                'old_values' => $auditDataOld,
+                'new_values' => $auditDataNew,
+            ]);
+
             $book->active = $request->active;
             $book->save();
 
@@ -377,5 +466,241 @@ class AdminController extends Controller
         }
 
         return response()->json(['success' => false], 404);
+    }
+
+//    Record List (Buku yang Diunggah)
+    public function showRecordList(){
+        $records = Record::paginate(8);
+
+        return view('admin.recordlist', [
+            "title" => 'Buku yang diunggah',
+            "records" => $records
+        ]);
+    }
+
+    public function showDetailRecordBook($id)
+    {
+        $book = Book::findOrFail($id);
+        $record = $book->record;
+        return view('admin.viewrecord', [
+            "title" => "Buku yang diunggah",
+            "book" => $book,
+            "record" => $record
+        ]);
+    }
+
+    public function approveBook($id)
+    {
+        $record = Record::findOrFail($id);
+        $book = $record->book;
+
+
+        $admin = auth()->guard('admin')->user();
+        $auditDataOld = [
+            "old_status" => $record->status,
+        ];
+        $auditDataNew = [
+            "new_status" => "Disetujui",
+        ];
+
+        $admin->audits()->create([
+            'event' => 'Menyetujui Buku dengan ID ' . $book->id,
+            'auditable_id' => $admin->id,
+            'old_values' => $auditDataOld,
+            'new_values' => $auditDataNew,
+        ]);
+
+        $record->status = "Disetujui";
+        $book->active = true;
+        $record->save();
+        $book->save();
+
+        return redirect()->back()->with('success', 'Buku berhasil disetujui.');
+    }
+
+    public function rejectBook($id)
+    {
+        $record = Record::findOrFail($id);
+        $book = $record->book;
+
+        File::delete(public_path('books/' . $book->pdf_file . '.pdf'));
+        File::delete(public_path('img/books/' . $book->cover_image . '.jpg'));
+
+        $admin = auth()->guard('admin')->user();
+        $auditDataOld = [
+            "old_status" => $record->status,
+        ];
+        $auditDataNew = [
+            "new_status" => "Ditolak",
+        ];
+
+        $admin->audits()->create([
+            'event' => 'Menolak Buku dengan ID ' . $book->id,
+            'auditable_id' => $admin->id,
+            'old_values' => $auditDataOld,
+            'new_values' => $auditDataNew,
+        ]);
+
+        $record->status = "Ditolak";
+        $record->save();
+
+        return redirect()->back()->with('success', 'Buku berhasil ditolak');
+    }
+
+    public function showCommunityList(){
+        $communities = Community::paginate(8);
+
+        return view('admin.communitylist', [
+            "title" => 'Daftar Komunitas',
+            "communities" => $communities
+        ]);
+    }
+
+    public function changeCommunityStatus(Request $request)
+    {
+        $community = Community::findOrFail($request->community_id);
+        $oldStatus = $community->active;
+        $newStatus = $request->community_status;
+
+        $community->active = $newStatus;
+        $community->save();
+
+        $admin = auth()->guard('admin')->user();
+        $auditDataOld = [
+            "old_status" => ($oldStatus ? "Aktif" : "Non Aktif"),
+        ];
+        $auditDataNew = [
+            "new_status" => ($newStatus ? "Aktif" : "Non Aktif"),
+        ];
+
+
+        $admin->audits()->create([
+            'event' => 'Perubahan status komunitas ID ' . $community->id,
+            'auditable_id' => $admin->id,
+            'old_values' => $auditDataOld,
+            'new_values' => $auditDataNew,
+        ]);
+
+        return redirect()->back()->with('success', 'Status Komunitas Berhasil Diubah!');
+    }
+
+    public function searchCommunity(Request $request)
+    {
+        $query = $request->input('query');
+        if ($query === null){
+            return redirect()->back();
+        }
+        $communities = Community::searchByName($query);
+
+        return view('admin.search_results.search_communitylist', [
+            "title" => "Daftar Komunitas",
+            "communities" => $communities,
+            "query" => $query
+        ]);
+    }
+
+    public function showAdminList(){
+        $admins = Admin::paginate(8);
+
+        return view('admin.adminlist', [
+            "title" => 'Daftar Admin',
+            "admins" => $admins
+        ]);
+    }
+
+    public function searchAdmin(Request $request){
+        $query = $request->input('query');
+        if ($query === null){
+            return redirect()->back();
+        }
+        $admins = Admin::searchByName($query);
+
+        return view('admin.search_results.search_adminlist', [
+            "title" => 'Daftar Admin',
+            "admins" => $admins,
+            "query" => $query
+        ]);
+    }
+
+    public function showAddAdmin(){
+        return view('admin.addadmin', [
+            "title" => 'Daftar Admin'
+        ]);
+    }
+
+    public function addAdmin(Request $request)
+    {
+        Validator::extend('custom_email', function ($attribute, $value, $parameters, $validator) {
+            return filter_var($value, FILTER_VALIDATE_EMAIL) && preg_match('/^[^@\s]+@[^@\s]+\.[^@\s]+$/', $value);
+        });
+
+        $request->validate([
+            'nama' => 'required|string|max:255|regex:/^[a-zA-Z ]+$/',
+            'email' => 'required|string|custom_email|max:255|unique:admins',
+            'password' => 'required|string|min:8|confirmed',
+        ], [
+            'nama.regex' => 'Nama tidak boleh berupa angka/simbol',
+        ]);
+
+        $admin = auth()->guard('admin')->user();
+
+        if (!Hash::check($request->confirmation_password, $admin->password)) {
+            return redirect()->back()->withErrors(['confirmation_password' => 'Kata sandi anda tidak sesuai!'])->withInput();
+        }
+
+        Admin::create([
+            'name' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->back()->with('success', 'Admin berhasil ditambahkan.');
+    }
+
+    public function showSettings(){
+        $admin = auth()->guard('admin')->user();
+
+        return view('admin.pengaturan', [
+            "title" => 'Pengaturan',
+            "admin" => $admin
+        ]);
+    }
+
+    public function updateSettings(Request $request, $id)
+    {
+        Validator::extend('custom_email', function ($attribute, $value, $parameters, $validator) {
+            return filter_var($value, FILTER_VALIDATE_EMAIL) && preg_match('/^[^@\s]+@[^@\s]+\.[^@\s]+$/', $value);
+        });
+
+        $request->validate([
+            'nama' => 'required|string|max:255|regex:/^[a-zA-Z ]+$/',
+            'email' => [
+                'required',
+                'string',
+                'custom_email',
+                'max:255',
+                Rule::unique('admins')->ignore($id),
+            ],
+            'password' => 'nullable|string|min:8|confirmed',
+        ], [
+            'nama.regex' => 'Nama tidak boleh berupa angka/simbol',
+        ]);
+
+        $admin = auth()->guard('admin')->user();
+
+        if (!Hash::check($request->confirmation_password, $admin->password)) {
+            return redirect()->back()->withErrors(['confirmation_password' => 'Kata sandi anda tidak sesuai!'])->withInput();
+        }
+
+        $admin->name = $request->nama;
+        $admin->email = $request->email;
+
+        if ($request->password) {
+            $admin->password = Hash::make($request->password);
+        }
+
+        $admin->save();
+
+        return redirect()->back()->with('success', 'Admin berhasil diperbarui.');
     }
 }

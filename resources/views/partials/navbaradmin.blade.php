@@ -80,7 +80,7 @@
                 <div class="p-2 mt-auto">
                     <ul class="nav nav-pills d-flex flex-column">
                         <li class="nav-item margin-setting">
-                            <a href="/admin/profile" class="nav-link text-white {{ ($title === "Pengaturan") ? 'active' : '' }} ms-3">
+                            <a href="/admin/pengaturan" class="nav-link text-white {{ ($title === "Pengaturan") ? 'active' : '' }} ms-3">
                                 <div class="d-flex flex-row align-items-center">
                                     <div class="fs-4 d-none d-sm-inline">
                                         <img class="image-setting" src="/img/svg/Setting_line_light.svg">

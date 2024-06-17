@@ -28,7 +28,7 @@
                 </td>
 {{--                Pop up setelah berhasil ngubah status buku --}}
                 <div class="toast-container position-absolute bottom-0 end-0 p-3">
-                    <div id="statusBookToast{{$book->id}}" class="toast bg-light-subtle" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000">
+                    <div id="statusBookToast{{$book->id}}" class="toast bg-light-subtle" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
                         <div class="toast-header">
                             <strong class="me-auto">Neobook</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

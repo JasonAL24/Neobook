@@ -1,5 +1,3 @@
-<!-- resources/views/admin/auth/login.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,50 +20,69 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 mt-5">
-            <a href="/login">Balik login sebagai user</a>
-            <div class="card">
-                <div class="card-header fw-bold">Login sebagai Admin</div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('admin.login') }}">
-                        @csrf
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required autofocus>
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
+@if (session('status'))
+    <div>
+        {{ session('status') }}
+    </div>
+@endif
 
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required>
-                            @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group form-check">
-                            <input type="checkbox" name="remember" id="remember" class="form-check-input" {{ old('remember') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="remember">Ingat Saya</label>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                Masuk
-                            </button>
-                        </div>
-                    </form>
+<form method="POST" action="{{ route('admin.login') }}">
+    @csrf
+    <div class="row align-items-center justify-content-center position-relative" style="margin-right: 0;">
+        <div class="col-lg-6 d-none d-lg-block">
+            <img src="/img/background/login_background.png" alt="login background" style="height: 100vh; width: 800px">
+        </div>
+        <div class="col align-items-center justify-content-center">
+            <h1><b>Selamat Datang Admin</b></h1>
+            <div class="d-flex flex-column mt-4">
+                <label for="email">Email</label>
+                <div class="input-group">
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="input-box" placeholder="Tulis nama alamat email Anda...">
                 </div>
+            </div>
+            <div class="password-container d-flex flex-column mt-4">
+                <label for="password">Kata Sandi</label>
+                <input type="password" id="password" name="password" class="input-box" placeholder="Tulis kata sandi Anda...">
+                <button id="togglePassword" class="toggle-password" aria-label="Toggle password visibility" type="button">
+                    <img src="/img/svg/eye.svg" alt="eye" class="eye-icon">
+                </button>
+            </div>
+            <div>
+                <button type="submit" class="submit-button mt-5">Masuk</button>
+            </div>
+            <a href="/login" class="text-decoration-none">
+                <div class="admin-button mt-4 text-center align-items-center justify-content-center d-flex text-light">
+                    Masuk sebagai User
+                </div>
+            </a>
+            @if ($errors->any())
+                <div>
+                    @foreach ($errors->all() as $error)
+                        <div class="error-text">{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
+        </div>
+        <div class="row position-absolute bottom-0 end-0 justify-content-end p-0 d-lg-flex d-none mb-2 me-2">
+            <div class="col-auto d-flex flex-row align-items-center me-5 p-0">
+                <img src="/img/OIG2_RemoveBG.png" alt="Logo Neobook" class="size-img">
+                <h3 class="mt-2" style="margin-left: -.5em;"><b>Neobook</b></h3>
             </div>
         </div>
     </div>
-</div>
+</form>
 </body>
+<script>
+    document.getElementById('togglePassword').addEventListener('click', function() {
+        var passwordField = document.getElementById('password');
+        var fieldType = passwordField.getAttribute('type');
+
+        // Toggle password visibility
+        if (fieldType === 'password') {
+            passwordField.setAttribute('type', 'text');
+        } else {
+            passwordField.setAttribute('type', 'password');
+        }
+    });
+</script>
 </html>

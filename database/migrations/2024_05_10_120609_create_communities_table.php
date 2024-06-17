@@ -20,6 +20,7 @@ class CreateCommunitiesTable extends Migration
             $table->string('profile_picture')->nullable();
             $table->string('social_medias')->nullable();
             $table->string('background_cover')->nullable();
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
 

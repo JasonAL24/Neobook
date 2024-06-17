@@ -21,7 +21,7 @@ use Smalot\PdfParser\Parser;
 class CommunityController extends Controller
 {
     public function viewAll(){
-        $communities = Community::all();
+        $communities = Community::where('active', true)->get();
 
         $communitiesWithLastMessage = $this->getCommunitiesWithLastMessage();
 
@@ -33,6 +33,10 @@ class CommunityController extends Controller
     }
 
     public function viewDetail(Community $community){
+        if (!$community->active) {
+            abort(404);
+        }
+
         $members = $community->members;
 
         $authenticatedMemberId = Auth::user()->member->id;
@@ -123,7 +127,7 @@ class CommunityController extends Controller
 
     public function search($query)
     {
-        $results = Community::searchByName($query);
+        $results = Community::searchByName($query)->where('active', true);
         $communitiesWithLastMessage = $this->getCommunitiesWithLastMessage();
 
         return view('community.search_results', [
