@@ -61,7 +61,7 @@
                     </div>
                     <div class="ms-auto">
                         <span id="pdfName" class="me-2">{{ $book->pdf_file }}.pdf</span>
-                        <a href="/books/{{ $book->pdf_file }}.pdf" download="{{ $book->name }}.pdf">
+                        <a href="/books/{{ $book->pdf_file }}.pdf" download="{{ $book->pdf_file }}.pdf">
                             <button type="button" id="pdfUploadBtn" class="btn text-light fw-bold me-3" style="background-color: #252734; border-radius: 10px">
                                 Download Buku
                                 <img src="/img/svg/download.svg" alt="upload" style="width: 23px">

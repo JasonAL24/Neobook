@@ -208,30 +208,9 @@
             pdfDoc = pdfDoc_;
             renderPage(pageNum);
 
-            // pdfDoc.getOutline().then(function(outline) {
-            //     if (outline) {
-            //         var contentsMenu = document.getElementById('contentsMenu');
-            //         for (let i = 0; i < outline.length; i++) {
-            //             const dest = outline[i].dest;
-            //             pdfDoc.getDestination(dest).then(function(dest) {
-            //                 const ref = dest[0];
-            //                 pdfDoc.getPageIndex(ref).then(function(id) {
-            //                     const pageNumber = parseInt(id) + 1;
-            //                     const title = outline[i].title;
-            //                     const listItem = document.createElement('li');
-            //                     listItem.innerHTML = '<a class="dropdown-item" href="#" onclick="goToPage(' + pageNumber + ')">' + title + '</a>';
-            //                     contentsMenu.appendChild(listItem);
-            //                 });
-            //             });
-            //         }
-            //     }
-            // });
-
         }).catch(function(error) {
             document.getElementById('prevPage').style.display = 'none';
             document.getElementById('nextPage').style.display = 'none';
-            document.getElementById('contentsDropdown').style.display = 'none';
-            document.getElementById('contentsMenu').style.display = 'none';
             document.getElementById('notAvailableText').style.display = 'block';
         });
 
