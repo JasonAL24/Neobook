@@ -22,19 +22,21 @@
     <div>
         <span class="fw-bold">Cara pembayaran</span>
         <ol>
-            <li>Buka aplikasi bank yang mendukung pembayaran QRIS di HP-mu.</li>
+            <li>Buka aplikasi bank yang mendukung pembayaran QRIS di HP-mu atau dapat menstransfer ke rekening "5271842199 (BCA)" a.n. Justin.</li>
             <li>Scan QR Code di atas.</li>
             <li>Pastikan total tagihan sudah benar, lalu klik "Bayar".</li>
-            <li>Setelah berhasil, klik tombol "Sudah Membayar" dibawah ini.</li>
+            <li>Setelah berhasil, kirimkan bukti pembayaran ke Whatsapp "081384308800" dengan pesan "{{$member->name}} telah melakukan pembayaran sebesar
+                {{$price}}". <b>*)</b></li>
+            <li>Pembelian akan diverifikasi oleh Admin Neobook dalam waktu 1x24 Jam.</li>
         </ol>
+        <div class="fw-bold">*) Mohon untuk tidak mengubah nama selama proses pembayaran untuk mempercepat verifikasi.</div>
     </div>
     <div class="text-center mt-5">
-        <form action="{{route('subscribe')}}" method="POST">
-            @csrf
-            <button class="btn btn-primary" type="submit">
+        <a href="/home">
+            <button class="btn btn-primary" type="button">
                 Sudah Membayar
             </button>
-        </form>
+        </a>
     </div>
     @else
         <div class="d-flex flex-column justify-content-center text-center align-items-center">
