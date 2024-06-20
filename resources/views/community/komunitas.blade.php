@@ -32,34 +32,31 @@
                     $sortedCommunities = $communities->sortByDesc(function($community) {
                         return $community->communitymembers->count();
                     });
-                    $count = 0;
                 @endphp
-
-                @foreach($sortedCommunities as $com)
-                    @if ($count < 4)
-                    <div class="row mb-3">
-                        <div class="col-auto">
-                            <a href="/komunitas/{{$com->id}}">
-                                @if($com->profile_picture)
-                                    <img src="/img/communities/profile_picture/{{$com->id}}/{{$com->profile_picture}}"
-                                         alt="{{$com->name}}" style="width: 128px; height: 128px;" class="rounded">
-                                @else
-                                    <img src="/img/communities/profile_picture/default_profile_picture.png"
-                                         alt="Default Group Picture" style="width: 128px; height: 128px;" class="rounded">
-                                @endif
-                            </a>
+                <div class="overflow-y-auto" style="max-height: 50vh">
+                    @foreach($sortedCommunities as $com)
+                        <div class="row mb-3" style="max-width: 85vw">
+                            <div class="col-auto">
+                                <a href="/komunitas/{{$com->id}}">
+                                    @if($com->profile_picture)
+                                        <img src="/img/communities/profile_picture/{{$com->id}}/{{$com->profile_picture}}"
+                                             alt="{{$com->name}}" style="width: 128px; height: 128px;" class="rounded">
+                                    @else
+                                        <img src="/img/communities/profile_picture/default_profile_picture.png"
+                                             alt="Default Group Picture" style="width: 128px; height: 128px;" class="rounded">
+                                    @endif
+                                </a>
+                            </div>
+                            <div class="col d-flex flex-column">
+                                <a href="/komunitas/{{$com->id}}" class="no-blue text-decoration-none">
+                                    <span class="fw-bold">{{$com->name}}</span>
+                                </a>
+                                <span>{{count($com->communitymembers)}} Anggota</span>
+                                <span class="mt-auto mb-2">{!! $com->description !!}</span>
+                            </div>
                         </div>
-                        <div class="col d-flex flex-column">
-                            <a href="/komunitas/{{$com->id}}" class="no-blue text-decoration-none">
-                                <span class="fw-bold">{{$com->name}}</span>
-                            </a>
-                            <span>{{count($com->communitymembers)}} Anggota</span>
-                            <span class="mt-auto mb-2">{!! $com->description !!}</span>
-                        </div>
-                    </div>
-                    @php $count++ @endphp
-                    @endif
-                @endforeach
+                    @endforeach
+                </div>
             @else
                 <div class="container text-center mt-5 pb-4">
                     <h3 class="fw-bold">Ayo langganan sekarang juga untuk buka fitur ini!</h3>
