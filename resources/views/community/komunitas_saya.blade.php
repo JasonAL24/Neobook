@@ -4,7 +4,7 @@
     <div class="white-container p-3">
         <div class="p-4 pb-0 pt-2">
             <h1 class="fw-bold mb-3">Komunitas</h1>
-{{--            Komunitas Buttons (Komunitas dan Komunitas Saya --}}
+            {{--            Komunitas Buttons (Komunitas dan Komunitas Saya --}}
             <div class="text-center align-items-center justify-content-center mb-4">
                 <div class="btn-group" role="group" aria-label="Community Buttons" style="width: 20vw">
                     <a href="{{route('viewAllCommunity')}}" class="btn {{$pagename === 'semua komunitas' ? 'active active-btn text-light' : ''}}">Semua Komunitas</a>
@@ -13,28 +13,13 @@
             </div>
             @php $locked = !$member->premium_status @endphp
             @if(!$locked)
-                <form onsubmit="return redirectToSearch()" method="GET">
-                    <div class="row align-items-center mb-4">
-                        <div class="col-auto p-0 ps-2">
-                            <img src="/img/svg/Search_light.svg" alt="search">
-                        </div>
-                        <div class="col-lg-6 p-0">
-                            <input class="form-control me-2 ms-2" name="query" type="search" id="searchCommunityInput" placeholder="cari nama grup..." aria-label="Search">
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="btn text-light" style="background-color: #252734; width: 6em">
-                                Cari
-                            </button>
-                        </div>
-                    </div>
-                </form>
                 <div class="position-absolute bottom-0 end-0 p-4">
                     <a href="/buatkomunitas" class="btn text-light rounded-circle create-button" style="background-color: #252734; width: 5em; height: 5em">
                         <img src="/img/svg/plus.svg" alt="plus" style="width: 4em; margin-left: -.3em;" class="rounded-circle">
                     </a>
                     <div class="mt-2 create-text" style="margin-left: -1em;">Buat Komunitas</div>
                 </div>
-                <h3 class="mb-4">Grup Terpopuler</h3>
+                <h3 class="mb-4">Komunitas Saya</h3>
                 @php
                     $sortedCommunities = $communities->sortByDesc(function($community) {
                         return $community->communitymembers->count();
@@ -77,6 +62,5 @@
     @if(!$locked)
         @include('community.chat.index')
     @endif
-    <script src="/js/komunitas.js"></script>
 
 @endsection

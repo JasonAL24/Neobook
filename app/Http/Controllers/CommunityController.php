@@ -28,7 +28,22 @@ class CommunityController extends Controller
         return view('community.komunitas', [
             "title" => "Komunitas",
             "communities" => $communities,
-            'communitiesWithLastMessage' => $communitiesWithLastMessage
+            'communitiesWithLastMessage' => $communitiesWithLastMessage,
+            'pagename' => 'semua komunitas'
+        ]);
+    }
+
+    public function showMyCommunity(){
+//        $communities = Community::where('active', true)->get();
+        $communities = auth()->user()->member->communities->where('active', true);
+
+        $communitiesWithLastMessage = $this->getCommunitiesWithLastMessage();
+
+        return view('community.komunitas_saya', [
+            "title" => "Komunitas",
+            "communities" => $communities,
+            'communitiesWithLastMessage' => $communitiesWithLastMessage,
+            'pagename' => 'komunitas saya'
         ]);
     }
 

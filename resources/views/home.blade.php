@@ -2,10 +2,10 @@
 
 @section('container')
 <div class="home">
-    <div class="row">
+    <div class="row m-0">
         {{-- Left Column --}}
-        <div class="col-auto">
-            <div class="home-bg">
+        <div class="col-auto home-bg p-0">
+            <div style="width: 50vw">
                 <p style="font-size: 43px">Selamat membaca, {{ explode(' ', $member->name)[0] }}</p>
                 @php
                     $firstBook = $member->books->sortByDesc(function ($book) {

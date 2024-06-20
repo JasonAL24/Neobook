@@ -113,6 +113,7 @@ Route::middleware('auth')->group(function () {
 
 //    KOMUNITAS
     Route::get('/komunitas', [CommunityController::class, 'viewAll'])->name('viewAllCommunity');
+    Route::get('/komunitas/saya', [CommunityController::class, 'showMyCommunity'])->name('community.mylist');
     Route::get('/komunitas/{community}', [CommunityController::class, 'viewDetail'])->name('community.detail');
     Route::get('/komunitas/{community}/members', [CommunityController::class, 'viewMembers'])->name('community.members');
     Route::post('/community/{community}/join', [CommunityController::class, 'join'])->name('community.join');
