@@ -62,7 +62,6 @@ class ForgotPasswordController extends Controller
             ->first();
 
         if (!$tokenData) {
-            // Token not found in password_resets table
             return back()->withErrors(['email' => ['Invalid token or email']]);
         } else{
             User::where('email', $request->email)->update([

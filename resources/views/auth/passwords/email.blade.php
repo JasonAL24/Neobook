@@ -32,6 +32,7 @@
                     {{ session('success') }}
                 </div>
             @endif
+            <a href="{{route('login')}}" class="btn btn-secondary mb-3">← Balik ke halaman login</a>
             <h1><b>Reset Password Anda</b></h1>
             <div class="d-flex flex-column mt-4">
                 <label for="email" class="form-label">Email Anda</label>
