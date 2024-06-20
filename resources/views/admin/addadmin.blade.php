@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 
 @section('container')
+    @php
+        $admin = auth()->guard('admin')->user();
+    @endphp
+    @if ($admin->role != 'admin')
     <div class="main-bg">
         <div class="white-container p-3">
             <h2 class="fw-bold p-3 mb-4">Daftar Admin</h2>
@@ -76,6 +80,11 @@
             </form>
         </div>
     </div>
+    @else
+        <div class="p-4 mt-4">
+            <p>Maaf, role anda tidak bisa mengakses link ini</p>
+        </div>
+    @endif
     <script>
         function togglePassword(elementPassword)
         {

@@ -182,10 +182,13 @@
                                     </a>
                                 </div>
                             </div>
+                            @php
+                                $shortenedContent = strlen($post->content) > 100 ? substr($post->content, 0, 100) . '...' : $post->content;
+                            @endphp
                             <div class="row row-custom-size mt-1">
                                 <div class="col">
                                     <a href="/forumdiskusi/{{$post->id}}" class="text-decoration-none text-dark">
-                                        {{$post->content}}
+                                        {{$shortenedContent}}
                                     </a>
                                 </div>
                             </div>
@@ -234,7 +237,11 @@
                                 <div class="col d-flex flex-column">
                                     <strong>{{$communityChat->name}}</strong>
                                     @if($communityChat->lastMessage)
-                                        <small><strong>{{$communityChat->lastMessage->member->name}}:</strong> {{ $communityChat->lastMessage->content }}</small>
+                                        @php
+                                            $text = $communityChat->lastMessage->content;
+                                            $shortenedContent = strlen($text) > 100 ? substr($text, 0, 100) . '...' : $text;
+                                        @endphp
+                                        <small><strong>{{$communityChat->lastMessage->member->name}}:</strong> {{ $shortenedContent }}</small>
                                     @else
                                         <small>No messages yet.</small>
                                     @endif
@@ -290,8 +297,12 @@
                                     <b>{{ $book_rating->average_rating }}</b>
                                 </div>
                             </div>
+                            @php
+                                $text = $latestRating->review;
+                                $shortenedContent = strlen($text) > 100 ? substr($text, 0, 100) . '...' : $text;
+                            @endphp
                             <div class="row-custom-size font-inter font-size-review">
-                                {{$latestRating->review}}
+                                {{$shortenedContent}}
                             </div>
                             <a href="/viewrating" class="text-decoration-none font-inter font-size-review align-items-center"><img src="/img/svg/arrow_blue.svg" alt=">">Baca selengkapnya</a>
                         </div>

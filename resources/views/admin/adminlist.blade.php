@@ -1,6 +1,10 @@
 @extends('layouts.admin')
 
 @section('container')
+    @php
+        $admin = auth()->guard('admin')->user();
+    @endphp
+    @if ($admin->role != 'admin')
     <div class="p-4 mt-4">
         <h1>Daftar Admin</h1>
         <div class="mt-4">
@@ -26,4 +30,9 @@
             @endif
         </div>
     </div>
+    @else
+        <div class="p-4 mt-4">
+            <p>Maaf, role anda tidak bisa mengakses link ini</p>
+        </div>
+    @endif
 @endsection

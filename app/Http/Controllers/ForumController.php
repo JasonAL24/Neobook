@@ -43,7 +43,7 @@ class ForumController extends Controller
     {
         $validator = Validator::make($req->all(), [
             'title' => 'required|string|max:100',
-            'content' => 'required|string|max:250',
+            'content' => 'required|string|max:300',
             'book_id' => 'required|integer'
         ]);
 

@@ -42,7 +42,7 @@
         <div class="row mb-3 ms-5">
             <label for="isiforum" class="col-sm-1 col-form-label">Isi Forum</label>
             <div class="col-sm-10">
-                <input type="text" name="content"  class="form-control" id="content" aria-label="With textarea" placeholder="Tulis forum anda disini...">
+                <textarea maxlength="300" name="content"  class="form-control" id="content" aria-label="With textarea" placeholder="Tulis forum anda disini..."></textarea>
             </div>
         </div>
 

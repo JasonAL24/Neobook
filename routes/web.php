@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CommunityChatController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -37,38 +39,15 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::redirect('/logout', '/login');
 
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetForm'])
+    ->name('password.reset');
+Route::post('reset-password', [ForgotPasswordController::class, 'reset'])->name('password.update');
+
 
 Route::middleware('auth')->group(function () {
-    Route::get('/home', function () {
-        $books = Book::where('active', true)->get();
-        $member = auth()->user()->member;
-
-        $booksWithRating = Book::with('ratings')->has('ratings')->get();
-        $booksWithRating = (new BookController())->calculateAverageRating($booksWithRating);
-
-        $communities = $member->communities()->with(['messages' => function($query) {
-            $query->latest()->first();
-        }])->get();
-
-        $communitiesWithLastMessage = $communities->map(function ($community) {
-            $community->lastMessage = $community->messages->first();
-            return $community;
-        });
-
-        $isMemberPremium = $member->premium_status;
-
-        $forumPosts = ForumPost::with(['member', 'member.user', 'book'])->get();
-
-        return view('home', [
-            "title" => "Home",
-            "books" => $books,
-            "member" => $member,
-            "booksWithRating" => $booksWithRating,
-            "communitiesWithLastMessage" => $communitiesWithLastMessage,
-            "isMemberPremium" => $isMemberPremium,
-            "forumPosts" => $forumPosts,
-        ]);
-    });
+    Route::get('/home', [HomeController::class, 'showHome']);
 
 //  BOOKS
     Route::get('/viewallbooks', [BookController::class, 'viewAll'])->name('books.viewall');

@@ -64,7 +64,10 @@
                                 </div>
                             </a>
                         </li>
-
+                        @php
+                            $admin = auth()->guard('admin')->user();
+                        @endphp
+                        @if ($admin->role != 'admin')
                         <li class="nav-item">
                             <a href="/admin/adminlist" class="nav-link text-white {{ ($title === "Daftar Admin") ? 'active' : '' }} ms-3">
                                 <div class="d-flex flex-row align-items-center">
@@ -75,6 +78,7 @@
                                 </div>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </div>
                 <div class="p-2 mt-auto">

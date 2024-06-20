@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neobook | {{$title}}</title>
+    <title>Neobook | Reset Password</title>
     <link rel="icon" href="/img/Neobook.png" type="image/png">
     <link rel="stylesheet" href="{{ asset('/css/user.css') }}" type="text/css">
 
@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-<form method="POST" action="{{ route('login') }}">
+<form method="POST" action="{{ route('password.email') }}">
     @csrf
     <div class="row position-relative" style="margin-right: 0;">
         <div class="col-auto d-none d-lg-block">
@@ -32,32 +32,13 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <h1><b>Selamat Datang</b></h1>
+            <h1><b>Reset Password Anda</b></h1>
             <div class="d-flex flex-column mt-4">
-                <label for="email">Email</label>
-                <div class="input-group">
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="input-box" placeholder="Tulis nama alamat email Anda...">
-                </div>
-            </div>
-            <div class="password-container d-flex flex-column mt-4">
-                <label for="password">Kata Sandi</label>
-                <input type="password" id="password" name="password" class="input-box" placeholder="Tulis kata sandi Anda...">
-                <button id="togglePassword" class="toggle-password" aria-label="Toggle password visibility" type="button">
-                    <img src="/img/svg/eye.svg" alt="eye" class="eye-icon">
-                </button>
+                <label for="email" class="form-label">Email Anda</label>
+                <input type="email" name="email" class="form-control" required autocomplete="email" autofocus placeholder="Masukan email Anda...">
             </div>
             <div>
-                <button type="submit" class="submit-button mt-5">Masuk</button>
-            </div>
-            <a href="/admin/login" class="text-decoration-none">
-                <div class="admin-button mt-4 text-center align-items-center justify-content-center d-flex text-light">
-                    Masuk sebagai Admin
-                </div>
-            </a>
-
-            <div class="mb-5 mt-2 d-flex flex-row">
-                <span>Belom punya akun? <a href="{{route('register')}}"> Daftar Sekarang </a></span>
-                <span class="ms-auto "><a href="{{route('password.request')}}" class="text-decoration-none text-dark">Lupa Kata Sandi?</a> </span>
+                <button type="submit" class="submit-button mt-5">Kirim Link Password Reset</button>
             </div>
             @if ($errors->any())
                 <div>
@@ -76,17 +57,5 @@
     </div>
 </form>
 </body>
-<script>
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        var passwordField = document.getElementById('password');
-        var fieldType = passwordField.getAttribute('type');
-
-        // Toggle password visibility
-        if (fieldType === 'password') {
-            passwordField.setAttribute('type', 'text');
-        } else {
-            passwordField.setAttribute('type', 'password');
-        }
-    });
-</script>
 </html>
+
