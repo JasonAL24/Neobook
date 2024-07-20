@@ -21,7 +21,7 @@
             <button class="buatforumButton" type="button" onclick="location.href='/buatforum'"> Buat Sekarang </button>
         </div>
     @else
-        <div class="container-forum" style="max-height: 55vh; overflow:auto; width:83.5vw;">
+        <div class="custom-overflow overflow-y-auto" style="max-height: 55vh; width:83.5vw;">
             @foreach($posts as $post)
                 <div class="row p-3 mb-3 ms-5" style="background-color: white; width: 80vw; border-radius: 10px">
                     <div class="col-auto mt-3">

@@ -14,7 +14,7 @@
     <form class="mt-5 p-4" method="POST" action="{{route('addForum')}}">
         @csrf
         <div class="row mb-3 ms-5">
-            <label for="judulforum" class="col-sm-1 col-form-label">Judul Form</label>
+            <label for="judulforum" class="col-sm-1 col-form-label">Judul Forum</label>
             <div class="col-sm-10">
                 <input type="text" name="title" class="form-control" id="judulforum" placeholder="Tulis judul forum...">
             </div>

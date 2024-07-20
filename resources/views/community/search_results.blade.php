@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </form>
-            <h3 class="mb-4">Hasil pencarian untuk "{{$query}}"</h3>
+            <h3 class="mb-4"><a href="{{route('viewAllCommunity')}}" class="btn btn-secondary me-2">&#8592; Balik</a>Hasil pencarian untuk "{{$query}}"</h3>
             @foreach($results as $com)
                 <div class="row mb-3">
                     <div class="col-auto">

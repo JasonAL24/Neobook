@@ -66,7 +66,7 @@ class ForumController extends Controller
         $member = auth()->user()->member;
 
         $validator = Validator::make($req->all(), [
-            'commentContent' => 'required|string|max:100',
+            'commentContent' => 'required|string|max:300',
         ]);
 
         if ($validator->fails()) {
@@ -89,7 +89,7 @@ class ForumController extends Controller
         if ((int) $forumMemberId !== (int) $member->id){
             $notification = new Notification();
             $notification->member_id = $forumMemberId;
-            $notification->content = 'Ada komentar baru di forum "'. $forumName . '": '. $commentContent . '. Klik di sini untuk melihatnya.';
+            $notification->content = 'Ada komentar baru di forum "'. $forumName . '". Klik di sini untuk melihatnya.';
             $notification->link = '/forumdiskusi/' . $forumPost->id;
             $notification->save();
         }
@@ -102,7 +102,7 @@ class ForumController extends Controller
         $member = auth()->user()->member;
 
         $validator = Validator::make($req->all(), [
-            'replyContent' => 'required|string|max:100',
+            'replyContent' => 'required|string|max:300',
         ]);
 
         if ($validator->fails()) {

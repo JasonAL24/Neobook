@@ -159,15 +159,14 @@
     box-shadow: 0 0 1px rgba(0,0,0,0.4);
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.container-forum::-webkit-scrollbar {
-    display: none;
+.custom-overflow::-webkit-scrollbar {
+    /*background: #F0EEE2;*/
+    width: 5px;
 }
 
-/* For other browsers (like Firefox) */
-.container-forum {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+.custom-overflow::-webkit-scrollbar-thumb {
+    background: #888; /* color of the scrollbar thumb */
+    border-radius: 2px; /* roundness of the scrollbar thumb */
 }
 
 .pagination .page-item.active .page-link {

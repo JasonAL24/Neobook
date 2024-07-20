@@ -16,7 +16,7 @@
             <h2 class="fw-bold"> Forum Diskusi Kosong</h2>
         </div>
     @else
-        <div class="container-forum" style="max-height: 55vh; overflow:auto; width:83.5vw;">
+        <div class="custom-overflow overflow-y-auto" style="max-height: 55vh; width:83.5vw;">
             @foreach($posts as $post)
                 <div class="row p-3 mb-3 ms-5" style="background-color: white; width: 80vw; border-radius: 10px">
                     <div class="col-auto mt-3">
@@ -66,7 +66,7 @@
                                     @else
                                         <img src="/img/profile/default_pp.png" alt="profile picture" class="rounded-circle" style="width: 40px; height: 40px">
                                     @endif
-                                    <input type="text" name="commentContent" placeholder="Tulis komentar..." class="form-control ms-3 border-0 border-bottom">
+                                    <input type="text" name="commentContent" placeholder="Tulis komentar..." class="form-control ms-3 border-0 border-bottom" maxlength="300">
                                     <input type="hidden" name="forum_post_id" value="{{ $post->id }}">
                                     <input type="hidden" name="forum_member_id" value="{{ $post->member->id }}">
                                 </div>

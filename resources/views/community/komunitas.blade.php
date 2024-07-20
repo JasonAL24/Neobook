@@ -40,7 +40,7 @@
                         return $community->communitymembers->count();
                     });
                 @endphp
-                <div class="overflow-y-auto" style="max-height: 50vh">
+                <div class="overflow-y-auto custom-overflow" style="max-height: 40vh">
                     @foreach($sortedCommunities as $com)
                         <div class="row mb-3" style="max-width: 85vw">
                             <div class="col-auto">

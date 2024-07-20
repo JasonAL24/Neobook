@@ -58,7 +58,7 @@
                                 @else
                                     <img src="/img/profile/default_pp.png" alt="profile picture" class="rounded-circle" style="width: 40px; height: 40px">
                                 @endif
-                                <input type="text" name="commentContent" placeholder="Tulis komentar..." class="form-control ms-3 border-0 border-bottom">
+                                <input type="text" name="commentContent" placeholder="Tulis komentar..." class="form-control ms-3 border-0 border-bottom" maxlength="300">
                                 <input type="hidden" name="forum_post_id" value="{{ $post->id }}">
                                 <input type="hidden" name="forum_member_id" value="{{ $post->member->id }}">
                             </div>
@@ -118,7 +118,7 @@
                                             @else
                                                 <img src="/img/profile/default_pp.png" alt="profile picture" class="rounded-circle" style="width: 40px; height: 40px">
                                             @endif
-                                            <input type="text" name="replyContent" placeholder="Tulis balasan..." class="form-control ms-3 border-0 border-bottom">
+                                            <input type="text" name="replyContent" placeholder="Tulis balasan..." class="form-control ms-3 border-0 border-bottom" maxlength="300">
                                             <input type="hidden" name="forum_comment_id" value="{{ $comment->id }}">
                                             <input type="hidden" name="comment_member_id" value="{{ $comment->member->id }}">
                                             <input type="hidden" name="forum_post_id" value="{{ $post->id }}">
