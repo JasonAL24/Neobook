@@ -161,6 +161,10 @@ Route::middleware('auth')->group(function () {
 
     // NOTIFICATION
     Route::get('/notification/read/{id}', [NotificationController::class, 'markAsRead'])->name('notification.read');
+
+    // BOOK REQUEST & COMPLAINS
+    Route::get('/permohonan', [UserController::class, 'showRequestPage'])->name('request.page');
+    Route::post('/permohonan/upload', [UserController::class, 'uploadRequest'])->name('request.upload');
 });
 
 // ADMIN
@@ -201,6 +205,10 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/change-community-status', [AdminController::class, 'changeCommunityStatus'])
         ->name('admin.community.change-status');
     Route::get('/admin/communitylist/search', [AdminController::class, 'searchCommunity'])->name('admin.community.search');
+
+    //Request List
+    Route::get('/admin/requestlist', [AdminController::class, 'showRequestList'])->name('admin.requestlist');
+
 
     // Admin List
     Route::get('/admin/adminlist', [AdminController::class, 'showAdminList'])->name('admin.adminlist');

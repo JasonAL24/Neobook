@@ -59,6 +59,7 @@ class AdminController extends Controller
         $members = Member::all();
         $records = Record::all();
         $admins = Admin::all();
+        $requests = \App\Models\Request::all();
 
         if ($admin->role === 'superadmin') {
             // Superadmins can see audits for all admins
@@ -79,7 +80,8 @@ class AdminController extends Controller
             "communities" => $communities,
             "members" => $members,
             "records" => $records,
-            "admins" => $admins
+            "admins" => $admins,
+            "requests" => $requests
         ]);
     }
 
@@ -702,5 +704,20 @@ class AdminController extends Controller
         $admin->save();
 
         return redirect()->back()->with('success', 'Admin berhasil diperbarui.');
+    }
+
+    public function showRequestList(Request $request){
+        $query = \App\Models\Request::query();
+
+        if ($request->has('tipePermohonan') && $request->tipePermohonan != '') {
+            $query->where('type', $request->tipePermohonan);
+        }
+        $query->orderBy('created_at', 'desc');
+        $requests = $query->paginate(8);
+
+        return view('admin.requestlist', [
+            "title" => 'Daftar Permohonan',
+            "requests" => $requests
+        ]);
     }
 }

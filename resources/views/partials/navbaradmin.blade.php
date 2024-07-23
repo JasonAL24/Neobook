@@ -64,6 +64,17 @@
                                 </div>
                             </a>
                         </li>
+
+                        <li class="nav-item mb-4">
+                            <a href="/admin/requestlist" class="nav-link text-white {{ ($title === "Daftar Permohonan") ? 'active' : '' }} ms-3">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="fs-4 d-none d-sm-inline">
+                                        <img src="/img/svg/support.svg" alt="daftar permohonan" class="image-setting">
+                                    </div>
+                                    <div class="text">Daftar Permohonan</div>
+                                </div>
+                            </a>
+                        </li>
                         @php
                             $admin = auth()->guard('admin')->user();
                         @endphp

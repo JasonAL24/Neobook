@@ -180,4 +180,45 @@ class UserController extends Controller
             "price" => $formattedPrice
         ]);
     }
+
+    // Request Page
+    public function showRequestPage(){
+        return view('request', [
+            "title" => "Permohonan"
+        ]);
+    }
+
+    public function uploadRequest(Request $request)
+    {
+        Validator::extend('custom_email', function ($attribute, $value, $parameters, $validator) {
+            return filter_var($value, FILTER_VALIDATE_EMAIL) && preg_match('/^[^@\s]+@[^@\s]+\.[^@\s]+$/', $value);
+        });
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255|regex:/^[a-zA-Z ]+$/',
+            'email' => [
+                'required',
+                'string',
+                'custom_email',
+                'max:255'
+            ],
+            'tipePermohonan' => 'required|string|max:30',
+            'detailPermohonan' => 'required|string|max:500'
+        ], [
+            'name.regex' => 'Nama tidak boleh berupa angka/simbol'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $requestModel = new \App\Models\Request();
+        $requestModel->name = $request->name;
+        $requestModel->email = $request->email;
+        $requestModel->type = $request->tipePermohonan;
+        $requestModel->content = $request->detailPermohonan;
+        $requestModel->save();
+
+        return redirect()->back()->with('success', 'Permohonan berhasil terkirim!');
+    }
 }

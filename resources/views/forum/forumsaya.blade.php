@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="post-content mt-3">
                                     <p class="fw-bold">{{ $post->title }}</p>
-                                    <p style="margin-top:-0.5em;">{{ $post->content }}</p>
+                                    <p style="margin-top:-0.5em; max-width: 60vw; word-wrap: break-word">{{ $post->content }}</p>
                                 </div>
                                 <div class="mt-auto">
                                     <button class="expand-comments border-0 btn p-0" data-bs-toggle="collapse" data-bs-target="#komentar-{{$post->id}}" aria-expanded="false" aria-controls="komentar">

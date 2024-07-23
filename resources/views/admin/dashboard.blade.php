@@ -82,6 +82,21 @@
                     </div>
                 </a>
             </div>
+            <div class="col-auto me-auto">
+                <a href="/admin/requestlist" class="card p-3 text-decoration-none" style="width: 15em; height: 17em;">
+                    <div class="card-body text-center d-flex flex-column">
+                        <div>
+                            <h5>Daftar Permohonan</h5>
+                        </div>
+                        <div class="mt-auto">
+                            <h4>{{count($requests)}}</h4>
+                        </div>
+                        <div class="mt-auto">
+                            <img src="/img/svg/support.svg" alt="daftar buku" style="width: 48px">
+                        </div>
+                    </div>
+                </a>
+            </div>
             @if($admin->role === 'superadmin')
                 <div class="col-auto me-auto">
                     <a href="/admin/adminlist" class="card p-3 text-decoration-none" style="width: 15em; height: 17em;">

@@ -34,8 +34,6 @@
                             <label for="phone" class="form-label mt-3">Nomor Handphone</label>
                             <input type="text" class="form-control" name="phone" value="{{ $member->phone }}">
 
-                            <label for="address" class="form-label mt-3">Alamat</label>
-                            <input type="text" class="form-control" name="address" value="{{ $member->address }}">
                             <div class="d-flex flex-row">
                                 <div class="ms-auto mt-4">
                                     <button type="submit" class="btn btn-secondary" style="width: 6vw">Simpan</button>
@@ -60,6 +58,15 @@
                             <button type="submit" class="btn btn-light text-danger mt-4" style="width: 40vw">Logout</button>
                         </form>
                     </div>
+                </div>
+                <div class="p-4 d-flex justify-content-end">
+                    <div class="d-flex flex-column align-items-center">
+                        <a href="{{route('request.page')}}" class="btn text-light rounded-circle create-button" style="background-color: #FFFFFF; width: 5em; height: 5em">
+                            <img src="/img/svg/support.svg" alt="plus" style="width: 4em; margin-left: -.3em;" class="rounded-circle">
+                        </a>
+                        <div class="mt-2 create-text">Mengajukan Buku Baru & Melaporkan Bug</div>
+                    </div>
+
                 </div>
             </div>
 
