@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use Illuminate\Support\Collection;
-use Overtrue\LaravelPinyin\Facades\Pinyin;
 
 trait SearchableByName
 {
