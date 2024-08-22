@@ -15,7 +15,9 @@ class ForumController extends Controller
 {
     public function index()
     {
-        $posts = ForumPost::with(['member', 'member.user', 'book'])->get();
+        $posts = ForumPost::with(['member', 'member.user', 'book'])
+            ->get()
+            ->sortByDesc('created_at');
         return view('forum.forumdiskusi', [
             'title' => 'Forum Diskusi',
             'posts' => $posts
@@ -24,7 +26,9 @@ class ForumController extends Controller
 
     public function showPost()
     {
-        $posts = auth()->user()->member->forumPosts;
+        $posts = auth()->user()->member->forumPosts()
+            ->orderBy('created_at', 'desc')
+            ->get();
         return view('forum.forumsaya', [
             'title' => 'Forum Saya',
             'posts' => $posts

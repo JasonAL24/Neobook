@@ -30,7 +30,7 @@
                                         <small><strong>{{$communityChat->lastMessage->member->name}}
                                                 :</strong> {{ $communityChat->lastMessage->content }}</small>
                                     @else
-                                        <small>No messages yet.</small>
+                                        <small>Belum ada pesan.</small>
                                     @endif
                                 </div>
                             </div>

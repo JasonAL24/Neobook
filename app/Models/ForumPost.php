@@ -15,6 +15,7 @@ class ForumPost extends Model
 
     public function member()
     {
+        // BelongsTo (One to One atau Many to One)
         return $this->belongsTo(Member::class);
     }
 
@@ -25,6 +26,7 @@ class ForumPost extends Model
 
     public function comments()
     {
+        // HasMany (One to Many)
         return $this->hasMany(ForumComment::class);
     }
     use HasFactory;

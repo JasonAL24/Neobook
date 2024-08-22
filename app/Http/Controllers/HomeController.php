@@ -26,7 +26,9 @@ class HomeController extends Controller
 
         $isMemberPremium = $member->premium_status;
 
-        $forumPosts = ForumPost::with(['member', 'member.user', 'book'])->get();
+        $forumPosts = ForumPost::with(['member', 'member.user', 'book'])
+            ->get()
+            ->sortByDesc('created_at');
 
         return view('home', [
             "title" => "Home",
