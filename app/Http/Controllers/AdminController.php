@@ -520,7 +520,7 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Buku berhasil disetujui.');
     }
 
-    public function rejectBook($id)
+    public function rejectBook(Request $request, $id)
     {
         $record = Record::findOrFail($id);
         $book = $record->book;
@@ -544,6 +544,7 @@ class AdminController extends Controller
         ]);
 
         $record->status = "Ditolak";
+        $record->rejectReason = $request->input('rejectReason');
         $record->save();
 
         return redirect()->back()->with('success', 'Buku berhasil ditolak');

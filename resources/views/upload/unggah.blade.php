@@ -42,6 +42,11 @@
                         </div>
                         <div class="col fs-5">
                             {{ucfirst($record->status)}}
+                            <p>Alasan:
+                                @if ($record->status = 'ditolak')
+                                    {{$record->rejectReason}}
+                                @endif
+                            </p>
                         </div>
                     </div>
                 @endforeach

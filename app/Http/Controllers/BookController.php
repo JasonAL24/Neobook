@@ -217,7 +217,14 @@ class BookController extends Controller
         $member = auth()->user()->member;
         $maxFileSize = $member->premium_status ? 51200 : 20480; // 50MB if premium, 20MB if not
         $validator = Validator::make($request->all(), [
-            'judul' => 'required|string',
+            'judul' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if (Book::where('name', $value)->where('active', true)->exists()) {
+                        $fail('The book name must be unique when active.');
+                    }
+                },
+            ],
             'penulis' => ['required', 'string', 'max:50', 'regex:/^[^0-9]*$/'],
             'deskripsi' => 'required|string|max:500',
             'editor' => ['required', 'string', 'max:50', 'regex:/^[^0-9]*$/'],
@@ -227,6 +234,7 @@ class BookController extends Controller
             'penerbit' => 'required|string|max:50',
             'pdf_file' => 'required|mimes:pdf|max:' . $maxFileSize,
             'cover_image' => 'required|image|mimes:jpg',
+            'ownership_confirmation' => 'accepted',
         ], [
             'penulis.regex' => 'Penulis tidak boleh ada angka.',
             'editor.regex' => 'Editor tidak boleh ada angka.',

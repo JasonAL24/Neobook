@@ -103,11 +103,16 @@
                                     <div class="modal-body">
                                         <p>Apakah anda yakin untuk menghapus buku ini?</p>
                                         <p>Catatan Penting: Buku ini akan dihapus dari storage</p>
+                                        <div class="form-group">
+                                            <label for="rejectReason">Alasan Penolakan:</label>
+                                            <textarea class="form-control" id="rejectReason" name="rejectReason" rows="3" required></textarea>
+                                        </div>
                                     </div>
                                     <div class="modal-footer" style="border-top: 0;">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                                         <form action="{{route('admin.book.reject', $record->id)}}" method="POST">
                                             @csrf
+                                            <input type="hidden" id="hiddenRejectReason" name="rejectReason">
                                             <button type="submit" class="btn btn-danger">Ya, Hapuskan buku</button>
                                         </form>
                                     </div>
@@ -144,4 +149,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.querySelector('#rejectModal form').addEventListener('submit', function (event) {
+            // Get the value from the textarea and assign it to the hidden input
+            document.getElementById('hiddenRejectReason').value = document.getElementById('rejectReason').value;
+        });
+    </script>
 @endsection

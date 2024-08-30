@@ -74,10 +74,12 @@ Route::middleware('auth')->group(function () {
 
 
 //    FORUM
-    Route::get('/forumdiskusi', [ForumController::class, 'index']);
+    Route::get('/forumdiskusi', [ForumController::class, 'index'])->name('forum.index');
     Route::get('/forumdiskusi/{forumpost}', [ForumController::class, 'showDetailForum']);
     Route::post('/forumdiskusi/addcomment', [ForumController::class, 'addComment'])->name('addComment');
     Route::post('/forumdiskusi/addreply', [ForumController::class, 'addReply'])->name('addReply');
+
+    Route::get('/search-books', [ForumController::class, 'searchBooks']);
 
     Route::get('/forumsaya', [ForumController::class, 'showPost']);
 

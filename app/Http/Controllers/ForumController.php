@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\ForumComment;
 use App\Models\ForumReply;
 use App\Models\Member;
@@ -13,15 +14,37 @@ use Nette\Schema\ValidationException;
 
 class ForumController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = ForumPost::with(['member', 'member.user', 'book'])
-            ->get()
-            ->sortByDesc('created_at');
+        $bookId = $request->input('book_id');
+        $books = Book::all();
+        $posts = [];
+        $feedbackMessage = null;
+
+        if ($bookId) {
+            $posts = ForumPost::where('book_id', $bookId)->get();
+            $selectedBook = Book::find($bookId);
+            $feedbackMessage = "Forum telah dicari sesuai buku \"" . $selectedBook->name . "\"";
+        } else {
+            $posts = ForumPost::with(['member', 'member.user', 'book'])
+                ->get()
+                ->sortByDesc('created_at');
+        }
+
         return view('forum.forumdiskusi', [
+            'posts' => $posts,
+            'books' => $books,
             'title' => 'Forum Diskusi',
-            'posts' => $posts
+            'feedbackMessage' => $feedbackMessage,
         ]);
+    }
+
+    public function searchBooks(Request $request)
+    {
+        $query = $request->input('query');
+        $books = Book::searchByName($query);
+
+        return response()->json($books);
     }
 
     public function showPost()

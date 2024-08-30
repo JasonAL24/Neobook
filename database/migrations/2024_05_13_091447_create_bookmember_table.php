@@ -31,6 +31,7 @@ class CreateBookmemberTable extends Migration
             $table->unsignedBigInteger('member_id');
             $table->timestamp('uploaded_at');
             $table->string('status')->default('Menunggu persetujuan');
+            $table->string('rejectReason')->nullable();
             $table->timestamps();
 
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');

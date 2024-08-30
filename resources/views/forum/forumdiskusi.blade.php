@@ -9,13 +9,24 @@
         <button class="forumdiskusiButton {{ ($title === "Forum Diskusi") ? 'active' : '' }}" type="button" onclick="location.href='/forumdiskusi'"> Forum Diskusi </button>
         <button class="forumsayaButton" type="button" onclick="location.href='/forumsaya'"> Forum Saya </button>
     </div>
-
+    <form class="d-flex ms-5" role="search" id="searchBookForum" style="background-color: white; width: 80vw; border-radius: 10px; height: 2vw">
+        <img src="/img/svg/Search_light.svg" alt="search">
+        <input class="custom-input me-2 ms-2" type="search" id="searchBookForumInput" placeholder="Cari forum berdasarkan nama buku..." aria-label="Search">
+        <input type="hidden" id="selectedBookId" name="book_id">
+    </form>
+    <div class="dropdown-menu ms-5 border border-dark" id="searchBookForumResultsDropdown" aria-labelledby="searchBookForumInput">
+        <!-- Dropdown items will be populated here -->
+    </div>
+    @if($feedbackMessage)
+        <h4 class="ms-5"><button type="button" class="btn btn-secondary me-2" onclick="location.href='/forumdiskusi'">&#8592; Balik</button>{{ $feedbackMessage }}</h4>
+    @endif
     @if($posts->isEmpty())
         <div class="imageWhat d-flex justify-content-center align-items-center"> <img src="/img/what1.png" alt=""> </div>
         <div class="text-center mt-3">
             <h2 class="fw-bold"> Forum Diskusi Kosong</h2>
         </div>
     @else
+
         <div class="custom-overflow overflow-y-auto" style="max-height: 55vh; width:83.5vw;">
             @foreach($posts as $post)
                 <div class="row p-3 mb-3 ms-5" style="background-color: white; width: 80vw; border-radius: 10px">
@@ -94,3 +105,62 @@
         </div>
     @endif
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchBookForumInput');
+        const searchResultsDropdown = document.getElementById('searchBookForumResultsDropdown');
+        const selectedBookIdInput = document.getElementById('selectedBookId');
+        let count = 0;
+
+        searchInput.addEventListener('input', function () {
+            const query = searchInput.value;
+
+            if (query.length > 0) {
+                fetch(`/search-books?query=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        searchResultsDropdown.innerHTML = '';
+                        searchResultsDropdown.classList.add('show');
+                        count = 0;
+
+                        data.forEach(book => {
+                            if (count < 2) {
+                                const bookItem = document.createElement('div');
+                                bookItem.classList.add('mb-3');
+
+                                bookItem.innerHTML = `
+                                <a href="#" class="d-flex align-items-center no-blue ms-2 book-selection" data-book-id="${book.id}">
+                                    <img onerror="this.onerror=null; this.src='/img/default_book.jpg';" src="/img/books/${book.cover_image}.jpg" alt="${book.name}" class="me-3 book-image" style="width: 73px; height: 98px; object-fit: cover; border-radius: 5px;">
+                                    <div>
+                                        <h6 class="mb-1">${book.name}</h6>
+                                        <p class="mb-0 text-muted">Penulis: ${book.author}</p>
+                                    </div>
+                                </a>
+                            `;
+                                searchResultsDropdown.appendChild(bookItem);
+                                count++;
+                            }
+                        });
+                    });
+            } else {
+                searchResultsDropdown.innerHTML = '';
+                searchResultsDropdown.classList.remove('show');
+            }
+        });
+
+        searchResultsDropdown.addEventListener('click', function (event) {
+            const bookSelection = event.target.closest('.book-selection');
+            if (bookSelection) {
+                const selectedBookId = bookSelection.dataset.bookId;
+                const selectedBookName = bookSelection.querySelector('h6').textContent;
+
+                searchInput.value = selectedBookName;
+                selectedBookIdInput.value = selectedBookId;
+                searchResultsDropdown.classList.remove('show');
+
+                document.getElementById('searchBookForum').submit();
+            }
+        });
+    });
+</script>

@@ -124,6 +124,11 @@
                         <input type="file" name="cover_image" class="form-control d-none" accept=".jpg" aria-label="Cover Buku" id="coverInput">
                     </div>
 
+                    <div class="input-group mb-3 align-items-center">
+                        <input type="checkbox" id="ownershipConfirmation" name="ownership_confirmation" required>
+                        <label for="ownershipConfirmation" class="ms-2">Saya menyatakan bahwa buku yang diunggah adalah karya saya sendiri dan tidak melanggar hak cipta pihak lain.</label>
+                    </div>
+
 
                     <div class="d-flex flex-row">
                         <div class="ms-auto mt-4">
